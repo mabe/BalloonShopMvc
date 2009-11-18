@@ -1,0 +1,36 @@
+<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BalloonShop</title>
+    <link type="text/css" rel="Stylesheet" href="/Content/BalloonShop.css" />
+</head>
+<body>
+    <table cellspacing="0" cellpadding="0" width="770" border="0">
+        <tr>
+            <td width="220" valign="top">
+                <%--<uc5:UserInfo ID="UserInfo1" runat="server" />--%>
+                <br />
+                <% Html.RenderAction<DepartmentController>(x => x.Navigation(null));  %>
+                <%--<uc2:DepartmentsList ID="DepartmentsList1" runat="server" />--%>
+                <br />
+                <%--<uc3:CategoriesList ID="CategoriesList1" runat="server" />--%>
+                <%--<uc4:SearchBox id="SearchBox1" runat="server">
+          </uc4:SearchBox>--%>
+                <br />
+                <%--<uc6:CartSummary ID="CartSummary1" runat="server" />--%>
+            </td>
+            <td valign="top">
+                <p align="center">
+                    <a href="Default.aspx">
+                        <img src="/Content/Images/BalloonShopLogo.png" border="0">
+                    </a>
+                </p>
+                <asp:ContentPlaceHolder ID="content" runat="server">
+                </asp:ContentPlaceHolder>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
