@@ -72,7 +72,7 @@ namespace BalloonShop.Data
         }
 
         // Get category details
-        public static CategoryDetails GetCategoryDetails(string categoryId)
+        public static Category GetCategoryDetails(int categoryId)
         {
             // get a configured DbCommand object
             DbCommand comm = GenericDataAccess.CreateCommand();
@@ -87,12 +87,13 @@ namespace BalloonShop.Data
             // execute the stored procedure
             DataTable table = GenericDataAccess.ExecuteSelectCommand(comm);
             // wrap retrieved data into a CategoryDetails object
-            CategoryDetails details = new CategoryDetails();
+            Category details = new Category();
             if (table.Rows.Count > 0)
             {
-                details.DepartmentId = Int32.Parse(table.Rows[0]["DepartmentID"].ToString());
-                details.Name = table.Rows[0]["Name"].ToString();
-                details.Description = table.Rows[0]["Description"].ToString();
+                details.Id = categoryId;
+                details.DepartmentId = (int)(table.Rows[0]["DepartmentID"]);
+                details.Name = (string)table.Rows[0]["Name"];
+                details.Description = (string)table.Rows[0]["Description"];
             }
             // return department details
             return details;
@@ -133,7 +134,7 @@ namespace BalloonShop.Data
         }
 
         // retrieve the list of categories in a department
-        public static DataTable GetCategoriesInDepartment(string departmentId)
+        public static List<Category> GetCategoriesInDepartment(int departmentId)
         {
             // get a configured DbCommand object
             DbCommand comm = GenericDataAccess.CreateCommand();
@@ -146,7 +147,23 @@ namespace BalloonShop.Data
             param.DbType = DbType.Int32;
             comm.Parameters.Add(param);
             // execute the stored procedure
-            return GenericDataAccess.ExecuteSelectCommand(comm);
+            var table = GenericDataAccess.ExecuteSelectCommand(comm);
+
+            var list = new List<Category>();
+
+            foreach (DataRow row in table.Rows)
+            {
+                var category = new Category();
+
+                category.Id = (int)row["CategoryId"];
+                category.DepartmentId = (int)row["DepartmentId"];
+                category.Name = (string)row["Name"];
+                category.Description = (string)row["Description"];
+
+                list.Add(category);
+            }
+
+            return list;
         }
 
         // Retrieve the list of products on catalog promotion
@@ -208,7 +225,7 @@ namespace BalloonShop.Data
         }
 
         // retrieve the list of products featured for a department
-        public static DataTable GetProductsOnDepartmentPromotion(string departmentId, string pageNumber, out int howManyPages)
+        public static List<Balloon> GetProductsOnDepartmentPromotion(int departmentId, int pageNumber, out int howManyPages)
         {
             // get a configured DbCommand object
             DbCommand comm = GenericDataAccess.CreateCommand();
@@ -251,11 +268,27 @@ namespace BalloonShop.Data
             howManyPages = (int)Math.Ceiling((double)howManyProducts /
                            (double)BalloonShopConfiguration.ProductsPerPage);
             // return the page of products
-            return table;
+            //return table;
+
+
+            var ballons = new List<Balloon>();
+            foreach (DataRow row in table.Rows)
+            {
+                ballons.Add(new Balloon
+                {
+                    Id = (int)row["ProductId"],
+                    Name = (string)row["Name"],
+                    Thumb = (string)row["Image1FileName"],
+                    Price = (decimal)row["Price"],
+                    Description = (string)row["Description"]
+                });
+            }
+
+            return ballons;
         }
 
         // retrieve the list of products in a category
-        public static DataTable GetProductsInCategory(string categoryId, string pageNumber, out int howManyPages)
+        public static List<Balloon> GetProductsInCategory(int categoryId, int pageNumber, out int howManyPages)
         {
             // get a configured DbCommand object
             DbCommand comm = GenericDataAccess.CreateCommand();
@@ -298,7 +331,24 @@ namespace BalloonShop.Data
             howManyPages = (int)Math.Ceiling((double)howManyProducts /
                            (double)BalloonShopConfiguration.ProductsPerPage);
             // return the page of products
-            return table;
+            //return table;
+
+
+            var ballons = new List<Balloon>();
+            foreach (DataRow row in table.Rows)
+            {
+                ballons.Add(new Balloon
+                {
+                    Id = (int)row["ProductId"],
+                    Name = (string)row["Name"],
+                    Thumb = (string)row["Image1FileName"],
+                    Price = (decimal)row["Price"],
+                    Description = (string)row["Description"]
+                });
+            }
+
+            return ballons;
+
         }
 
         // Search the product catalog

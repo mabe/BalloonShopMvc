@@ -1,5 +1,8 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/BalloonShop.master" Inherits="System.Web.Mvc.ViewPage<BalloonShop.Model.Balloon>" %>
 
+<asp:Content runat="server" ContentPlaceHolderID="navigation">
+    <% Html.RenderAction<DepartmentController>(x => x.Navigation(null));  %>
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="server">
 
   <br />
@@ -14,7 +17,7 @@
   <br />
   <br />
   <span class="ProductDescription">Price:</span>
-  <span class="ProductPrice> <%= Model.Price.ToString("c") %></span>
+  <span class="ProductPrice"> <%= Model.Price.ToString("c") %></span>
   
   <br />
   <%-- <asp:Button ID="addToCartButton" runat="server" Text="Add to Cart" CssClass="SmallButtonText" OnClick="addToCartButton_Click" />

@@ -11,19 +11,16 @@
         <tr>
             <td width="220" valign="top">
                 <%--<uc5:UserInfo ID="UserInfo1" runat="server" />--%>
-                <br />
-                <% Html.RenderAction<DepartmentController>(x => x.Navigation(null));  %>
                 <%--<uc2:DepartmentsList ID="DepartmentsList1" runat="server" />--%>
-                <br />
+                <asp:ContentPlaceHolder runat="server" ID="navigation" />
                 <%--<uc3:CategoriesList ID="CategoriesList1" runat="server" />--%>
                 <%--<uc4:SearchBox id="SearchBox1" runat="server">
           </uc4:SearchBox>--%>
-                <br />
                 <%--<uc6:CartSummary ID="CartSummary1" runat="server" />--%>
             </td>
             <td valign="top">
                 <p align="center">
-                    <a href="Default.aspx">
+                    <a href="<%= Url.Content("~/") %>">
                         <img src="/Content/Images/BalloonShopLogo.png" border="0">
                     </a>
                 </p>

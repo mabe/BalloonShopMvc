@@ -1,14 +1,5 @@
-﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<BalloonShop.Infrastructure.PagedList<BalloonShop.Model.Balloon>>"  %>
-<% if (Model.NumberOfPages > 1){ %>
-    Page
-    <%= Model.Page%>
-    of
-    <%= Model.NumberOfPages%>
-    &nbsp;&nbsp;
-    <% } %>
-    <% if (Model.HasPreviousPage)
-       {%><a href="?page=<%=Model.Page - 1%>">Prev</a> &nbsp;&nbsp;<%}%>
-    <% if (Model.HasNextPage){ %><a href="?page=<%= Model.Page + 1 %>">Next</a><% } %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<System.Collections.Generic.IEnumerable<BalloonShop.Model.Balloon>>"  %>
+
     <table>
         <tr>
             <%

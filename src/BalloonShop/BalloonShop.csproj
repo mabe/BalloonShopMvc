@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="BalloonShopConfiguration.cs" />
     <Compile Include="Data\CatalogAccess.cs" />
+    <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Data\GenericDataAccess.cs" />
     <Compile Include="Infrastructure\PagedList.cs" />

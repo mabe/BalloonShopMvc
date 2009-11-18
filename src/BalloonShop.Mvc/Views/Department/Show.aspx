@@ -1,9 +1,15 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/BalloonShop.master" Inherits="System.Web.Mvc.ViewPage<BalloonShop.Model.Department>" %>
 
+<asp:Content runat="server" ContentPlaceHolderID="navigation">
+    <% Html.RenderAction<DepartmentController>(x => x.Navigation(Model.Id));  %><br />
+    <%Html.RenderAction<CategoryController>(x => x.Navigation(Model.Id, null)); %>
+</asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="server">
 
 <span class="CatalogTitle"><%= Model.Name %></span>
 <br/>
 <span class="CatalogDescription"><%= Model.Description %></span>
-<% Html.RenderPartial("~/Views/Balloon/PagedList.ascx", Model.Balloons); %>
+<br />
+<%= Html.Paging<BalloonShop.Model.Balloon, DepartmentController>(Model.PromotedBalloons, x => y => y.Show(Model.Id, x)) %>
+<% Html.RenderPartial("../Balloon/List", Model.PromotedBalloons); %>
 </asp:Content>

@@ -60,6 +60,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BalloonController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Default.aspx.cs">
@@ -69,6 +70,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\PagedListHelper.cs" />
+    <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -223,8 +226,10 @@
     <Content Include="Content\ProductImages\t83947.jpg" />
     <Content Include="Content\ProductImages\t83951.jpg" />
     <Content Include="Content\ProductImages\ta1180401.jpg" />
-    <Content Include="Views\Balloon\PagedList.ascx" />
+    <Content Include="Views\Balloon\List.ascx" />
     <Content Include="Views\Balloon\Show.aspx" />
+    <Content Include="Views\Category\Navigation.ascx" />
+    <Content Include="Views\Category\Show.aspx" />
     <Content Include="Views\Department\Navigation.ascx" />
     <Content Include="Views\Department\Show.aspx" />
     <Content Include="Views\Home\Index.aspx" />
