@@ -1,6 +1,5 @@
 using System.Web.Mvc;
 using BalloonShop.Data;
-using BalloonShop.Model;
 
 namespace BalloonShop.Mvc.Controllers
 {

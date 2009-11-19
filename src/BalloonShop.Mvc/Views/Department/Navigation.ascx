@@ -9,8 +9,7 @@
         </tr>
     </thead>
     <tbody>
-        <% foreach (var department in Model)
-           { %>
+        <% foreach (var department in Model) { %>
         <tr>
             <td>
                 &nbsp;&raquo;
