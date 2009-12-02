@@ -11,7 +11,7 @@
     <RootNamespace>BalloonShop.Mvc</RootNamespace>
     <AssemblyName>BalloonShop.Mvc</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +41,9 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -234,6 +237,7 @@
     <Content Include="Views\Department\Navigation.ascx" />
     <Content Include="Views\Department\Show.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Product\List.ascx" />
     <Content Include="Views\Search\SearchForm.ascx" />
     <Content Include="Views\Search\Show.aspx" />
     <Content Include="Views\Shared\Admin.master" />

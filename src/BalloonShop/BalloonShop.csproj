@@ -36,6 +36,9 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -47,17 +50,50 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BalloonShopConfiguration.cs" />
-    <Compile Include="Data\CatalogAccess.cs" />
+    <Compile Include="Data\AdoNet\CatalogAccess.cs" />
+    <Compile Include="Data\Linq2Sql\BalloonShopData.cs">
+      <DependentUpon>BalloonShopData.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Linq2Sql\BalloonShopData.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BalloonShopData.dbml</DependentUpon>
+    </Compile>
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Department.cs" />
-    <Compile Include="Data\GenericDataAccess.cs" />
+    <Compile Include="Data\AdoNet\GenericDataAccess.cs" />
     <Compile Include="Infrastructure\PagedList.cs" />
     <Compile Include="Model\CategoryDetails.cs" />
     <Compile Include="Model\DepartmentDetails.cs" />
     <Compile Include="Model\Balloon.cs" />
     <Compile Include="Model\ProductDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\Linq2Sql\BalloonShopData.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>BalloonShopData.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Data\Linq2Sql\BalloonShopData.dbml.layout">
+      <DependentUpon>BalloonShopData.dbml</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
