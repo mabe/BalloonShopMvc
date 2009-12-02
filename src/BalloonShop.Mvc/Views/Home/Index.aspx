@@ -10,6 +10,6 @@
     <span class="CatalogDescription">This week we have a special price for these fantastic
         products: </span>
     <br />
-    <%= Html.Paging<BalloonShop.Model.Balloon, HomeController>(Model, x => y => y.Index(x)) %>
+    <%= Html.Paging<BalloonShop.Model.Balloon, HomeController>(Model, index => controller => controller.Index(index)) %>
     <% Html.RenderPartial("../Balloon/List"); %>
 </asp:Content>

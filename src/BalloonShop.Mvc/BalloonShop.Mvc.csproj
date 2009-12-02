@@ -63,6 +63,7 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -233,6 +234,8 @@
     <Content Include="Views\Department\Navigation.ascx" />
     <Content Include="Views\Department\Show.aspx" />
     <Content Include="Views\Home\Index.aspx" />
+    <Content Include="Views\Search\SearchForm.ascx" />
+    <Content Include="Views\Search\Show.aspx" />
     <Content Include="Views\Shared\Admin.master" />
     <Content Include="Views\Shared\BalloonShop.master" />
   </ItemGroup>

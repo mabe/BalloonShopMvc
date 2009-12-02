@@ -13,3 +13,4 @@
 <%= Html.Paging<BalloonShop.Model.Balloon, CategoryController>(Model.Balloons, x => y => y.Show(Model.Id, x)) %>
 <% Html.RenderPartial("../Balloon/List", Model.Balloons); %>
 </asp:Content>
+

@@ -156,7 +156,7 @@ namespace BalloonShop.Data
                 var category = new Category();
 
                 category.Id = (int)row["CategoryId"];
-                category.DepartmentId = (int)row["DepartmentId"];
+                category.DepartmentId =departmentId;
                 category.Name = (string)row["Name"];
                 category.Description = (string)row["Description"];
 
@@ -334,25 +334,30 @@ namespace BalloonShop.Data
             //return table;
 
 
+
+            return FillBallons(table);
+
+        }
+
+        private static List<Balloon> FillBallons(DataTable table)
+        {
             var ballons = new List<Balloon>();
             foreach (DataRow row in table.Rows)
             {
                 ballons.Add(new Balloon
-                {
-                    Id = (int)row["ProductId"],
-                    Name = (string)row["Name"],
-                    Thumb = (string)row["Image1FileName"],
-                    Price = (decimal)row["Price"],
-                    Description = (string)row["Description"]
-                });
+                            {
+                                Id = (int)row["ProductId"],
+                                Name = (string)row["Name"],
+                                Thumb = (string)row["Image1FileName"],
+                                Price = (decimal)row["Price"],
+                                Description = (string)row["Description"]
+                            });
             }
-
             return ballons;
-
         }
 
         // Search the product catalog
-        public static DataTable Search(string searchString, string allWords, string pageNumber, out int howManyPages)
+        public static List<Balloon> Search(string searchString, bool allWords, int pageNumber, out int howManyPages)
         {
             // get a configured DbCommand object
             DbCommand comm = GenericDataAccess.CreateCommand();
@@ -367,7 +372,7 @@ namespace BalloonShop.Data
             // create a new parameter
             param = comm.CreateParameter();
             param.ParameterName = "@AllWords";
-            param.Value = allWords.ToUpper() == "TRUE" ? "True" : "False";
+            param.Value = allWords;
             param.DbType = DbType.Boolean;
             comm.Parameters.Add(param);
             // create a new parameter
@@ -417,7 +422,7 @@ namespace BalloonShop.Data
             howManyPages = (int)Math.Ceiling((double)howManyProducts /
                             (double)BalloonShopConfiguration.ProductsPerPage);
             // return the page of products
-            return table;
+            return FillBallons(table);
         }
 
         // Update department details

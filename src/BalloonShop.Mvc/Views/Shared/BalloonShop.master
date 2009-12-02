@@ -14,6 +14,8 @@
                 <%--<uc2:DepartmentsList ID="DepartmentsList1" runat="server" />--%>
                 <asp:ContentPlaceHolder runat="server" ID="navigation" />
                 <%--<uc3:CategoriesList ID="CategoriesList1" runat="server" />--%>
+                <br />
+                <% Html.RenderPartial("../Search/SearchForm"); %>
                 <%--<uc4:SearchBox id="SearchBox1" runat="server">
           </uc4:SearchBox>--%>
                 <%--<uc6:CartSummary ID="CartSummary1" runat="server" />--%>
