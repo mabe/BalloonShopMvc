@@ -4,42 +4,32 @@ using BalloonShop.Infrastructure;
 using BalloonShop.Model;
 
 using System.Linq;
-using BalloonShop.Data.Linq2Sql;
+using NHibernate;
+
 
 namespace BalloonShop.Mvc.Controllers
 {
     [HandleError]
     public class HomeController : Controller
     {
-        public ViewResult Index(int? page)
+        private readonly ISession _session;
+
+        public HomeController(ISession session)
         {
-            //int howManyPages;
-            //var balloons = CatalogAccess.GetProductsOnCatalogPromotion(page ?? 1,
-            //    out howManyPages);
+            _session = session;
+        }
 
-            var context = new BalloonShopDataDataContext();
+        public ViewResult Index(int? page = 1)
+        {
+            var query = _session.QueryOver<Balloon>().Where(x => x.OnCatalogPromotion == true);
 
-            var howManyPages = context.Products.Where(x => x.OnCatalogPromotion).Count() / BalloonShopConfiguration.ProductsPerPage;
-            var balloons = context.Products
-                .Where(x => x.OnCatalogPromotion)
-                .Skip(((page ?? 1) - 1) * BalloonShopConfiguration.ProductsPerPage)
+            var howManyPages = query.Clone().ToRowCountQuery().RowCount() / BalloonShopConfiguration.ProductsPerPage;
+
+            var balloons = query.Skip(((page ?? 1) - 1) * BalloonShopConfiguration.ProductsPerPage)
                 .Take(BalloonShopConfiguration.ProductsPerPage)
-                .ToList().Select(x => new Balloon
-                {
-                    Description = x.Description,
-                    Image = x.Image2FileName,
-                    Name = x.Name,
-                    OnCatalogPromotion = x.OnCatalogPromotion,
-                    OnDepartmentPromotion = x.OnDepartmentPromotion,
-                    Price = x.Price,
-                    Thumb = x.Image1FileName
-                });
+                .List();
 
-            return View(new PagedList<Balloon>(page ?? 1,
-                BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons));
-
-            //return View(new PagedList<Product>(page ?? 1,
-            //    BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons));
+            return View(new PagedList<Balloon>(page ?? 1, BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons));
         }
     }
 }

@@ -10,6 +10,6 @@
 <br/>
 <span class="CatalogDescription"><%= Model.Description %></span>
 <br />
-<%= Html.Paging<BalloonShop.Model.Balloon, DepartmentController>(Model.PromotedBalloons, x => y => y.Show(Model.Id, x)) %>
-<% Html.RenderPartial("../Balloon/List", Model.PromotedBalloons); %>
+<%= Html.Paging<BalloonShop.Model.Balloon, DepartmentController>((object)ViewBag.PromotedBalloons, x => y => y.Show(Model.Id, x)) %>
+<% Html.RenderPartial("../Balloon/List", (object)ViewBag.PromotedBalloons); %>
 </asp:Content>

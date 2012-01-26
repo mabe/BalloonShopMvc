@@ -4,6 +4,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using StructureMap;
+using NHibernate.Context;
+using NHibernate;
+using BalloonShop.Mvc.Config;
 
 namespace BalloonShop.Mvc
 {
@@ -27,6 +31,33 @@ namespace BalloonShop.Mvc
         protected void Application_Start()
         {
             RegisterRoutes(RouteTable.Routes);
+
+            ObjectFactory.Initialize(ctx => {
+                ctx.Scan(x => {
+                    x.AssembliesFromApplicationBaseDirectory();
+                    x.LookForRegistries();
+                });
+            });
+
+            DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
+        }
+
+        public MvcApplication()
+        {
+            BeginRequest += (sender, e) => {
+                CurrentSessionContext.Bind(ObjectFactory.GetInstance<ISessionFactory>().OpenSession());
+            };
+
+            EndRequest += (sender, e) => {
+                var session = CurrentSessionContext.Unbind(ObjectFactory.GetInstance<ISessionFactory>());
+
+                if (session != null) {
+                    session.Flush();
+                    session.Dispose();
+                }
+
+                ObjectFactory.ReleaseAndDisposeAllHttpScopedObjects();
+            };
         }
     }
 }

@@ -1,20 +1,37 @@
-﻿namespace BalloonShop.Model
+﻿using FluentNHibernate.Mapping;
+namespace BalloonShop.Model
 {
     public class Balloon
     {
-        public string Name { get; set; }
+        public virtual string Name { get; set; }
 
-        public string Thumb { get; set; }
+        public virtual string Thumb { get; set; }
 
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
 
-        public decimal Price { get; set; }
+        public virtual decimal Price { get; set; }
 
-        public string Description { get; set; }
+        public virtual string Description { get; set; }
 
-        public string Image { get; set; }
+        public virtual string Image { get; set; }
 
-        public bool OnCatalogPromotion { get; set; }
-        public bool OnDepartmentPromotion { get; set;}
+        public virtual bool OnCatalogPromotion { get; set; }
+        public virtual bool OnDepartmentPromotion { get; set; }
+    }
+
+    public class BalloonMap : ClassMap<Balloon> {
+        public BalloonMap()
+        {
+            Table("Product");
+
+            Id(x => x.Id).GeneratedBy.Identity().Column("ProductId");
+            Map(x => x.Name);
+            Map(x => x.Thumb).Column("Image1FileName");
+            Map(x => x.Price);
+            Map(x => x.Description);
+            Map(x => x.Image).Column("Image2FileName");
+            Map(x => x.OnCatalogPromotion);
+            Map(x => x.OnDepartmentPromotion);
+        }
     }
 }

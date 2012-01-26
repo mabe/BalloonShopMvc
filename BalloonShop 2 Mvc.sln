@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalloonShop.Mvc", "src\BalloonShop.Mvc\BalloonShop.Mvc.csproj", "{56BB5646-7251-4438-ACD0-4EB527F163C8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalloonShop", "src\BalloonShop\BalloonShop.csproj", "{E4EDEFBA-F9F7-4557-99D8-A462C58C1B5F}"

@@ -13,14 +13,14 @@ namespace BalloonShop.Mvc.Controllers
             return PartialView(CatalogAccess.GetCategoriesInDepartment(departmentId));
         }
 
-        public ActionResult Show(int id, int? page)
+        public ActionResult Show(int id, int? page = 1)
         {
             int howManyPages, p = page ?? 1;
             
             var category = CatalogAccess.GetCategoryDetails(id);
 
             var balloons = CatalogAccess.GetProductsInCategory(id, p, out howManyPages);
-            category.Balloons = new PagedList<Balloon>(p, BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons);
+            ViewBag.Balloons = new PagedList<Balloon>(p, BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons);
             return View(category);
         }
     }
