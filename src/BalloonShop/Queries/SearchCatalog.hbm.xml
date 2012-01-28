@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <sql-query name="SearchCatalog">
+    <return alias="QuestionGroup" class="BalloonShop.Model.Balloon, BalloonShop">
+      <return-property name="Id" column="ProductId"></return-property>
+      <return-property name="Name" column="Name"></return-property>
+      <return-property name="Description" column="Description"></return-property>
+      <return-property name="Price" column="Price"></return-property>
+      <return-property name="Thumb" column="Image1FileName"></return-property>
+      <return-property name="Image" column="Image2FileName"></return-property>
+      <return-property name="OnCatalogPromotion" column="OnCatalogPromotion"></return-property>
+      <return-property name="OnDepartmentPromotion" column="OnDepartmentPromotion"></return-property>
+    </return>
+    exec SearchCatalog_NH :AllWords, :Word1, :Word2, :Word3, :Word4, :Word5
+  </sql-query>
+</hibernate-mapping>
