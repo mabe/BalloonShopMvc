@@ -20,7 +20,7 @@
                             </a>
                             <br />
                             <span class="ProductDescription">
-                                <%= product.Description%>
+                                <%= product.Description.ShortenText()%>
                                 <br />
                                 <br />
                                 Price: </span><span class="ProductPrice">

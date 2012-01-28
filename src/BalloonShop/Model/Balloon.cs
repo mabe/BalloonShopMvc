@@ -1,4 +1,5 @@
 ﻿using FluentNHibernate.Mapping;
+using System.Collections.Generic;
 namespace BalloonShop.Model
 {
     public class Balloon
@@ -17,6 +18,8 @@ namespace BalloonShop.Model
 
         public virtual bool OnCatalogPromotion { get; set; }
         public virtual bool OnDepartmentPromotion { get; set; }
+
+        public virtual IEnumerable<Category> Categories { get; set; }
     }
 
     public class BalloonMap : ClassMap<Balloon> {
@@ -32,6 +35,8 @@ namespace BalloonShop.Model
             Map(x => x.Image).Column("Image2FileName");
             Map(x => x.OnCatalogPromotion);
             Map(x => x.OnDepartmentPromotion);
+
+            HasManyToMany(x => x.Categories).Table("ProductCategory").ParentKeyColumn("ProductId").ChildKeyColumn("CategoryId");
         }
     }
 }
