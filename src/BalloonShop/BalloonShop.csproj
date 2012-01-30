@@ -89,6 +89,7 @@
     <Compile Include="BalloonShopConfiguration.cs" />
     <Compile Include="CoreRegistry.cs" />
     <Compile Include="Data\AdoNet\CatalogAccess.cs" />
+    <Compile Include="Data\AdoNet\ShoppingCartAccess.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Data\AdoNet\GenericDataAccess.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Model\DepartmentDetails.cs" />
     <Compile Include="Model\Balloon.cs" />
     <Compile Include="Model\ProductDetails.cs" />
+    <Compile Include="Model\ShoppingCart.cs" />
     <Compile Include="NHibernateConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

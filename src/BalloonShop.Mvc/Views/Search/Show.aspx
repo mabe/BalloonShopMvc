@@ -10,4 +10,8 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="navigation" runat="server">
     <% Html.RenderAction<DepartmentController>(x => x.Navigation(null));  %>
+    <br />
+    <% Html.RenderPartial("../Search/SearchForm"); %>
+    <br />
+    <% Html.RenderAction("Summary", "Cart"); %>
 </asp:Content>

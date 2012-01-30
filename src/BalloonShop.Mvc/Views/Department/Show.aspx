@@ -1,8 +1,13 @@
 <%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/BalloonShop.master" Inherits="System.Web.Mvc.ViewPage<BalloonShop.Model.Department>" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="navigation">
-    <% Html.RenderAction<DepartmentController>(x => x.Navigation(Model.Id));  %><br />
+    <% Html.RenderAction<DepartmentController>(x => x.Navigation(Model.Id));  %>
+    <br />
     <%Html.RenderAction<CategoryController>(x => x.Navigation(Model.Id, null)); %>
+    <br />
+    <% Html.RenderPartial("../Search/SearchForm"); %>
+    <br />
+    <% Html.RenderAction("Summary", "Cart"); %>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="server">
 

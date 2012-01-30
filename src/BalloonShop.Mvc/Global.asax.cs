@@ -28,9 +28,16 @@ namespace BalloonShop.Mvc
 
         }
 
+        public static void RegisterValueProviders(ValueProviderFactoryCollection factories)
+        {
+            factories.Add(new CookieValueProviderFactory());
+        }
+
         protected void Application_Start()
         {
             RegisterRoutes(RouteTable.Routes);
+
+            RegisterValueProviders(ValueProviderFactories.Factories);
 
             ObjectFactory.Initialize(ctx => {
                 ctx.Scan(x => {
@@ -40,12 +47,18 @@ namespace BalloonShop.Mvc
             });
 
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
+
+            
         }
 
         public MvcApplication()
         {
             BeginRequest += (sender, e) => {
                 CurrentSessionContext.Bind(ObjectFactory.GetInstance<ISessionFactory>().OpenSession());
+
+                if (HttpContext.Current.Request.Cookies["customerCartId"] == null) {
+                    HttpContext.Current.Response.SetCookie(new HttpCookie("customerCartId", Guid.NewGuid().ToString()));
+                }
             };
 
             EndRequest += (sender, e) => {

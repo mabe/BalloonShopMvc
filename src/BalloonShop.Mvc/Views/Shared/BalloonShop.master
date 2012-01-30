@@ -1,6 +1,6 @@
 <%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>BalloonShop</title>
@@ -14,10 +14,7 @@
                 <%--<uc2:DepartmentsList ID="DepartmentsList1" runat="server" />--%>
                 <asp:ContentPlaceHolder runat="server" ID="navigation" />
                 <%--<uc3:CategoriesList ID="CategoriesList1" runat="server" />--%>
-                <br />
-                <% Html.RenderPartial("../Search/SearchForm"); %>
-                <%--<uc4:SearchBox id="SearchBox1" runat="server">
-          </uc4:SearchBox>--%>
+                <%--<uc4:SearchBox id="SearchBox1" runat="server"></uc4:SearchBox>--%>
                 <%--<uc6:CartSummary ID="CartSummary1" runat="server" />--%>
             </td>
             <td valign="top">
