@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using NHibernate;
 using BalloonShop.Model;
+using BalloonShop.Mvc.Models;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -69,5 +70,15 @@ namespace BalloonShop.Mvc.Controllers
             return View(model);
         }
 
+		public ActionResult Checkout(string customerCartId) {
+			var cart = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
+
+			ViewBag.Cart = cart;
+			ViewBag.Total = cart.Sum(x => x.Balloon.Price * x.Quantity);
+			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
+
+			return View(new CheckoutViewModel());
+		}
     }
 }
