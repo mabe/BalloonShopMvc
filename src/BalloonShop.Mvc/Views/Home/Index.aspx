@@ -3,6 +3,10 @@
 
 <asp:Content runat="server" ContentPlaceHolderID="navigation">
     <% Html.RenderAction<DepartmentController>(x => x.Navigation(null));  %>
+	<br />
+    <% Html.RenderPartial("../Search/SearchForm"); %>
+    <br />
+    <% Html.RenderAction("Summary", "Cart"); %>
 </asp:Content>
 <asp:Content ID="Content1" ContentPlaceHolderID="content" runat="server">
     <span class="CatalogTitle">Welcome to BalloonShop! </span>

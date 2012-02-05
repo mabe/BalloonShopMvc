@@ -8,6 +8,7 @@ using StructureMap;
 using NHibernate.Context;
 using NHibernate;
 using BalloonShop.Mvc.Config;
+using BalloonShop.Mvc.Services;
 
 namespace BalloonShop.Mvc
 {
@@ -71,6 +72,8 @@ namespace BalloonShop.Mvc
 
                 ObjectFactory.ReleaseAndDisposeAllHttpScopedObjects();
             };
+
+			AuthenticateRequest += FormsAuthenticationService.AuthenticateRequest;
         }
     }
 }

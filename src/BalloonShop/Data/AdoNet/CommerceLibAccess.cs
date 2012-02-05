@@ -36,6 +36,7 @@ namespace BalloonShop.Data.AdoNet {
 		public string Region;
 		public string PostalCode;
 		public string Country;
+		public string Email;
 	}
 
 	public class ProfileCommon {

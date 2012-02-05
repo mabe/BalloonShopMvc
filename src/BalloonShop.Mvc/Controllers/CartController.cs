@@ -70,6 +70,7 @@ namespace BalloonShop.Mvc.Controllers
             return View(model);
         }
 
+		[Authorize]
 		public ActionResult Checkout(string customerCartId) {
 			var cart = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
 
@@ -79,6 +80,38 @@ namespace BalloonShop.Mvc.Controllers
 			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
 
 			return View(new CheckoutViewModel());
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult Checkout(string customerCartId, CheckoutViewModel model)
+		{
+			var cart = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
+
+			if (!ModelState.IsValid)
+				return View();
+
+			int taxId;
+			switch (model.ShippingRegion)
+			{
+				case 2:
+					taxId = 1;
+					break;
+				default:
+					taxId = 2;
+					break;
+			}
+
+			var order = new Order() { };
+
+			foreach (var item in cart) {
+				order.AddOrderDetail(new OrderDetail() { ProductId = item.Balloon.Id, ProductName = item.Balloon.Name, Quantity = item.Quantity, UnitCost = item.Balloon.Price });
+				_session.Delete(item);
+			}
+
+			_session.Save(order);
+
+			return RedirectToAction("Placed", "Order");
 		}
     }
 }

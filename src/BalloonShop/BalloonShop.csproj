@@ -92,6 +92,12 @@
     <Compile Include="Data\AdoNet\CommerceLibAccess.cs" />
     <Compile Include="Data\AdoNet\OrdersAccess.cs" />
     <Compile Include="Data\AdoNet\ShoppingCartAccess.cs" />
+    <Compile Include="Data\CommerceLib\IPipelineSection.cs" />
+    <Compile Include="Data\CommerceLib\OrderProcessor.cs" />
+    <Compile Include="Data\CommerceLib\OrderProcessorException.cs" />
+    <Compile Include="Data\CommerceLib\OrderProcessorMailer.cs" />
+    <Compile Include="Model\Account.cs" />
+    <Compile Include="Model\AccountDetails.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Data\AdoNet\GenericDataAccess.cs" />
@@ -99,6 +105,8 @@
     <Compile Include="Model\CategoryDetails.cs" />
     <Compile Include="Model\DepartmentDetails.cs" />
     <Compile Include="Model\Balloon.cs" />
+    <Compile Include="Model\Order.cs" />
+    <Compile Include="Model\OrderDetail.cs" />
     <Compile Include="Model\ProductDetails.cs" />
     <Compile Include="Model\Shipping.cs" />
     <Compile Include="Model\ShippingRegion.cs" />
