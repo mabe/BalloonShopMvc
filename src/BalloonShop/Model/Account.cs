@@ -18,13 +18,12 @@ namespace BalloonShop.Model
 		{
 			Email = email;
 			Password = Hash(password);
-			Details = new AccountDetails();
 		}
 
 		public virtual int Id { get; protected set; }
 		public virtual string Email { get; protected set; }
 		public virtual string Password { get; protected set; }
-		public virtual AccountDetails Details { get; protected set; }
+		public virtual AccountDetails Details { get; set; }
 
 		private string Hash(string password) {
 			return Encoding.ASCII.GetString(new MD5CryptoServiceProvider().ComputeHash(Encoding.ASCII.GetBytes(Email + "StaticSalt" + password)));
@@ -48,6 +47,7 @@ namespace BalloonShop.Model
 				component.Map(x => x.City);
 				component.Map(x => x.Country);
 				component.Map(x => x.PostalCode);
+				component.Map(x => x.Region);
 				component.Map(x => x.ShippingRegion);
 				component.Map(x => x.DaytimePhone);
 				component.Map(x => x.EveningPhone);

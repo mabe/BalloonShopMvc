@@ -99,7 +99,36 @@ namespace BalloonShop.Mvc.Controllers
 		public ActionResult Details() {
 			var account = _session.Get<Account>(int.Parse(_identity.Name));
 
-			return View(account.Details);
+			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
+			return View(new AccountDetailsViewModel(account.Details));
+		}
+
+		[Authorize]
+		[HttpPost]
+		public ActionResult Details(AccountDetailsViewModel model) {
+			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+
+			if (!ModelState.IsValid) {
+				return View();
+			}
+
+			var account = _session.Get<Account>(int.Parse(_identity.Name));
+
+			var details = account.Details ?? (account.Details = new AccountDetails());
+
+			details.Address1 = model.Address1;
+			details.Address2 = model.Address2;
+			details.City = model.City;
+			details.PostalCode = model.PostalCode;
+			details.Region = model.Region;
+			details.Country = model.Country;
+			details.ShippingRegion = model.ShippingRegion;
+			details.DaytimePhone = model.DaytimePhone;
+			details.EveningPhone = model.EveningPhone;
+			details.MobilePhone = model.MobilePhone;
+
+			return RedirectToAction("Details");
 		}
     }
 }

@@ -8,6 +8,8 @@
 
 	<%= Html.EditorForModel() %>
 
+	<%= Html.ValidationSummary(false) %>
+
 	<input type="submit" value="Update" />
 
 	</form>

@@ -13,7 +13,7 @@
 <%= Html.LabelFor(x => x.Country) %>
 <%= Html.EditorFor(x => x.Country) %><br />
 <%= Html.LabelFor(x => x.ShippingRegion) %>
-<%= Html.EditorFor(x => x.ShippingRegion) %><br />
+<%= Html.DropDownListFor(x => x.ShippingRegion, (IEnumerable<SelectListItem>) ViewBag.ShippingRegions)%><br />
 <%= Html.LabelFor(x => x.DaytimePhone) %>
 <%= Html.EditorFor(x => x.DaytimePhone) %><br />
 <%= Html.LabelFor(x => x.EveningPhone) %>

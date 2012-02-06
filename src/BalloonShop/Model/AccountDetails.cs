@@ -11,7 +11,7 @@ namespace BalloonShop.Model
 		public virtual string Address1 { get; set; }
 		public virtual string Address2 { get; set; }
 		public virtual string City { get; set; }
-		//public virtual string Region { get; set; }
+		public virtual string Region { get; set; }
 		public virtual string PostalCode { get; set; }
 		public virtual string Country { get; set; }
 		public virtual int ShippingRegion { get; set; }
