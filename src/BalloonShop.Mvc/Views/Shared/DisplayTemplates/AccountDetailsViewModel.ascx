@@ -1,4 +1,5 @@
-﻿<%@ control language="C#" inherits="System.Web.Mvc.ViewUserControl<BalloonShop.Mvc.Models.AccountDetailsViewModel>" %>
+﻿<%@ Control Language="C#" Inherits="System.Web.Mvc.ViewUserControl<BalloonShop.Mvc.Models.AccountDetailsViewModel>" %>
+
 <table border="0" cellpadding="4" cellspacing="0" class="UserDetailsTable">
 	<thead>
 		<tr>
@@ -13,7 +14,7 @@
 				<%= Html.LabelFor(x => x.Address1) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.Address1) %>
+				<%= Html.TextBoxFor(x => x.Address1, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -21,7 +22,7 @@
 				<%= Html.LabelFor(x => x.Address2) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.Address2) %>
+				<%= Html.TextBoxFor(x => x.Address2, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -29,7 +30,7 @@
 				<%= Html.LabelFor(x => x.City) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.City) %>
+				<%= Html.TextBoxFor(x => x.City, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -37,7 +38,7 @@
 				<%= Html.LabelFor(x => x.Region) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.Region) %>
+				<%= Html.TextBoxFor(x => x.Region, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -45,7 +46,7 @@
 				<%= Html.LabelFor(x => x.PostalCode) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.PostalCode) %>
+				<%= Html.TextBoxFor(x => x.PostalCode, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -53,7 +54,7 @@
 				<%= Html.LabelFor(x => x.Country) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.Country) %>
+				<%= Html.TextBoxFor(x => x.Country, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -61,7 +62,7 @@
 				<%= Html.LabelFor(x => x.ShippingRegion) %>
 			</td>
 			<td>
-				<%= Html.DropDownListFor(x => x.ShippingRegion, (IEnumerable<SelectListItem>) ViewBag.ShippingRegions)%>
+				<%= Html.DropDownListFor(x => x.ShippingRegion, (IEnumerable<SelectListItem>)ViewBag.ShippingRegions)%>
 			</td>
 		</tr>
 		<tr>
@@ -69,7 +70,7 @@
 				<%= Html.LabelFor(x => x.DaytimePhone) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.DaytimePhone) %>
+				<%= Html.TextBoxFor(x => x.DaytimePhone, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -77,7 +78,7 @@
 				<%= Html.LabelFor(x => x.EveningPhone) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.EveningPhone) %>
+				<%= Html.TextBoxFor(x => x.EveningPhone, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -85,7 +86,7 @@
 				<%= Html.LabelFor(x => x.MobilePhone) %>
 			</td>
 			<td>
-				<%= Html.EditorFor(x => x.MobilePhone) %>
+				<%= Html.TextBoxFor(x => x.MobilePhone, new { @readonly = "readonly" })%>
 			</td>
 		</tr>
 		<tr>
@@ -99,7 +100,7 @@
 							<%= Html.LabelFor(x => x.CardholderName) %>
 						</td>
 						<td width="200px">
-							<%= Html.TextBoxFor(x => x.CardholderName) %>
+							<%= Html.TextBoxFor(x => x.CardholderName, new { @readonly = "readonly" })%>
 						</td>
 					</tr>
 					<tr>
@@ -107,7 +108,7 @@
 							<%= Html.LabelFor(x => x.CardType) %>
 						</td>
 						<td>
-							<%= Html.TextBoxFor(x => x.CardType) %>
+							<%= Html.TextBoxFor(x => x.CardType, new { @readonly = "readonly" })%>
 						</td>
 					</tr>
 					<tr>
@@ -115,7 +116,7 @@
 							<%= Html.LabelFor(x => x.CardNumber) %>
 						</td>
 						<td>
-							<%= Html.TextBoxFor(x => x.CardNumber) %>
+							<%= Html.TextBoxFor(x => x.CardNumber, new { @readonly = "readonly" })%>
 						</td>
 					</tr>
 					<tr>
@@ -123,7 +124,7 @@
 							<%= Html.LabelFor(x => x.IssueDate) %>
 						</td>
 						<td>
-							<%= Html.TextBoxFor(x => x.IssueDate) %>
+							<%= Html.TextBoxFor(x => x.IssueDate, new { @readonly = "readonly" })%>
 						</td>
 					</tr>
 					<tr>
@@ -131,7 +132,7 @@
 							<%= Html.LabelFor(x => x.ExpiryDate) %>
 						</td>
 						<td>
-							<%= Html.TextBoxFor(x => x.ExpiryDate) %>
+							<%= Html.TextBoxFor(x => x.ExpiryDate, new { @readonly = "readonly" })%>
 						</td>
 					</tr>
 					<tr>
@@ -139,7 +140,7 @@
 							<%= Html.LabelFor(x => x.IssueNumber) %>
 						</td>
 						<td>
-							<%= Html.TextBoxFor(x => x.IssueNumber) %>
+							<%= Html.TextBoxFor(x => x.IssueNumber, new { @readonly = "readonly" })%>
 						</td>
 					</tr>
 				</table>

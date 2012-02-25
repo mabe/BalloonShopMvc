@@ -40,7 +40,7 @@ namespace BalloonShop.Model
 			Map(x => x.ProductName);
 			Map(x => x.Quantity);
 			Map(x => x.UnitCost);
-			Map(x => x.Subtotal);
+			Map(x => x.Subtotal).ReadOnly();
 		}
 	}
 }

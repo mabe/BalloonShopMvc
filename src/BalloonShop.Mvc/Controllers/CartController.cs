@@ -6,15 +6,19 @@ using System.Web.Mvc;
 using NHibernate;
 using BalloonShop.Model;
 using BalloonShop.Mvc.Models;
+using BalloonShop.Mvc.Helpers;
+using System.Security.Principal;
 
 namespace BalloonShop.Mvc.Controllers
 {
     public class CartController : Controller
     {
-        private readonly ISession _session;
-
-        public CartController(ISession session)
+		private readonly IIdentity _identity;
+		private readonly ISession _session;
+		
+        public CartController(IIdentity identity, ISession session)
         {
+			_identity = identity;
             _session = session;
         }
 
@@ -73,13 +77,14 @@ namespace BalloonShop.Mvc.Controllers
 		[Authorize]
 		public ActionResult Checkout(string customerCartId) {
 			var cart = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
+			var account = _session.Get<Account>(_identity.Identity());
 
 			ViewBag.Cart = cart;
 			ViewBag.Total = cart.Sum(x => x.Balloon.Price * x.Quantity);
-			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
+			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = x.Id == account.Details.ShippingRegion }).ToList();
 			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
 
-			return View(new CheckoutViewModel());
+			return View(new CheckoutViewModel() { AccountDetails = new AccountDetailsViewModel(account.Details) });
 		}
 
 		[Authorize]
@@ -87,12 +92,18 @@ namespace BalloonShop.Mvc.Controllers
 		public ActionResult Checkout(string customerCartId, CheckoutViewModel model)
 		{
 			var cart = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
+			var account = _session.Get<Account>(_identity.Identity());
+
+			ViewBag.Cart = cart;
+			ViewBag.Total = cart.Sum(x => x.Balloon.Price * x.Quantity);
+			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = x.Id == account.Details.ShippingRegion }).ToList();
+			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
 
 			if (!ModelState.IsValid)
 				return View();
 
 			int taxId;
-			switch (model.ShippingRegion)
+			switch (model.AccountDetails.ShippingRegion)
 			{
 				case 2:
 					taxId = 1;
@@ -102,10 +113,20 @@ namespace BalloonShop.Mvc.Controllers
 					break;
 			}
 
-			var order = new Order() { };
+			var order = new Order() { 
+				CustomerId = account.Id,
+				CustomerEmail = account.Email,
+				ShippingId = model.ShippingType,
+				TaxId = taxId
+			};
 
 			foreach (var item in cart) {
-				order.AddOrderDetail(new OrderDetail() { ProductId = item.Balloon.Id, ProductName = item.Balloon.Name, Quantity = item.Quantity, UnitCost = item.Balloon.Price });
+				order.AddOrderDetail(new OrderDetail() { 
+					ProductId = item.Balloon.Id, 
+					ProductName = item.Balloon.Name, 
+					Quantity = item.Quantity, 
+					UnitCost = item.Balloon.Price 
+				});
 				_session.Delete(item);
 			}
 

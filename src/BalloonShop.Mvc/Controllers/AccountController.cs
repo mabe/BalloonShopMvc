@@ -9,6 +9,7 @@ using BalloonShop.Model;
 using System.ComponentModel.DataAnnotations;
 using BalloonShop.Mvc.Models;
 using BalloonShop.Mvc.Services;
+using BalloonShop.Mvc.Helpers;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -59,7 +60,7 @@ namespace BalloonShop.Mvc.Controllers
 			if (!_identity.IsAuthenticated)
 				return View("Navigation_NotAuthenticated");
 
-			var account = _session.Get<Account>(int.Parse(_identity.Name));
+			var account = _session.Get<Account>(_identity.Identity());
 
 			return View(account);
 		}
@@ -97,7 +98,7 @@ namespace BalloonShop.Mvc.Controllers
 
 		[Authorize]
 		public ActionResult Details() {
-			var account = _session.Get<Account>(int.Parse(_identity.Name));
+			var account = _session.Get<Account>(_identity.Identity());
 
 			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString() }).ToList();
 
@@ -113,7 +114,7 @@ namespace BalloonShop.Mvc.Controllers
 				return View();
 			}
 
-			var account = _session.Get<Account>(int.Parse(_identity.Name));
+			var account = _session.Get<Account>(_identity.Identity());
 
 			var details = account.Details ?? (account.Details = new AccountDetails());
 
@@ -127,6 +128,14 @@ namespace BalloonShop.Mvc.Controllers
 			details.DaytimePhone = model.DaytimePhone;
 			details.EveningPhone = model.EveningPhone;
 			details.MobilePhone = model.MobilePhone;
+			details.CreditCard = new CreditCard() { 
+				CardholderName = model.CardholderName,
+ 				CardType = model.CardType,
+				CardNumber = model.CardNumber,
+				IssueDate = model.IssueDate,
+				ExpiryDate = model.ExpiryDate,
+				IssueNumber = model.IssueNumber
+			};
 
 			return RedirectToAction("Details");
 		}

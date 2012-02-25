@@ -99,6 +99,7 @@
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\AccountDetails.cs" />
     <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\CreditCard.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Data\AdoNet\GenericDataAccess.cs" />
     <Compile Include="Infrastructure\PagedList.cs" />

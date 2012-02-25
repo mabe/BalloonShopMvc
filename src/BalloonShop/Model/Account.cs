@@ -20,7 +20,7 @@ namespace BalloonShop.Model
 			Password = Hash(password);
 		}
 
-		public virtual int Id { get; protected set; }
+		public virtual Guid Id { get; protected set; }
 		public virtual string Email { get; protected set; }
 		public virtual string Password { get; protected set; }
 		public virtual AccountDetails Details { get; set; }
@@ -38,7 +38,7 @@ namespace BalloonShop.Model
 	{
 		public AccountMap()
 		{
-			Id(x => x.Id).GeneratedBy.Identity();
+			Id(x => x.Id).GeneratedBy.GuidComb();
 			Map(x => x.Email);
 			Map(x => x.Password);
 			Component(x => x.Details, component => {
@@ -52,6 +52,8 @@ namespace BalloonShop.Model
 				component.Map(x => x.DaytimePhone);
 				component.Map(x => x.EveningPhone);
 				component.Map(x => x.MobilePhone);
+
+				component.Map(x => x.CreditCard).CustomType<CreditCardMapper>();
 			});
 		}
 	}

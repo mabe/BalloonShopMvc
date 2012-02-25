@@ -8,6 +8,11 @@ namespace BalloonShop.Model
 {
 	public class AccountDetails
 	{
+		public AccountDetails()
+		{
+			CreditCard = new CreditCard();
+		}
+
 		public virtual string Address1 { get; set; }
 		public virtual string Address2 { get; set; }
 		public virtual string City { get; set; }
@@ -18,6 +23,8 @@ namespace BalloonShop.Model
 		public virtual string DaytimePhone { get; set; }
 		public virtual string EveningPhone { get; set; }
 		public virtual string MobilePhone { get; set; }
+
+		public virtual CreditCard CreditCard { get; set; }
 	}
 
 	

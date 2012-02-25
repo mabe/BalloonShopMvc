@@ -95,10 +95,12 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IIdentityHelpers.cs" />
     <Compile Include="Helpers\PagedListHelper.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
@@ -117,6 +119,8 @@
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
     <Content Include="Views\Account\Details.aspx" />
+    <Content Include="Views\Order\Placed.aspx" />
+    <Content Include="Views\Shared\DisplayTemplates\AccountDetailsViewModel.ascx" />
     <Content Include="Views\Shared\EditorTemplates\AccountDetailsViewModel.ascx" />
     <Content Include="Views\Account\Login.aspx" />
     <Content Include="Views\Account\Navigation.ascx" />

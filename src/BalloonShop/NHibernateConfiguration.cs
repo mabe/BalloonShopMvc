@@ -14,7 +14,7 @@ namespace BalloonShop
             return Fluently.Configure()
                 .Database(FluentNHibernate.Cfg.Db.MsSqlConfiguration.MsSql2008.ConnectionString(x => x.FromConnectionStringWithKey("BalloonShopConnection")))
                 .Mappings(x => {
-                    x.FluentMappings.AddFromAssembly(Assembly.Load("BalloonShop"));
+					x.FluentMappings.AddFromAssembly(Assembly.Load("BalloonShop")); //.ExportTo(AppDomain.CurrentDomain.BaseDirectory);
                     x.HbmMappings.AddFromAssembly(Assembly.Load("BalloonShop"));
                 })
                 .ExposeConfiguration(cfg => cfg.SetProperty(NHibernate.Cfg.Environment.CurrentSessionContextClass,"web"))

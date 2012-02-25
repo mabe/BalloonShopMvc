@@ -50,110 +50,14 @@
 			</tr>
 		</tfoot>
 	</table>
+	<form method="post" action="<%= Url.Action("Checkout") %>">
 	<br />
 	<br />
 	<%--<uc1:customerdetailsedit id="CustomerDetailsEdit1" runat="server" editable="false" title="User Details" />--%>
-	<table border="0" cellpadding="4" cellspacing="0" class="UserDetailsTable">
-		<thead>
-			<tr>
-				<th colspan="2" class="UserDetailsTableHead">
-					User Details
-				</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-					Address line 1:
-				</td>
-				<td width="350px">
-					<input type="text" name="Address1" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Address line 2:
-				</td>
-				<td>
-					<input type="text" name="Address2" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					City:
-				</td>
-				<td>
-					<input type="text" name="City" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Region:
-				</td>
-				<td>
-					<input type="text" name="Region" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Zip / Postal Code:
-				</td>
-				<td>
-					<input type="text" name="PostalCode" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Country:
-				</td>
-				<td>
-					<input type="text" name="Country" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Shipping Region:
-				</td>
-				<td>
-					<%= Html.DropDownList("ShippingRegion", (IEnumerable<SelectListItem>)ViewBag.ShippingRegions, new { style = "width:350px;" })%>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Daytime Phone no:
-				</td>
-				<td>
-					<input type="text" name="DayPhone" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Evening Phone no:
-				</td>
-				<td>
-					<input type="text" name="EvePhone" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Mobile Phone no:
-				</td>
-				<td>
-					<input type="text" name="MobPhone" style="width: 340px;" />
-				</td>
-			</tr>
-			<tr>
-				<td>
-					Email:
-				</td>
-				<td>
-					<input type="text" name="Email" style="width: 340px;" />
-				</td>
-			</tr>
-		</tbody>
-	</table>
+	<%= Html.DisplayFor(x => x.AccountDetails) %>
 	<br />
 	<%--<asp:label id="InfoLabel" runat="server" cssclass="InfoText" />--%>
+	<span class="InfoText">Please confirm that the above details are correct before proceeding.</span>
 	<br />
 	<br />
 	<label class="InfoText">
@@ -167,16 +71,17 @@
 		<% } %>
 	</select>
 	<br />
+	<%= Html.ValidationSummary(false) %>
 	<br />
-	<button class="ButtonText">
-		Place order</button>
+	<input type="submit" class="ButtonText" value="Place order" />
+	</form>
 </asp:content>
 <asp:content id="Content2" contentplaceholderid="navigation" runat="server">
 	<% Html.RenderAction<DepartmentController>(x => x.Navigation(null));  %>
 	<br />
-    <% Html.RenderPartial("../Search/SearchForm"); %>
-    <br />
-    <% Html.RenderAction("Summary", "Cart"); %>
+	<% Html.RenderPartial("../Search/SearchForm"); %>
+	<br />
+	<% Html.RenderAction("Summary", "Cart"); %>
 </asp:content>
 <asp:content contentplaceholderid="scripts" runat="server">
 	<script type="text/javascript">
@@ -185,9 +90,9 @@
                 nothing = shipping.find('option[value=0]').clone(),
                 types = shipping.find('option:not([value=0])').clone();
 
-			$('#ShippingRegion').on('change', function (e) {
+			$('#AccountDetails_ShippingRegion').on('change', function (e) {
 				shipping.empty().append(nothing.clone()).append(types.filter('[data-region=' + $(this).val() + ']').clone()).prop('disabled', false);
-			});
+			}).trigger('change');
 		});
 	</script>
 </asp:content>
