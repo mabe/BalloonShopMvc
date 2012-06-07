@@ -9,6 +9,8 @@ using NHibernate.Context;
 using NHibernate;
 using BalloonShop.Mvc.Config;
 using BalloonShop.Mvc.Services;
+using Rhino.ServiceBus;
+using Rhino.ServiceBus.Impl;
 
 namespace BalloonShop.Mvc
 {
@@ -49,7 +51,12 @@ namespace BalloonShop.Mvc
 
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
 
-            
+            RegisterBus(ObjectFactory.Container);
+        }
+
+        private void RegisterBus(IContainer container)
+        {
+            new OnewayRhinoServiceBusConfiguration().UseStructureMap(container).Configure();
         }
 
         public MvcApplication()

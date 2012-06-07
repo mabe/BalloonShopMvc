@@ -25,9 +25,6 @@ namespace BalloonShop.Mvc.Controllers
 
         public ActionResult Show(string search, bool allWords, int? page)
         {
-            //int howManyPages;
-            //var result = CatalogAccess.Search(search, allWords, page ?? 1, out howManyPages);
-
             // transform search string into array of words
             char[] wordSeparators = new char[] { ',', ';', '.', '!', '?', '-', ' ' };
             string[] words = search.Split(wordSeparators, StringSplitOptions.RemoveEmptyEntries);

@@ -23,6 +23,7 @@ namespace BalloonShop.Model
 
 		public virtual int ShippingId { get; set; }
 		public virtual int TaxId { get; set; }
+        public virtual int Status { get; set; }
 
 		protected IList<OrderDetail> _orderDetails;
 		public virtual IEnumerable<OrderDetail> OrderDetails { get { return _orderDetails; } }
@@ -46,6 +47,7 @@ namespace BalloonShop.Model
 			Map(x => x.ShippingAddress);
 			Map(x => x.ShippingId);
 			Map(x => x.TaxId);
+            Map(x => x.Status);
 
 			HasMany(x => x.OrderDetails).Access.CamelCaseField(Prefix.Underscore).KeyColumn("OrderId").Cascade.AllDeleteOrphan();
 		}

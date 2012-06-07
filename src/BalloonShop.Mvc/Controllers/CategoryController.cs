@@ -26,8 +26,6 @@ namespace BalloonShop.Mvc.Controllers
         {
             var category = _session.Get<Category>(id);
 
-            //int howManyPages, p = page ?? 1;
-            //var balloons = CatalogAccess.GetProductsInCategory(id, p, out howManyPages);
             Category c = null;
 
             var query = _session.QueryOver<Balloon>().JoinAlias(x => x.Categories, () => c).Where(Restrictions.On<Category>(x => c.Id).IsIn(new []{ id }));

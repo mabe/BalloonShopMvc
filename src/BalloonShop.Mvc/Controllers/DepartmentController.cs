@@ -31,8 +31,6 @@ namespace BalloonShop.Mvc.Controllers
             Balloon b = null;
             var query = _session.QueryOver<Balloon>().WithSubquery.WhereProperty(x => x.Id).In(QueryOver.Of<Balloon>(() => b).Where(x => x.OnDepartmentPromotion == true).JoinQueryOver(x => x.Categories).Where(x => x.Department == department).Select(Projections.Distinct(Projections.Property(() => b.Id))));
             
-            //int howManyPages;
-            //var balloons = CatalogAccess.GetProductsOnDepartmentPromotion(department.Id, page ?? 1, out howManyPages);
             var howManyPages = query.Clone().RowCount() / BalloonShopConfiguration.ProductsPerPage;
 
             var balloons = query

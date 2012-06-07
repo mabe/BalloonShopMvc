@@ -8,7 +8,7 @@ using System.Reflection;
 
 namespace BalloonShop
 {
-    static class NHibernateConfiguration
+    public static class NHibernateConfiguration
     {
         public static ISessionFactory Factory() {
             return Fluently.Configure()

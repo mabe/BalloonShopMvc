@@ -8,6 +8,8 @@ using BalloonShop.Model;
 using BalloonShop.Mvc.Models;
 using BalloonShop.Mvc.Helpers;
 using System.Security.Principal;
+using BalloonShop.Messages;
+using Rhino.ServiceBus;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -15,11 +17,13 @@ namespace BalloonShop.Mvc.Controllers
     {
 		private readonly IIdentity _identity;
 		private readonly ISession _session;
-		
-        public CartController(IIdentity identity, ISession session)
+        private readonly IOnewayBus _bus;
+
+        public CartController(IIdentity identity, ISession session, IOnewayBus bus)
         {
 			_identity = identity;
             _session = session;
+            _bus = bus;
         }
 
         [HttpPost]
@@ -131,6 +135,8 @@ namespace BalloonShop.Mvc.Controllers
 			}
 
 			_session.Save(order);
+
+            _bus.Send(new InitialNotificationMessage() { OrderId = order.Id });
 
 			return RedirectToAction("Placed", "Order");
 		}

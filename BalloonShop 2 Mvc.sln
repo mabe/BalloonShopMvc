@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalloonShop.Mvc", "src\Ball
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalloonShop", "src\BalloonShop\BalloonShop.csproj", "{E4EDEFBA-F9F7-4557-99D8-A462C58C1B5F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BalloonShop.Server", "src\BalloonShop.Server\BalloonShop.Server.csproj", "{51C63B8C-A5A3-4027-B85D-AD3DA094E078}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,10 @@ Global
 		{E4EDEFBA-F9F7-4557-99D8-A462C58C1B5F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E4EDEFBA-F9F7-4557-99D8-A462C58C1B5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E4EDEFBA-F9F7-4557-99D8-A462C58C1B5F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51C63B8C-A5A3-4027-B85D-AD3DA094E078}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51C63B8C-A5A3-4027-B85D-AD3DA094E078}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51C63B8C-A5A3-4027-B85D-AD3DA094E078}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51C63B8C-A5A3-4027-B85D-AD3DA094E078}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

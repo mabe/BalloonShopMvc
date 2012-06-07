@@ -96,8 +96,10 @@
     <Compile Include="Data\CommerceLib\OrderProcessor.cs" />
     <Compile Include="Data\CommerceLib\OrderProcessorException.cs" />
     <Compile Include="Data\CommerceLib\OrderProcessorMailer.cs" />
+    <Compile Include="Messages\InitialNotificationMessage.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\AccountDetails.cs" />
+    <Compile Include="Model\Audit.cs" />
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\CreditCard.cs" />
     <Compile Include="Model\Department.cs" />
@@ -112,6 +114,7 @@
     <Compile Include="Model\Shipping.cs" />
     <Compile Include="Model\ShippingRegion.cs" />
     <Compile Include="Model\ShoppingCart.cs" />
+    <Compile Include="Model\Tax.cs" />
     <Compile Include="NHibernateConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -119,6 +122,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Services\IEmailService.cs" />
+    <Compile Include="Services\SmtpEmailService.cs" />
     <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +157,7 @@
   <ItemGroup>
     <EmbeddedResource Include="Queries\SearchCatalog.hbm.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

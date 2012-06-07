@@ -5,6 +5,8 @@ using BalloonShop.Model;
 
 using System.Linq;
 using NHibernate;
+using Rhino.ServiceBus;
+using BalloonShop.Messages;
 
 
 namespace BalloonShop.Mvc.Controllers
@@ -13,10 +15,12 @@ namespace BalloonShop.Mvc.Controllers
     public class HomeController : Controller
     {
         private readonly ISession _session;
+        private readonly IOnewayBus _bus;
 
-        public HomeController(ISession session)
+        public HomeController(ISession session, IOnewayBus bus)
         {
             _session = session;
+            _bus = bus;
         }
 
         public ViewResult Index(int? page = 1)
