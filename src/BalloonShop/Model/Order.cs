@@ -41,6 +41,8 @@ namespace BalloonShop.Model
         public virtual string AuthCode { get; set; }
 
         public virtual string Reference { get; set; }
+
+        public virtual Guid SagaCorrelationId { get; set; }
     }
 
 	public class OrderMap : ClassMap<Order>
@@ -59,6 +61,7 @@ namespace BalloonShop.Model
             Map(x => x.Status);
             Map(x => x.AuthCode);
             Map(x => x.Reference);
+            Map(x => x.SagaCorrelationId);
 
 			HasMany(x => x.OrderDetails).Access.CamelCaseField(Prefix.Underscore).KeyColumn("OrderId").Cascade.AllDeleteOrphan();
 		}

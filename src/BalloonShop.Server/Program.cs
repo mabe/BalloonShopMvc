@@ -13,6 +13,7 @@ using Rhino.ServiceBus.MessageModules;
 using BalloonShop.Services;
 using Rhino.ServiceBus.Internal;
 using Rhino.ServiceBus.Sagas.Persisters;
+using Rhino.ServiceBus.Sagas;
 
 
 namespace BalloonShop.Server
@@ -46,9 +47,10 @@ namespace BalloonShop.Server
                 cfg.For<ISession>().Use(() => NHibernateMessageModule.CurrentSession);
                 cfg.For(typeof(ISagaPersister<>)).Use(typeof(InMemorySagaPersister<>));
 
-                //cfg.Scan(x => {
+                //cfg.Scan(x =>
+                //{
                 //    x.TheCallingAssembly();
-                //    x.ConnectImplementationsToTypesClosing(typeof(ConsumerOf<>));
+                //    x.ConnectImplementationsToTypesClosing(typeof(Orchestrates<>));
                 //});
             });
         }

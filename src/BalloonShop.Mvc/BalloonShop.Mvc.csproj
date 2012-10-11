@@ -20,6 +20,10 @@
     <UpgradeBackupLocation />
     <UseIISExpress>false</UseIISExpress>
     <TargetFrameworkProfile />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -155,12 +159,6 @@
     <Content Include="Content\Site.css" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Web.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BalloonShop\BalloonShop.csproj">
-      <Project>{E4EDEFBA-F9F7-4557-99D8-A462C58C1B5F}</Project>
-      <Name>BalloonShop</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BalloonShop.css" />
@@ -311,6 +309,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BalloonShop\BalloonShop.csproj">
+      <Project>{e4edefba-f9f7-4557-99d8-a462c58c1b5f}</Project>
+      <Name>BalloonShop</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

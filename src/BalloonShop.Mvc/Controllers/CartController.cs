@@ -10,6 +10,7 @@ using BalloonShop.Mvc.Helpers;
 using System.Security.Principal;
 using BalloonShop.Messages;
 using Rhino.ServiceBus;
+using Rhino.Queues.Utils;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -121,7 +122,8 @@ namespace BalloonShop.Mvc.Controllers
 				CustomerId = account.Id,
 				CustomerEmail = account.Email,
 				ShippingId = model.ShippingType,
-				TaxId = taxId
+				TaxId = taxId,
+                SagaCorrelationId = GuidCombGenerator.Generate()
 			};
 
 			foreach (var item in cart) {
@@ -136,7 +138,7 @@ namespace BalloonShop.Mvc.Controllers
 
 			_session.Save(order);
 
-            _bus.Send(new InitialNotificationMessage() { OrderId = order.Id });
+            _bus.Send(new InitialNotificationMessage() { OrderId = order.Id, CorrelationId = order.SagaCorrelationId });
 
 			return RedirectToAction("Placed", "Order");
 		}

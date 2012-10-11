@@ -83,7 +83,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Consumers\ConsumerOfInitialNotificationMessage.cs" />
     <Compile Include="NHibernateMessageModule.cs" />
     <Compile Include="PrepareQueues.cs" />
     <Compile Include="Program.cs" />

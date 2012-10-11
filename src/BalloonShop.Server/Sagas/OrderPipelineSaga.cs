@@ -20,7 +20,10 @@ namespace BalloonShop.Server.Sagas
                     ISaga<OrderPipelineState>,
                     InitiatedBy<InitialNotificationMessage>,
                     Orchestrates<PSCheckFundsMessage>,
-                    Orchestrates<PSCheckStockMessage>
+                    Orchestrates<PSCheckStockMessage>,
+                    Orchestrates<PSStockOKMessage>,
+                    Orchestrates<PSTakePaymentMessage>,
+                    Orchestrates<PSShipGoodsMessage>
     {
         private readonly IServiceBus _bus;
         private readonly IEmailService _emailService;
@@ -37,13 +40,16 @@ namespace BalloonShop.Server.Sagas
             _bus = bus;
             _session = session;
             _emailService = emailService;
+            State = new OrderPipelineState();
         }
 
         public void Consume(InitialNotificationMessage message)
         {
-            var order = _session.Get<Order>(message.OrderId);
+            State.OrderId = message.OrderId;
 
-            MakeAudit(order.Id, 20000, "InitialNotification started.");
+            MakeAudit(20000, "InitialNotification started.");
+
+            var order = _session.Get<Order>(message.OrderId);
 
             var subject = "BalloonShop order received.";
 
@@ -62,22 +68,22 @@ namespace BalloonShop.Server.Sagas
 
             _emailService.Send("", order.CustomerEmail, subject, sb.ToString());
 
-            MakeAudit(order.Id, 20002, "Notification e-mail sent to customer.");
+            MakeAudit(20002, "Notification e-mail sent to customer.");
 
             order.Status = 1;
 
-            MakeAudit(order.Id, 20001, "InitialNotification finished.");
+            MakeAudit(20001, "InitialNotification finished.");
 
-            _bus.Send(new PSCheckFundsMessage() { OrderId = message.OrderId });
+            _bus.SendToSelf(new PSCheckFundsMessage() { CorrelationId = message.CorrelationId });
         }
 
         public void Consume(PSCheckFundsMessage message)
         {
-            MakeAudit(message.OrderId, 20100, "PSCheckFunds started.");
+            MakeAudit(20100, "PSCheckFunds started.");
 
             try
             {
-                var order = _session.Get<Order>(message.OrderId);
+                var order = _session.Get<Order>(State.OrderId);
 
                 // check customer funds via DataCash gateway
                 // configure DataCash XML request
@@ -105,14 +111,14 @@ namespace BalloonShop.Server.Sagas
                 {
                     order.SetAuthCodeAndReference(response.MerchantReference, response.DatacashReference);
 
-                    MakeAudit(order.Id, 20102, "Funds available for purchase.");
+                    MakeAudit(20102, "Funds available for purchase.");
 
                     order.Status = 2;
                 }
                 else
                 {
 
-                    MakeAudit(message.OrderId, 20103, "Funds not available for purchase.");
+                    MakeAudit(20103, "Funds not available for purchase.");
 
                     var to = ""; // BalloonShopConfiguration.ErrorLogEmail;
                     var from = ""; // BalloonShopConfiguration.OrderProcessorEmail;
@@ -129,18 +135,18 @@ namespace BalloonShop.Server.Sagas
                 throw new Exception();
             }
 
-            MakeAudit(message.OrderId, 20101, "PSCheckFunds finished.");
+            MakeAudit(20101, "PSCheckFunds finished.");
 
-            _bus.Send(new PSCheckStockMessage() { OrderId = message.OrderId });
+            _bus.SendToSelf(new PSCheckStockMessage() { CorrelationId = message.CorrelationId });
         }
 
         public void Consume(PSCheckStockMessage message)
         {
-            MakeAudit(message.OrderId, 20200, "PSCheckStock started.");
+            MakeAudit(20200, "PSCheckStock started.");
 
             try
             {
-                var order = _session.Get<Order>(message.OrderId);
+                var order = _session.Get<Order>(State.OrderId);
 
                 // construct message body
                 var sb = new StringBuilder();
@@ -157,7 +163,7 @@ namespace BalloonShop.Server.Sagas
                 // send mail to supplier
                 _emailService.Send(from, to, "BalloonShop stock check.", sb.ToString());
 
-                MakeAudit(order.Id, 20202, "Notification e-mail sent to supplier.");
+                MakeAudit(20202, "Notification e-mail sent to supplier.");
 
                 // update order status
                 order.Status = 3;
@@ -170,12 +176,115 @@ namespace BalloonShop.Server.Sagas
                 throw new Exception();
             }
 
-            MakeAudit(message.OrderId, 20201, "PSCheckStock finished.");
+            MakeAudit(20201, "PSCheckStock finished.");
         }
 
-        private void MakeAudit(int orderId, int number, string message)
+        public void Consume(PSStockOKMessage message)
         {
-            _session.Save(new Audit(orderId, number, message));
+            // audit
+            MakeAudit(20300, "PSStockOK started.");
+
+            var order = _session.Get<Order>(message.OrderId);
+
+            MakeAudit(20302, "Stock confirmed by supplier.");
+
+            order.Status = 4;
+
+            MakeAudit(20301, "PSStockOK finished.");
+
+            _bus.Send(new PSTakePaymentMessage() { OrderId = message.OrderId });
+        }
+
+        public void Consume(PSTakePaymentMessage message)
+        {
+            MakeAudit(20400, "PSTakePayment started.");
+
+            try
+            {
+                var order = _session.Get<Order>(message.OrderId);
+
+                //var request = new DataCashRequest() { 
+                //                      Authentication.Client = BalloonShopConfiguration.DataCashClient, 
+                //                      Authentication.Password = BalloonShopConfiguration.DataCashPassword,
+                //                      Transaction.HistoricTxn.Method = "fulfill",
+                //                      Transaction.HistoricTxn.AuthCode = order.AuthCode,
+                //                      Transaction.HistoricTxn.Reference = order.Reference
+                //                  };
+                var request = new { Xml = "" };
+
+                //var response = request.GetResponse(BalloonShopConfiguration.DataCashUrl);
+                var response = new { Status = "1", Xml = "" };
+
+                if (response.Status == "1")
+                {
+                    MakeAudit(20402, "Funds deducted from customer credit card account.");
+
+                    order.Status = 5;
+                }
+                else
+                {
+                    MakeAudit(20403, "Error taking funds from customer credit card account.");
+
+                    var to = ""; // BalloonShopConfiguration.ErrorLogEmail;
+                    var from = ""; // BalloonShopConfiguration.OrderProcessorEmail;
+                    var body = "Message: " + "XML data exchanged:\n" + request.Xml + "\n\n" + response.Xml + "\nSource: " + 1.ToString() + "\nOrder ID: " + order.Id.ToString();
+
+                    _emailService.Send(from, to, "Credit card fulfillment declined.", body);
+                }
+            }
+            catch
+            {
+                // fund checking failure
+                //throw new OrderProcessorException("Error occured while taking payment.", 4);
+                throw new Exception();
+            }
+
+            MakeAudit(20401, "PSTakePayment finished.");
+
+            _bus.Send(new PSShipGoodsMessage() { OrderId = message.OrderId });
+        }
+
+        public void Consume(PSShipGoodsMessage message)
+        {
+            MakeAudit(20500, "PSShipGoods started.");
+
+            try
+            {
+                var order = _session.Get<Order>(message.OrderId);
+
+                var sb = new StringBuilder();
+                sb.Append(
+                  "Payment has been received for the following goods:\n\n");
+                sb.Append(OrderAsString(order));
+                sb.Append("\n\nPlease ship to:\n\n");
+                sb.Append(CustomerAddressAsString(order));
+                sb.Append("\n\nWhen goods have been shipped, please confirm via ");
+                sb.Append("http://balloonshop.apress.com/OrdersAdmin.aspx");
+                sb.Append("\n\nOrder reference number:\n\n");
+                sb.Append(order.Id.ToString());
+
+                var to = ""; // BalloonShopConfiguration.SupplierEmail;
+                var from = ""; // BalloonShopConfiguration.OrderProcessorEmail;
+
+                _emailService.Send(from, to, "BalloonShop ship goods.", sb.ToString());
+
+                MakeAudit(20502, "Ship goods e-mail sent to supplier.");
+
+                order.Status = 6;
+            }
+            catch
+            {
+                // mail sending failure
+                //throw new OrderProcessorException("Unable to send e-mail to supplier.", 5);
+                throw new Exception();
+            }
+
+            MakeAudit(20501, "PSShipGoods finished.");
+        }
+
+        private void MakeAudit(int number, string message)
+        {
+            _session.Save(new Audit(State.OrderId, number, message));
         }
 
         private string CustomerAddressAsString(Order order)
