@@ -11,6 +11,8 @@ using Rhino.ServiceBus.Msmq;
 using NHibernate;
 using Rhino.ServiceBus.MessageModules;
 using BalloonShop.Services;
+using Rhino.ServiceBus.Internal;
+using Rhino.ServiceBus.Sagas.Persisters;
 
 
 namespace BalloonShop.Server
@@ -35,16 +37,19 @@ namespace BalloonShop.Server
     public class BootStrapper : StructureMapBootStrapper {
         protected override void ConfigureContainer()
         {
+            base.ConfigureContainer();
+
             Container.Configure(cfg => {
                 cfg.For<IEmailService>().Use<SmtpEmailService>();
                 cfg.For<ISessionFactory>().Singleton().Use(() => NHibernateConfiguration.Factory());
                 cfg.For<IMessageModule>().Singleton().Use<NHibernateMessageModule>();
                 cfg.For<ISession>().Use(() => NHibernateMessageModule.CurrentSession);
+                cfg.For(typeof(ISagaPersister<>)).Use(typeof(InMemorySagaPersister<>));
 
-                cfg.Scan(x => {
-                    x.TheCallingAssembly();
-                    x.ConnectImplementationsToTypesClosing(typeof(ConsumerOf<>));
-                });
+                //cfg.Scan(x => {
+                //    x.TheCallingAssembly();
+                //    x.ConnectImplementationsToTypesClosing(typeof(ConsumerOf<>));
+                //});
             });
         }
     }

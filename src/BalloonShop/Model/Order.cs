@@ -32,7 +32,16 @@ namespace BalloonShop.Model
 			detail.Order = this;
 			_orderDetails.Add(detail);
 		}
-	}
+
+        public virtual void SetAuthCodeAndReference(string authCode, string reference) {
+            AuthCode = authCode;
+            Reference = reference;
+        }
+
+        public virtual string AuthCode { get; set; }
+
+        public virtual string Reference { get; set; }
+    }
 
 	public class OrderMap : ClassMap<Order>
 	{
@@ -48,6 +57,8 @@ namespace BalloonShop.Model
 			Map(x => x.ShippingId);
 			Map(x => x.TaxId);
             Map(x => x.Status);
+            Map(x => x.AuthCode);
+            Map(x => x.Reference);
 
 			HasMany(x => x.OrderDetails).Access.CamelCaseField(Prefix.Underscore).KeyColumn("OrderId").Cascade.AllDeleteOrphan();
 		}

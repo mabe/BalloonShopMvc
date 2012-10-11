@@ -97,6 +97,8 @@
     <Compile Include="Data\CommerceLib\OrderProcessorException.cs" />
     <Compile Include="Data\CommerceLib\OrderProcessorMailer.cs" />
     <Compile Include="Messages\InitialNotificationMessage.cs" />
+    <Compile Include="Messages\PSCheckFundsMessage.cs" />
+    <Compile Include="Messages\PSCheckStockMessage.cs" />
     <Compile Include="Model\Account.cs" />
     <Compile Include="Model\AccountDetails.cs" />
     <Compile Include="Model\Audit.cs" />
