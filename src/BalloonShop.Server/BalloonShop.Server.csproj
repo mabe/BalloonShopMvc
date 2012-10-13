@@ -37,6 +37,9 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Dapper">
+      <HintPath>..\..\packages\Dapper.1.12.1\lib\net40\Dapper.dll</HintPath>
+    </Reference>
     <Reference Include="Esent.Interop">
       <HintPath>..\..\packages\Rhino.ServiceBus.References.2.3.2.0\lib\Esent.Interop.dll</HintPath>
     </Reference>
@@ -71,6 +74,7 @@
       <HintPath>..\..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Xml.Linq" />
@@ -83,7 +87,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="INHibernateSessionProvider.cs" />
     <Compile Include="NHibernateMessageModule.cs" />
+    <Compile Include="NHibernateSagaPersister.cs" />
     <Compile Include="PrepareQueues.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

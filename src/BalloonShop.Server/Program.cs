@@ -14,6 +14,9 @@ using BalloonShop.Services;
 using Rhino.ServiceBus.Internal;
 using Rhino.ServiceBus.Sagas.Persisters;
 using Rhino.ServiceBus.Sagas;
+using log4net.Config;
+using BalloonShop.Infrastructure;
+
 
 
 namespace BalloonShop.Server
@@ -21,6 +24,8 @@ namespace BalloonShop.Server
     public class Program
     {
         static void Main(string[] args) {
+
+            XmlConfigurator.Configure();
 
             PrepareQueues.Prepare("msmq://localhost/BalloonShop.Server", QueueType.Standard);
 
@@ -44,14 +49,10 @@ namespace BalloonShop.Server
                 cfg.For<IEmailService>().Use<SmtpEmailService>();
                 cfg.For<ISessionFactory>().Singleton().Use(() => NHibernateConfiguration.Factory());
                 cfg.For<IMessageModule>().Singleton().Use<NHibernateMessageModule>();
-                cfg.For<ISession>().Use(() => NHibernateMessageModule.CurrentSession);
-                cfg.For(typeof(ISagaPersister<>)).Use(typeof(InMemorySagaPersister<>));
-
-                //cfg.Scan(x =>
-                //{
-                //    x.TheCallingAssembly();
-                //    x.ConnectImplementationsToTypesClosing(typeof(Orchestrates<>));
-                //});
+                cfg.For<INHibernateSessionProvider>().Use<NHibernateMessageModule>();
+                cfg.For<ISession>().Use(ctx => ctx.GetInstance<INHibernateSessionProvider>().CurrentSession);
+                //cfg.For(typeof(ISagaPersister<>)).Singleton().Use(typeof(InMemorySagaPersister<>));
+                cfg.For(typeof(ISagaPersister<>)).Use(typeof(NHibernateSagaPersister<>));
             });
         }
     }

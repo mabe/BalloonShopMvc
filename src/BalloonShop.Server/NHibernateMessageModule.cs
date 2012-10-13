@@ -10,15 +10,15 @@ using Rhino.ServiceBus.Impl;
 
 namespace BalloonShop.Server
 {
-    public class NHibernateMessageModule : IMessageModule
+    public class NHibernateMessageModule : IMessageModule, INHibernateSessionProvider
     {
         private readonly ISessionFactory sessionFactory;
         [ThreadStatic]
         private static ISession currentSession;
 
-        public static ISession CurrentSession
+        public ISession CurrentSession
         {
-            get { return currentSession; }
+            get { return currentSession ?? sessionFactory.OpenSession(); }
         }
 
         public NHibernateMessageModule(

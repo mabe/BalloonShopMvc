@@ -11,6 +11,7 @@ using System.Text;
 
 namespace BalloonShop.Server.Sagas
 {
+    [Serializable]
     public class OrderPipelineState
     {
         public int OrderId { get; set; }
@@ -184,7 +185,7 @@ namespace BalloonShop.Server.Sagas
             // audit
             MakeAudit(20300, "PSStockOK started.");
 
-            var order = _session.Get<Order>(message.OrderId);
+            var order = _session.Get<Order>(State.OrderId);
 
             MakeAudit(20302, "Stock confirmed by supplier.");
 
@@ -192,7 +193,7 @@ namespace BalloonShop.Server.Sagas
 
             MakeAudit(20301, "PSStockOK finished.");
 
-            _bus.Send(new PSTakePaymentMessage() { OrderId = message.OrderId });
+            _bus.Send(new PSTakePaymentMessage() { CorrelationId = message.CorrelationId });
         }
 
         public void Consume(PSTakePaymentMessage message)
@@ -201,7 +202,7 @@ namespace BalloonShop.Server.Sagas
 
             try
             {
-                var order = _session.Get<Order>(message.OrderId);
+                var order = _session.Get<Order>(State.OrderId);
 
                 //var request = new DataCashRequest() { 
                 //                      Authentication.Client = BalloonShopConfiguration.DataCashClient, 
@@ -241,7 +242,7 @@ namespace BalloonShop.Server.Sagas
 
             MakeAudit(20401, "PSTakePayment finished.");
 
-            _bus.Send(new PSShipGoodsMessage() { OrderId = message.OrderId });
+            _bus.Send(new PSShipGoodsMessage() { CorrelationId = message.CorrelationId });
         }
 
         public void Consume(PSShipGoodsMessage message)
@@ -250,7 +251,7 @@ namespace BalloonShop.Server.Sagas
 
             try
             {
-                var order = _session.Get<Order>(message.OrderId);
+                var order = _session.Get<Order>(State.OrderId);
 
                 var sb = new StringBuilder();
                 sb.Append(

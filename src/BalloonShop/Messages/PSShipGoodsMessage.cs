@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Rhino.ServiceBus.Sagas;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
 namespace BalloonShop.Messages
 {
-    public class PSShipGoodsMessage
+    public class PSShipGoodsMessage : ISagaMessage
     {
-        public int OrderId { get; set; }
+        public Guid CorrelationId { get; set; }
     }
 }
