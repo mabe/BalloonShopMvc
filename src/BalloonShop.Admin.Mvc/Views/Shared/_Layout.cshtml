@@ -1,0 +1,59 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>BalloonShop - Admin</title>
+    <link rel="stylesheet" type="text/css" href="/content/balloonshop.css" />
+</head>
+
+<body>
+    <table cellspacing="0" cellpadding="0" border="0" width="100%">
+        <tr valign="top">
+            <td width="220">
+
+                <table cellspacing="0" border="0" width="200px" class="UserInfoContent">
+                    <tr>
+                        <td class="UserInfoHead">User Info</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="UserInfoText">You are logged in as <b>{0}</b>. </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&raquo;
+                            <span class="UserInfoLink"></span>
+                            &nbsp;&laquo;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&raquo;
+                            <a class="UserInfoLink" href="/Catalog/Departments">Catalog Admin</a>
+                            &nbsp;&laquo;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&raquo;
+                            <a class="UserInfoLink" href="/Order/ShoppingCarts">Shopping Cart Admin</a>
+                            &nbsp;&laquo;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;&raquo; 
+                            <a class="UserInfoLink" href="/Order/Index">Orders Admin</a>
+                            &nbsp;&laquo;
+                        </td>
+                    </tr>
+                </table>
+
+            </td>
+            <td valign="top">
+                <span class="AdminTitle">BalloonShop</span> (<a href="#" class="AdminPageText">go back to BalloonShop</a>)
+                <br />
+                @RenderBody()
+            </td>
+        </tr>
+    </table>
+    <br />
+</body>
+</html>

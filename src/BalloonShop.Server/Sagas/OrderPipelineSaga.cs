@@ -306,8 +306,8 @@ namespace BalloonShop.Server.Sagas
 
         private string OrderAsString(Order order)
         {
-            var shipping = _session.Get<Shipping>(order.ShippingId);
-            var tax = _session.Get<Tax>(order.TaxId);
+            var shipping = order.Shipping;
+            var tax = order.Tax;
 
             // calculate total cost and set data
             var sb = new StringBuilder();

@@ -14,7 +14,6 @@ using BalloonShop.Services;
 using Rhino.ServiceBus.Internal;
 using Rhino.ServiceBus.Sagas.Persisters;
 using Rhino.ServiceBus.Sagas;
-using log4net.Config;
 using BalloonShop.Infrastructure;
 
 
@@ -24,8 +23,6 @@ namespace BalloonShop.Server
     public class Program
     {
         static void Main(string[] args) {
-
-            XmlConfigurator.Configure();
 
             PrepareQueues.Prepare("msmq://localhost/BalloonShop.Server", QueueType.Standard);
 

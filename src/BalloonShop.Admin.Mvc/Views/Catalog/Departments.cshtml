@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BalloonShop.Model.Department>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span class="AdminPageText">Departments Loaded</span><br />
+<br />
+<span class="AdminPageText">These are your departments:</span><br />
+<br />
+
+<table cellspacing="0" cellpadding="5" class="Grid">
+    <thead>
+        <tr class="GridHeader">
+            <th>Department Name</th>
+            <th>Department Description</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((x, i) => new { department = x, index = i }))
+        {
+            <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
+                <td>@item.department.Name</td>
+                <td>@item.department.Description</td>
+                <td><a href="@Url.Action("Categories", "Catalog", new { departmentid = item.department.Id })">View Categories</a></td>
+                <td><a href="@Url.Action("Departments", "Catalog", new { id = item.department.Id })">Edit</a></td>
+                <td><a>Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<form method="post" action="/catalog/departments/">
+    <input type="hidden" name="id" value="@ViewBag.Department.Id" />
+    <span class="AdminPageText">Create a new department:</span>
+    <table class="AdminPageText" cellspacing="0">
+        <tr>
+            <td valign="top" width="100">Name:
+            </td>
+            <td>
+                <input type="text" class="AdminPageText" name="name" style="width: 400px;" value="@ViewBag.Department.Name" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" width="100">Description:
+            </td>
+            <td>
+                <textarea name="description" class="AdminPageText" style="width: 400px; height: 70px;">@ViewBag.Department.Description</textarea>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" class="Button" value="Create Department" />
+</form>

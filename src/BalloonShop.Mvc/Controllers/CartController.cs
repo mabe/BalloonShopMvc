@@ -10,7 +10,6 @@ using BalloonShop.Mvc.Helpers;
 using System.Security.Principal;
 using BalloonShop.Messages;
 using Rhino.ServiceBus;
-using Rhino.Queues.Utils;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -118,21 +117,19 @@ namespace BalloonShop.Mvc.Controllers
 					break;
 			}
 
-			var order = new Order() { 
-				CustomerId = account.Id,
-				CustomerEmail = account.Email,
-				ShippingId = model.ShippingType,
-				TaxId = taxId,
-                SagaCorrelationId = GuidCombGenerator.Generate()
-			};
-
-			foreach (var item in cart) {
-				order.AddOrderDetail(new OrderDetail() { 
+			var order = new Order(account.Id, 
+                "",
+                account.Email, 
+                cart.Select(item => new OrderDetail() { 
 					ProductId = item.Balloon.Id, 
 					ProductName = item.Balloon.Name, 
 					Quantity = item.Quantity, 
 					UnitCost = item.Balloon.Price 
-				});
+				}).ToList(), 
+                _session.Get<Tax>(taxId), 
+                _session.Get<Shipping>(model.ShippingType));
+
+			foreach (var item in cart) {
 				_session.Delete(item);
 			}
 

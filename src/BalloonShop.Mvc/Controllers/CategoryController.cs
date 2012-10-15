@@ -4,6 +4,7 @@ using BalloonShop.Infrastructure;
 using BalloonShop.Model;
 using NHibernate;
 using NHibernate.Criterion;
+using BalloonShop.Queries;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -19,26 +20,15 @@ namespace BalloonShop.Mvc.Controllers
         public ActionResult Navigation(int departmentId, int? selectedCategoryId)
         {
             ViewData["CategoryId"] = selectedCategoryId ?? 0;
-            return PartialView(_session.QueryOver<Category>().Where(x => x.Department.Id == departmentId).List());
+
+            return PartialView(_session.CategoriesInDepartment(departmentId).List());
         }
 
         public ActionResult Show(int id, int? page = 1)
         {
-            var category = _session.Get<Category>(id);
+            ViewBag.Balloons = _session.BalloonsInCategory(id).PagedList(BalloonShopConfiguration.ProductsPerPage, page);
 
-            Category c = null;
-
-            var query = _session.QueryOver<Balloon>().JoinAlias(x => x.Categories, () => c).Where(Restrictions.On<Category>(x => c.Id).IsIn(new []{ id }));
-
-            var howManyPages = query.Clone().RowCount() / BalloonShopConfiguration.ProductsPerPage;
-
-            var balloons = query
-                .Skip(((page ?? 1) - 1) * BalloonShopConfiguration.ProductsPerPage)
-                .Take(BalloonShopConfiguration.ProductsPerPage)
-                .List();
-
-            ViewBag.Balloons = new PagedList<Balloon>(page ?? 1, BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons);
-            return View(category);
+            return View(_session.Get<Category>(id));
         }
     }
 }

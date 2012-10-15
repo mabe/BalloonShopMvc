@@ -1,0 +1,55 @@
+﻿@model IEnumerable<BalloonShop.Model.Category>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<span class="AdminPageText">Categories Loaded</span><br />
+<br />
+<span class="AdminPageText">Displaying categories for department...</span>
+<a href="@Url.Action("Departments", "Catalog")" class="AdminPageText">(go back to departments)</a><br />
+<br />
+
+<table class="Grid" cellspacing="0" cellpadding="5"> 
+    <thead>
+        <tr class="GridHeader">
+            <th>Category Name</th>
+            <th>Category Description</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Select((x, i) => new { category = x, index = i }))
+        {
+            <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
+                <td>@item.category.Name</td>
+                <td>@item.category.Description</td>
+                <td><a href="@Url.Action("Products", "Catalog", new { categoryid = item.category.Id })">View Products</a></td>
+                <td><a href="@Url.Action("Categories", "Catalog", new { id = item.category.Id, departmentid = ViewBag.DepartmentId })">Edit</a></td>
+                <td><a>Delete</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<br />
+<form method="post" action="/catalog/categories">
+    <input type="hidden" name="id" value="@ViewBag.Category.Id" />
+    <input type="hidden" name="departmentid" value="@ViewBag.DepartmentId" />
+    <span class="AdminPageText">Create a new category in this department:</span>
+    <table class="AdminPageText" cellspacing="0">
+        <tr>
+            <td valign="top" width="100">Name:</td>
+            <td>
+                <input type="text" name="name" style="width:400px;" class="AdminPageText" value="@ViewBag.Category.Name" />
+            </td>
+        </tr>
+        <tr>
+            <td valign="top" width="100">Description:</td>
+            <td>
+                <textarea name="description" class="AdminPageText" style="width: 400px; height: 70px;">@ViewBag.Category.Description</textarea>
+            </td>
+        </tr>
+    </table>
+    <input type="submit" class="Button" value="Create Category" />
+</form>

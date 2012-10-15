@@ -53,8 +53,8 @@
     <Reference Include="Castle.Core">
       <HintPath>..\..\packages\Castle.Core.2.5.2\lib\NET35\Castle.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Esent.Interop">
-      <HintPath>..\..\packages\Rhino.ServiceBus.References.2.3.4.0\lib\Esent.Interop.dll</HintPath>
+    <Reference Include="Common.Logging">
+      <HintPath>..\..\packages\Common.Logging.2.1.1\lib\net35\Common.Logging.dll</HintPath>
     </Reference>
     <Reference Include="FluentNHibernate">
       <HintPath>..\..\packages\FluentNHibernate.1.2.0.712\lib\FluentNHibernate.dll</HintPath>
@@ -68,11 +68,9 @@
     <Reference Include="NHibernate.ByteCode.Castle">
       <HintPath>..\..\packages\NHibernate.Castle.3.1.0.4000\lib\Net35\NHibernate.ByteCode.Castle.dll</HintPath>
     </Reference>
-    <Reference Include="Rhino.PersistentHashTable">
-      <HintPath>..\..\packages\Rhino.PersistentHashTable.1.7.0.0\lib\3.5\Rhino.PersistentHashTable.dll</HintPath>
-    </Reference>
-    <Reference Include="Rhino.ServiceBus">
-      <HintPath>..\..\packages\Rhino.ServiceBus.2.3.2.0\lib\3.5\Rhino.ServiceBus.dll</HintPath>
+    <Reference Include="Rhino.ServiceBus, Version=3.0.0.0, Culture=neutral, PublicKeyToken=0b3305902db7183f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Rhino.ServiceBus.3.0.0.0\lib\3.5\Rhino.ServiceBus.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap">
       <HintPath>..\..\packages\structuremap.2.6.3\lib\StructureMap.dll</HintPath>
@@ -136,6 +134,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Queries\Queries.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\SmtpEmailService.cs" />
     <Compile Include="Utilities.cs" />

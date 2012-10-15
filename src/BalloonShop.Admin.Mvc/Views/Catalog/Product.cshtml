@@ -1,0 +1,57 @@
+﻿@model Balloon
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<span class="AdminTitle">@Model.Name</span>
+<a href="@Url.Action("Products", "Catalog", new { categoryid = ViewBag.CurrentCategoryId })">(go back to products)</a>
+<br />
+<br />
+<span class="AdminPageText">Product Details Loaded</span>
+<br />
+<br />
+Product belongs to these categories:
+        <br />
+<form>
+    <select multiple="multiple">
+@foreach (var category in ViewBag.CategoriesWithProduct)
+{
+        <option>@category.Name</option>
+}
+    </select>
+
+    <button>>></button>
+    <button><<</button>
+
+    <select multiple="multiple">
+@foreach (var category in ViewBag.CategoriesWithoutProduct)
+{
+        <option>@category.Name</option>
+}
+    </select>
+
+    <input type="submit" value="GO" />
+</form>
+<br />
+<form>
+    Image1 file name: @Model.Thumb <br />
+    <input type="file" name="image1FileUpload" />
+    <button>Upload</button>
+</form>
+<br />
+<img src="/content/productimages/@Model.Thumb" />
+<br />
+<form>
+    Image2 file name: @Model.Image <br />
+    <input type="file" name="image2FileUpload" />
+    <button>Upload</button>
+</form>
+<br />
+<img src="/content/productimages/@Model.Image" />
+
+
+<form>
+    <button>DELETE PRODUCT</button>
+</form>
