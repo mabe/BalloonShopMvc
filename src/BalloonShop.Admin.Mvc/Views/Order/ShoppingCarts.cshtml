@@ -2,10 +2,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <span class="AdminTitle">Shopping Cart Admin</span>
-<form>
+<form action="/order/shoppingcarts" method="post">
     <br />
     <span class="AdminPageText">How many days?</span>
-    <select name="daysList">
+    <select name="days">
         <option value="0">All shopping carts</option>
         <option value="1">One</option>
         <option value="10" selected="True">Ten</option>
@@ -14,6 +14,8 @@
         <option value="90">Ninety</option>
     </select><br />
     <br />
-    <button>Count Old Shopping Carts</button>
-    <button>Delete Old Shopping Carts</button>
+    <button name="action" value="count">Count Old Shopping Carts</button>
+    <button name="action" value="delete">Delete Old Shopping Carts</button>
+    <br />
+    <span class="AdminPageText">@(ViewBag.Count != null ? string.Format("There is {0} shoppingcart(s).", ViewBag.Count) : "")</span>
 </form>
