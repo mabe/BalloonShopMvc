@@ -81,8 +81,10 @@ namespace BalloonShop.Admin.Mvc.Controllers
         };
 
         [HttpPost]
-        public ActionResult Process(int id, int status) {
+        public ActionResult Process(int id) {
             var order = _session.Get<Order>(id);
+
+            var status = order.Status;
 
             if (messages.ContainsKey(status)) {
                 _bus.Send(messages[status](order.SagaCorrelationId));

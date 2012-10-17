@@ -81,7 +81,6 @@
 <br />
 <form action="/order/process" method="post">
     <input type="hidden" name="id" value="@Model.Id" />
-    <input type="hidden" name="status" value="@Model.Status" />
     <button class="AdminButtonText" style="width:100px;"@(ViewBag.OrderProcessFinished ? "disabled" : "")>Process Order</button>
 </form>
 <br />
