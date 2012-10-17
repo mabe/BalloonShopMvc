@@ -24,7 +24,9 @@ namespace BalloonShop.Server.Sagas
                     Orchestrates<PSCheckStockMessage>,
                     Orchestrates<PSStockOKMessage>,
                     Orchestrates<PSTakePaymentMessage>,
-                    Orchestrates<PSShipGoodsMessage>
+                    Orchestrates<PSShipGoodsMessage>,
+                    Orchestrates<PSShipOKMessage>,
+                    Orchestrates<PSFinalNotificationMessage>
     {
         private readonly IServiceBus _bus;
         private readonly IEmailService _emailService;
@@ -50,16 +52,17 @@ namespace BalloonShop.Server.Sagas
 
             MakeAudit(20000, "InitialNotification started.");
 
-            var order = _session.Get<Order>(message.OrderId);
+            var order = _session.Get<Order>(State.OrderId);
+            var account = _session.Get<Account>(order.CustomerId);
 
             var subject = "BalloonShop order received.";
 
             var sb = new StringBuilder();
             sb.Append("Thank you for your order! The products you have "
               + "ordered are as follows:\n\n");
-            sb.Append(OrderAsString(order));
+            sb.Append(order.AsString());
             sb.Append("\n\nYour order will be shipped to:\n\n");
-            sb.Append(CustomerAddressAsString(order));
+            sb.Append(account.Address());
             sb.Append("\n\nOrder reference number:\n\n");
             sb.Append(order.Id.ToString());
             sb.Append(
@@ -152,7 +155,7 @@ namespace BalloonShop.Server.Sagas
                 // construct message body
                 var sb = new StringBuilder();
                 sb.Append("The following goods have been ordered:\n\n");
-                sb.Append(OrderAsString(order));
+                sb.Append(order.AsString());
                 sb.Append("\n\nPlease check availability and confirm via ");
                 sb.Append("http://balloonshop.apress.com/OrdersAdmin.aspx");
                 sb.Append("\n\nOrder reference number:\n\n");
@@ -252,13 +255,14 @@ namespace BalloonShop.Server.Sagas
             try
             {
                 var order = _session.Get<Order>(State.OrderId);
+                var account = _session.Get<Account>(order.CustomerId);
 
                 var sb = new StringBuilder();
                 sb.Append(
                   "Payment has been received for the following goods:\n\n");
-                sb.Append(OrderAsString(order));
+                sb.Append(order.AsString());
                 sb.Append("\n\nPlease ship to:\n\n");
-                sb.Append(CustomerAddressAsString(order));
+                sb.Append(account.Address());
                 sb.Append("\n\nWhen goods have been shipped, please confirm via ");
                 sb.Append("http://balloonshop.apress.com/OrdersAdmin.aspx");
                 sb.Append("\n\nOrder reference number:\n\n");
@@ -283,73 +287,56 @@ namespace BalloonShop.Server.Sagas
             MakeAudit(20501, "PSShipGoods finished.");
         }
 
+        public void Consume(PSShipOKMessage message)
+        {
+            var order = _session.Get<Order>(State.OrderId);
+
+            order.SetDateShipped();
+            
+            MakeAudit(20602, "Order dispatched by supplier.");
+            
+            order.Status = 7;
+            
+            MakeAudit(20601, "PSShipOK finished.");
+
+            _bus.Send(new PSFinalNotificationMessage() { CorrelationId = message.CorrelationId });
+        }
+
+        public void Consume(PSFinalNotificationMessage message)
+        {
+            MakeAudit(20700, "PSFinalNotification started.");
+
+            try
+            {
+                var order = _session.Get<Order>(State.OrderId);
+                var account = _session.Get<Account>(order.CustomerId);
+
+                var sb = new StringBuilder();
+                sb.Append("Your order has now been dispatched! The following " + "products have been shipped:\n\n");
+                sb.Append(order.AsString());
+                sb.Append("\n\nYour order has been shipped to:\n\n");
+                sb.Append(account.Address());
+                sb.Append("\n\nOrder reference number:\n\n");
+                sb.Append(order.Id.ToString());
+                sb.Append("\n\nThank you for shopping at BalloonShop!");
+                
+                _emailService.Send("", order.CustomerEmail, "BalloonShop order dispatched.", sb.ToString());
+
+                MakeAudit(20702, "Dispatch e-mail sent to customer.");
+   
+                order.Status = 8;
+            }
+            catch
+            {
+                throw new Exception("Unable to send e-mail to customer.");
+            }
+            
+            MakeAudit(20701, "PSFinalNotification finished.");
+        }
+
         private void MakeAudit(int number, string message)
         {
             _session.Save(new Audit(State.OrderId, number, message));
         }
-
-        private string CustomerAddressAsString(Order order)
-        {
-            var account = _session.Get<Account>(order.CustomerId);
-
-            var sb = new StringBuilder();
-            sb.AppendLine(account.Email);
-            sb.AppendLine(account.Details.Address1);
-            sb.AppendLine(account.Details.Address2 ?? "");
-            sb.AppendLine(account.Details.City);
-            sb.AppendLine(account.Details.Region);
-            sb.AppendLine(account.Details.PostalCode);
-            sb.AppendLine(account.Details.Country);
-
-            return sb.ToString();
-        }
-
-        private string OrderAsString(Order order)
-        {
-            var shipping = order.Shipping;
-            var tax = order.Tax;
-
-            // calculate total cost and set data
-            var sb = new StringBuilder();
-            var TotalCost = 0.0m;
-            foreach (var item in order.OrderDetails)
-            {
-                sb.AppendLine(ItemAsString(item));
-                TotalCost += item.Subtotal;
-            }
-            // Add shipping cost
-            if (shipping != null)
-            {
-                sb.AppendLine("Shipping: " + shipping.Name);
-                TotalCost += shipping.Cost;
-            }
-            // Add tax
-            if (tax != null)
-            {
-                var taxAmount = Math.Round(TotalCost * tax.Percentage, MidpointRounding.AwayFromZero) / 100.0m;
-                sb.AppendLine("Tax: " + tax.Name + ", $" + taxAmount.ToString());
-                TotalCost += taxAmount;
-            }
-            sb.AppendLine();
-            sb.Append("Total order cost: $");
-            sb.Append(TotalCost.ToString());
-
-            return sb.ToString();
-        }
-
-        private string ItemAsString(OrderDetail item)
-        {
-            StringBuilder sb = new StringBuilder();
-            sb.Append(item.Quantity.ToString());
-            sb.Append(" ");
-            sb.Append(item.ProductName);
-            sb.Append(", $");
-            sb.Append(item.UnitCost.ToString());
-            sb.Append(" each, total cost $");
-            sb.Append(item.Subtotal.ToString());
-
-            return sb.ToString();
-        }
-
     }
 }

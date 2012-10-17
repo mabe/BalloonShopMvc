@@ -2,37 +2,54 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<span class="AdminPageText">Show orders by customer</span>
-<select name="userDropDown"></select>
-<button class="AdminButtonText">Go</button>
-<br />
-Get order by ID
-    <input type="text" name="orderIDBox" style="width: 77px;" />
-<button name="byIDGo" class="AdminButtonText">Go</button>
-<br />
-Show the most recent
-<input type="text" name="recentCountTextBox" maxlength="4" style="width: 40px;" value="20" />
-orders
+<form action="/order/index" method="get">
+    <span class="AdminPageText">Show orders by customer</span>
+    <select name="customer">
+        <option value="">Choose</option>
+        @foreach (var customer in ViewBag.Customers)
+        {
+            <option value="@customer.Id" @(customer.Id == ViewBag.CustomerId ? "selected=\"selected\"" : "")>@customer.Email</option>
+        }
+    </select>
     <button class="AdminButtonText">Go</button>
+</form>
 <br />
-Show all orders created between
-    <input type="text" name="startDateTextBox" style="width: 72px;" />
-and
-<input type="text" name="endDateTextBox" style="width: 72px;" />
-<button class="AdminButtonText">Go</button>
+<form action="/order/index" method="get">
+    <span class="AdminPageText">Get order by ID</span>
+    <input type="text" name="orderid" style="width: 77px;" value="@ViewBag.OrderId" />
+    <button class="AdminButtonText">Go</button>
+</form>
 <br />
-Show all orders awaiting stock check
-<button class="AdminButtonText">Go</button>
+<form action="/order/index" method="get">
+    <span class="AdminPageText">Show the most recent
+        <input type="text" name="recentcount" maxlength="4" style="width: 40px;" value="20" />
+        orders</span>
+    <button class="AdminButtonText">Go</button>
+</form>
 <br />
-Show all orders awaiting shipment
-<button class="AdminButtonText">Go</button>
+<form action="/order/index" method="get">
+    <span class="AdminPageText">Show all orders created between
+        <input type="text" name="startdate" class="date" style="width: 72px;" />
+        and
+        <input type="text" name="enddate" class="date" style="width: 72px;" />
+    </span>
+    <button class="AdminButtonText">Go</button>
+</form>
+<br />
+<form action="/order/index" method="get">
+    <span class="AdminPageText">Show all orders awaiting stock check
+        <button name="filter" value="awatingstockcheck" class="AdminButtonText">Go</button></span>
+</form>
+<br />
+<form action="/order/index" method="get">
+    <span class="AdminPageText">Show all orders awaiting shipment
+        <button name="filter" value="awatingshipment" class="AdminButtonText">Go</button></span>
+</form>
 <br />
 <br />
-<br />
-<table>
+<table class="Grid" cellspacing="0" cellpadding="5">
     <thead>
-        <tr>
+        <tr class="GridHeader">
             <th>Order ID</th>
             <th>Date Created</th>
             <th>Date Shipped</th>
@@ -42,16 +59,17 @@ Show all orders awaiting shipment
         </tr>
     </thead>
     <tbody>
-@foreach (var order in Model)
-{
-        <tr>
-            <td>@order.Id</td>
-            <td>@order.DateCreated</td>
-            <td>@order.DateShipped</td>
-            <td>@order.StatusText()</td>
-            <td><a href="@Url.Action("Edit", "Order", new { id = order.Id })">Select</a></td>
-        </tr>
-}
+        @foreach (var item in Model.Select((x, i) => new { order = x, index = i }))
+        {
+            <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
+                <td>@item.order.Id</td>
+                <td>@item.order.DateCreated</td>
+                <td>@item.order.DateShipped</td>
+                <td>@item.order.StatusText()</td>
+                <td></td>
+                <td><a href="@Url.Action("Edit", "Order", new { id = item.order.Id })">Select</a></td>
+            </tr>
+        }
     </tbody>
 </table>
 <br />

@@ -106,7 +106,9 @@
     <Compile Include="Messages\InitialNotificationMessage.cs" />
     <Compile Include="Messages\PSCheckFundsMessage.cs" />
     <Compile Include="Messages\PSCheckStockMessage.cs" />
+    <Compile Include="Messages\PSFinalNotificationMessage.cs" />
     <Compile Include="Messages\PSShipGoodsMessage.cs" />
+    <Compile Include="Messages\PSShipOKMessage.cs" />
     <Compile Include="Messages\PSStockOKMessage.cs" />
     <Compile Include="Messages\PSTakePaymentMessage.cs" />
     <Compile Include="Model\Account.cs" />

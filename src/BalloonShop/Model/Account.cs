@@ -32,6 +32,21 @@ namespace BalloonShop.Model
 		public virtual bool Authenticate(string password) {
 			return Password == Hash(password);
 		}
+
+        public virtual string Address()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(Details.Address1);
+            if (!string.IsNullOrEmpty(Details.Address2))
+            {
+                sb.AppendLine(Details.Address2);
+            }
+            sb.AppendLine(Details.PostalCode + " " + Details.City);
+            sb.AppendLine(Details.Region);
+            sb.AppendLine(Details.Country);
+
+            return sb.ToString();
+        }
 	}
 
 	public class AccountMap : ClassMap<Account>

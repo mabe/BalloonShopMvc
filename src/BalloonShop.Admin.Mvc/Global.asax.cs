@@ -1,6 +1,8 @@
 ﻿using BalloonShop.Mvc.Config;
 using NHibernate;
 using NHibernate.Context;
+using Rhino.ServiceBus;
+using Rhino.ServiceBus.Impl;
 using StructureMap;
 using System;
 using System.Collections.Generic;
@@ -40,6 +42,7 @@ namespace BalloonShop.Admin.Mvc
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
             RegisterDependencyInjector(ObjectFactory.Container);
+            RegisterBus(ObjectFactory.Container);
         }
 
         private void RegisterDependencyInjector(IContainer container)
@@ -54,6 +57,11 @@ namespace BalloonShop.Admin.Mvc
             });
 
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(container));
+        }
+
+        private void RegisterBus(IContainer container)
+        {
+            new OnewayRhinoServiceBusConfiguration().UseStructureMap(container).Configure();
         }
 
         public MvcApplication()

@@ -41,7 +41,7 @@ namespace BalloonShop.Model
         public virtual int Status { get; set; }
 
         public virtual DateTime DateCreated { get; protected set; }
-        public virtual DateTime? DateShipped { get; set; }
+        public virtual DateTime? DateShipped { get; protected set; }
 
         protected IList<OrderDetail> _orderDetails;
         public virtual IEnumerable<OrderDetail> OrderDetails { get { return _orderDetails; } }
@@ -99,6 +99,58 @@ namespace BalloonShop.Model
               "Order completed",                   // 8
               "Order cancelled"                    // 9
         };
+
+        public void SetDateShipped()
+        {
+            DateShipped = DateTime.Now;
+        }
+
+        public virtual string AsString()
+        {
+            var shipping = Shipping;
+            var tax = Tax;
+
+            // calculate total cost and set data
+            var sb = new StringBuilder();
+            var TotalCost = 0.0m;
+            foreach (var item in OrderDetails)
+            {
+                sb.AppendLine(ItemAsString(item));
+                TotalCost += item.Subtotal;
+            }
+            // Add shipping cost
+            if (shipping != null)
+            {
+                sb.AppendLine("Shipping: " + shipping.Name);
+                TotalCost += shipping.Cost;
+            }
+            // Add tax
+            if (tax != null)
+            {
+                var taxAmount = Math.Round(TotalCost * tax.Percentage, MidpointRounding.AwayFromZero) / 100.0m;
+                sb.AppendLine("Tax: " + tax.Name + ", $" + taxAmount.ToString());
+                TotalCost += taxAmount;
+            }
+            sb.AppendLine();
+            sb.Append("Total order cost: $");
+            sb.Append(TotalCost.ToString());
+
+            return sb.ToString();
+        }
+
+        private string ItemAsString(OrderDetail item)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(item.Quantity.ToString());
+            sb.Append(" ");
+            sb.Append(item.ProductName);
+            sb.Append(", $");
+            sb.Append(item.UnitCost.ToString());
+            sb.Append(" each, total cost $");
+            sb.Append(item.Subtotal.ToString());
+
+            return sb.ToString();
+        }
     }
 
     public class OrderMap : ClassMap<Order>

@@ -6,6 +6,7 @@
 <span class="AdminTitle">Displaying Order #@Model.Id</span>
 <br />
 <br />
+<form>
 <table class="AdminPageText">
     <tr>
         <td width="130">Total Cost:</td>
@@ -14,21 +15,21 @@
         </td>
     </tr>
     <tr>
+        <td width="130">Status:</td>
+        <td>
+            @Model.StatusText()
+        </td>
+    </tr>
+    <tr>
         <td width="130">Date Created:</td>
         <td>
-            <input type="text" name="dateCreatedTextBox" style="width:400px;" value="@Model.DateCreated" />
+            @Model.DateCreated
         </td>
     </tr>
     <tr>
         <td width="130">Date Shipped:</td>
         <td>
-            <input type="text" name="dateShippedTextBox" style="width:400px;" value="@Model.DateShipped" />
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Status:</td>
-        <td>
-            @Model.StatusText()
+            @Model.DateShipped
         </td>
     </tr>
     <tr>
@@ -58,13 +59,13 @@
     <tr valign="top">
         <td width="130">Shipping Address:</td>
         <td>
-            <textarea style="width:400px; height:200px;" disabled="disabled" name="shippingAddressTextBox"></textarea>
+            <textarea style="width:400px; height:200px;" disabled="disabled" name="shippingAddressTextBox">@ViewBag.Customer.Address()</textarea>
         </td>
     </tr>
     <tr valign="top">
         <td width="130">Shipping Type:</td>
         <td>
-            <input type="text" name="shippingTypeTextBox" style="width:400px;" value="" disabled="disabled" />
+            <input type="text" name="shippingTypeTextBox" style="width:400px;" value="@Model.Shipping.Name" disabled="disabled" />
         </td>
     </tr>
     <tr>
@@ -76,21 +77,24 @@
 </table>
 <br />
 <button class="AdminButtonText" style="width:100px;">Edit</button>
-<button class="AdminButtonText" style="width:100px;">Update</button>
-<button class="AdminButtonText" style="width:100px;">Cancel</button>
+    </form>
 <br />
-<button class="AdminButtonText" style="width:100px;">Process Order</button>
+<form action="/order/process" method="post">
+    <input type="hidden" name="id" value="@Model.Id" />
+    <input type="hidden" name="status" value="@Model.Status" />
+    <button class="AdminButtonText" style="width:100px;"@(ViewBag.OrderProcessFinished ? "disabled" : "")>Process Order</button>
+</form>
 <br />
 <form action="/order/cancel/" method="post">
     <input type="hidden" name="id" value="@Model.Id" />
-    <input type="submit" class="AdminButtonText" style="width:310px;" value="Cancel Order" />
+    <input type="submit" class="AdminButtonText" style="width:100px;" value="Cancel Order" />
 </form>
 <br />
 <span class="AdminPageText">The order contains these items:</span>
 <br />
-<table>
+<table class="Grid" cellpadding="5" cellspacing="0">
     <thead>
-        <tr>
+        <tr class="GridHeader">
             <th>Product ID</th>
             <th>Product Name</th>
             <th>Quantity</th>
@@ -99,14 +103,14 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var detail in Model.OrderDetails)
+@foreach (var item in Model.OrderDetails.Select((x, i) => new { detail = x, index = i }))
 {
-        <tr>
-            <td>@detail.ProductId</td>
-            <td>@detail.ProductName</td>
-            <td>@detail.Quantity</td>
-            <td>@detail.UnitCost.ToString("0.00")</td>
-            <td>@detail.Subtotal.ToString("0.00")</td>
+        <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
+            <td>@item.detail.ProductId</td>
+            <td>@item.detail.ProductName</td>
+            <td>@item.detail.Quantity</td>
+            <td>@item.detail.UnitCost.ToString("0.00")</td>
+            <td>@item.detail.Subtotal.ToString("0.00")</td>
         </tr>
 }
     </tbody>
@@ -115,9 +119,9 @@
 <span class="AdminPageText">Order audit trail:</span>
 <br />
 
-<table>
+<table class="Grid" cellpadding="5" cellspacing="0">
     <thead>
-        <tr>
+        <tr class="GridHeader">
             <th>Audit ID</th>
             <th>Date Stamp</th>
             <th>Message Number</th>
@@ -125,13 +129,13 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var audit in ViewBag.Audits)
+@foreach (var item in (ViewBag.Audits as IEnumerable<Audit>).Select((x, i) => new { audit = x, index = i }))
 {
-        <tr>
-            <td>@audit.Id</td>
-            <td>@audit.Date</td>
-            <td>@audit.MessageNumber</td>
-            <td>@audit.Message</td>
+        <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
+            <td>@item.audit.Id</td>
+            <td>@item.audit.Date</td>
+            <td>@item.audit.MessageNumber</td>
+            <td>@item.audit.Message</td>
         </tr>
 }
     </tbody>
