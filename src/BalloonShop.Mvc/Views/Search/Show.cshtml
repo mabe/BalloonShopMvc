@@ -1,0 +1,16 @@
+﻿@model System.Collections.Generic.IEnumerable<BalloonShop.Model.Balloon>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Navigation {
+    @{ Html.RenderAction("Navigation", "Department"); }
+    <br />
+    @{ Html.RenderPartial("../Search/SearchForm"); }
+    <br />
+    @{ Html.RenderAction("Summary", "Cart"); }
+}
+
+<span class="CatalogTitle">Product Search</span><br />
+@(Html.Paging<Balloon, SearchController>(Model, page => controller => controller.Show((string)ViewData["search"], (bool)ViewData["allWords"], page)))
+@{ Html.RenderPartial("../Balloon/List"); }

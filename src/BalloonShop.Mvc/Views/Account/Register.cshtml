@@ -1,0 +1,27 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Navigation {
+    @{ Html.RenderAction("Navigation", "Department"); }
+    <br />
+    @{ Html.RenderPartial("../Search/SearchForm"); }
+    <br />
+    @{ Html.RenderAction("Summary", "Cart"); }
+}
+
+<h2 class="CatalogTitle">Register</h2>
+
+<form method="post" action="@Url.Action("Register")">
+    <div class="UserInfoText">
+        <label>Email:</label>
+        <input type="text" name="Email" placeholder="Email" /><br />
+
+        <label>Password:</label>
+        <input type="password" name="Password" placeholder="Password" /><br />
+
+        @Html.ValidationSummary(false)
+
+        <input type="submit" value="Register" />
+    </div>
+</form>

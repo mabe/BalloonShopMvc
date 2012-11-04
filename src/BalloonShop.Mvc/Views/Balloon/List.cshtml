@@ -1,0 +1,24 @@
+﻿@model System.Collections.Generic.IEnumerable<BalloonShop.Model.Balloon>
+<table>
+    <tr>
+@foreach (var item in Model.Select((x, i) => new { Index = i + 1, Product = x }).ToList()) { 
+        <td>
+            <table cellpadding="0" align="left">
+                <tr height="105">
+                    <td align="center" width="110">
+                        <a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })">
+                            <img width="100" src="/Content/ProductImages/@item.Product.Thumb" border="0" />
+                        </a>
+                    </td>
+                    <td valign="top" width="250">
+                        <a class="ProductName" href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })">@item.Product.Name</a>
+                        <br />
+                        <span class="ProductDescription">@item.Product.Description.ShortenText()<br /><br />Price: </span><span class="ProductPrice">@item.Product.Price.ToString("c")</span>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    @(Html.Raw((item.Index % 2 == 0) ? "</tr><tr>" : ""))
+}
+    </tr>
+</table>

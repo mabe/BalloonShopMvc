@@ -14,25 +14,23 @@
 <br />
 Product belongs to these categories:
         <br />
-<form>
-    <select multiple="multiple">
+<form id="categories" method="post"> 
+    <select name="categorieswithproduct" multiple="multiple">
 @foreach (var category in ViewBag.CategoriesWithProduct)
 {
         <option>@category.Name</option>
 }
     </select>
 
-    <button>>></button>
-    <button><<</button>
+    <button formaction="">>></button>
+    <button formaction=""><<</button>
 
-    <select multiple="multiple">
+    <select name="categorieswithoutproduct" multiple="multiple">
 @foreach (var category in ViewBag.CategoriesWithoutProduct)
 {
         <option>@category.Name</option>
 }
     </select>
-
-    <input type="submit" value="GO" />
 </form>
 <br />
 <form>

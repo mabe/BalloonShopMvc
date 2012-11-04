@@ -44,49 +44,52 @@
 
 </table>
 <br />
-<form>
+<form method="post">
+    <input type="hidden" name="id" value="0" />
+    <input type="hidden" name="categoryid" value="@ViewBag.CategoryId" />
+
     <span class="AdminPageText">Create a new product and assign it to this category:</span>
     <table class="AdminPageText" cellspacing="0">
         <tr>
             <td width="100" valign="top">Name:</td>
             <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="Name" />
+                <input type="text" style="width:400px;" class="AdminPageText" name="name" value="@ViewBag.Product.Name" />
             </td>
         </tr>
         <tr>
             <td width="100" valign="top">Description:</td>
             <td>
-                <textarea class="AdminPageText" name="Description" style="width:400px;height:70px;"></textarea>
+                <textarea class="AdminPageText" name="description" style="width:400px;height:70px;"></textarea>
             </td>
         </tr>
         <tr>
             <td width="100" valign="top">Price:</td>
             <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="Price" value="0.00" />
+                <input type="text" style="width:400px;" class="AdminPageText" name="price" value="0.00" />
             </td>
         </tr>
         <tr>
             <td width="100" valign="top">Image1 File:</td>
             <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="Image1FileName" value="Generic1.png" />
+                <input type="text" style="width:400px;" class="AdminPageText" name="image1FileName" value="" />
             </td>
         </tr>
         <tr>
             <td width="150" valign="top">Image2 File:</td>
             <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="Image2FileName" value="Generic2.png" />
+                <input type="text" style="width:400px;" class="AdminPageText" name="image2FileName" value="" />
             </td>
         </tr>
         <tr>
             <td width="150" valign="top">Dept. Promotion:</td>
             <td>
-                <input type="checkbox" name="OnDepartmentPromotion" />
+                <input type="checkbox" name="onDepartmentPromotion" />
             </td>
         </tr>
         <tr>
             <td width="150" valign="top">Catalog Promotion:</td>
             <td>
-                <input type="checkbox" name="OnCatalogPromotion" />
+                <input type="checkbox" name="onCatalogPromotion" />
             </td>
         </tr>
     </table>

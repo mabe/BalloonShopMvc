@@ -167,21 +167,31 @@
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Views\Account\Details.aspx" />
-    <Content Include="Views\Order\Placed.aspx" />
-    <Content Include="Views\Shared\DisplayTemplates\AccountDetailsViewModel.ascx" />
-    <Content Include="Views\Shared\EditorTemplates\AccountDetailsViewModel.ascx" />
-    <Content Include="Views\Account\Login.aspx" />
-    <Content Include="Views\Account\Navigation.ascx" />
-    <Content Include="Views\Account\Navigation_NotAuthenticated.ascx" />
-    <Content Include="Views\Account\Register.aspx" />
-    <Content Include="Views\Cart\Checkout.aspx" />
-    <Content Include="Views\Cart\Index.aspx" />
-    <Content Include="Views\Cart\Summary.ascx" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
     <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Web.config" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Department\Navigation.cshtml" />
+    <Content Include="Views\Department\Show.cshtml" />
+    <Content Include="Views\Category\Navigation.cshtml" />
+    <Content Include="Views\Category\Show.cshtml" />
+    <Content Include="Views\Balloon\List.cshtml" />
+    <Content Include="Views\Balloon\Show.cshtml" />
+    <Content Include="Views\Cart\Summary.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
+    <Content Include="Views\Cart\Checkout.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Order\Placed.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Account\Navigation_NotAuthenticated.cshtml" />
+    <Content Include="Views\Account\Navigation.cshtml" />
+    <Content Include="Views\Search\SearchForm.cshtml" />
+    <Content Include="Views\Search\Show.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AccountDetailsViewModel.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\AccountDetailsViewModel.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BalloonShop.css" />
@@ -313,18 +323,6 @@
     <Content Include="Content\ProductImages\t83947.jpg" />
     <Content Include="Content\ProductImages\t83951.jpg" />
     <Content Include="Content\ProductImages\ta1180401.jpg" />
-    <Content Include="Views\Balloon\List.ascx" />
-    <Content Include="Views\Balloon\Show.aspx" />
-    <Content Include="Views\Category\Navigation.ascx" />
-    <Content Include="Views\Category\Show.aspx" />
-    <Content Include="Views\Department\Navigation.ascx" />
-    <Content Include="Views\Department\Show.aspx" />
-    <Content Include="Views\Home\Index.aspx" />
-    <Content Include="Views\Product\List.ascx" />
-    <Content Include="Views\Search\SearchForm.ascx" />
-    <Content Include="Views\Search\Show.aspx" />
-    <Content Include="Views\Shared\Admin.master" />
-    <Content Include="Views\Shared\BalloonShop.master" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Images\Thumbs.db" />

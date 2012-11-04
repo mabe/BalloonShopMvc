@@ -67,8 +67,29 @@ namespace BalloonShop.Admin.Mvc.Controllers
 
             ViewBag.CategoryId = categoryid;
             ViewBag.DepartmentId = category.Department.Id;
+            ViewBag.Product = id.HasValue ? _session.Get<Balloon>(id.Value) : new Balloon();
 
             return View(_session.BalloonsInCategory(categoryid).List());
+        }
+
+        [HttpPost]
+        public ActionResult Products(int id, int categoryid, string name, string description, decimal price, string imageFileName1, string imageFileName2, bool onDepartmentPromotion, bool onCatalogPromotion)
+        {
+            var product = _session.Get<Balloon>(id) ?? new Balloon();
+
+            product.Name = name;
+            product.Description = description;
+            product.Price = price;
+            product.Thumb = imageFileName1;
+            product.Image = imageFileName2;
+            product.OnDepartmentPromotion = onDepartmentPromotion;
+            product.OnCatalogPromotion = onCatalogPromotion;
+
+            if (id == 0) {
+                _session.Save(product);
+            }
+
+            return RedirectToAction("Products", "Catalog", new { categoryid });
         }
 
         public ActionResult Product(int id, int categoryid) {

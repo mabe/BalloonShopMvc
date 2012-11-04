@@ -100,7 +100,7 @@ namespace BalloonShop.Model
               "Order cancelled"                    // 9
         };
 
-        public void SetDateShipped()
+        public virtual void SetDateShipped()
         {
             DateShipped = DateTime.Now;
         }

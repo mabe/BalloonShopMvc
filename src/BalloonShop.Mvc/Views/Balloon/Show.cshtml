@@ -1,0 +1,34 @@
+﻿@model BalloonShop.Model.Balloon
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Navigation {
+    @{Html.RenderAction("Navigation", "Department");}
+    <br />
+    @{Html.RenderPartial("../Search/SearchForm");}
+    <br />
+    @{Html.RenderAction("Summary", "Cart");}
+}
+<br />
+<h1>@Model.Name</h1>
+<br />
+<br />
+<img src="/Content/ProductImages/@Model.Image" />
+<br />
+<p class="ProductDescription">
+    @Model.Description
+</p>
+<br />
+<br />
+<span class="ProductDescription">Price:</span>
+<span class="ProductPrice">@Model.Price.ToString("c")</span>
+
+<br />
+<form method="post" action="@Url.Action("Add", "Cart")">
+    <input type="hidden" name="balloonId" value="@Model.Id" />
+    <input type="submit" value="Add to Cart" class="SmallButtonText" />
+</form>
+<br />
+<br />
+

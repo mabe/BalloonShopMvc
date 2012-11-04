@@ -1,0 +1,33 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BalloonShop</title>
+    <link type="text/css" rel="Stylesheet" href="/Content/BalloonShop.css" />
+</head>
+<body>
+    <table cellspacing="0" cellpadding="0" width="770" border="0">
+        <tr>
+            <td width="220" valign="top">
+				@{Html.RenderAction("Navigation", "Account");}
+				<br />
+                @RenderSection("Navigation", false)
+            </td>
+            <td valign="top">
+                <p align="center">
+                    <a href="@Url.Content("~/")">
+                        <img src="/Content/Images/BalloonShopLogo.png" border="0">
+                    </a>
+                </p>
+                @RenderBody()
+            </td>
+        </tr>
+    </table>
+    <script src="/Scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+    @RenderSection("Script", false)
+</body>
+</html>
+

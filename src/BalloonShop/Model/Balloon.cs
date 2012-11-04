@@ -4,6 +4,12 @@ namespace BalloonShop.Model
 {
     public class Balloon
     {
+        public Balloon()
+        {
+            Thumb = "Generic1.png";
+            Image = "Generic2.png";
+        }
+
         public virtual string Name { get; set; }
 
         public virtual string Thumb { get; set; }

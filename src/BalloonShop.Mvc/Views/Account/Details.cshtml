@@ -1,0 +1,24 @@
+﻿@model BalloonShop.Mvc.Models.AccountDetailsViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Navigation {
+    @{ Html.RenderAction("Navigation", "Department"); }
+    <br />
+    @{ Html.RenderPartial("../Search/SearchForm"); }
+    <br />
+    @{ Html.RenderAction("Summary", "Cart"); }
+}
+
+<h2 class="CatalogTitle">Details</h2>
+
+<form method="post">
+
+    @Html.EditorForModel()
+
+    @Html.ValidationSummary(false)
+
+    <input type="submit" value="Update" />
+
+</form>

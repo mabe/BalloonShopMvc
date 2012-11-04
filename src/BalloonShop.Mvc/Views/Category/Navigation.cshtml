@@ -1,0 +1,23 @@
+﻿@model System.Collections.Generic.IEnumerable<BalloonShop.Model.Category>
+
+<table style="width: 200px; border-collapse: collapse;" border="0" cellspacing="0"
+    class="CategoryListContent">
+    <thead>
+        <tr>
+            <th class="CategoryListHead">
+                Choose a Category
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var category in Model) {
+        <tr>
+            <td>
+                &nbsp;&raquo;
+                    <a href="@Url.Action("Show", "Category", new { Id = category.Id })" class="@(category.Id == (int)ViewData["CategoryId"] ? "CategorySelected" : "CategoryUnselected")" title="@category.Description">@category.Name</a>
+                &nbsp;&laquo;
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

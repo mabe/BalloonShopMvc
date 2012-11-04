@@ -1,0 +1,22 @@
+﻿@model Department
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Navigation {
+
+    @{Html.RenderAction("Navigation", "Department", new { DepartmentId = Model.Id }); }
+    <br />
+    @{ Html.RenderAction("Navigation", "Category", new { DepartmentId = Model.Id }); }
+    <br />
+    @{ Html.RenderPartial("../Search/SearchForm"); }
+    <br />
+    @{ Html.RenderAction("Summary", "Cart"); }
+        }
+
+
+<span class="CatalogTitle">@Model.Name</span>
+<br/>
+<span class="CatalogDescription">@Model.Description</span>
+<br />
+@(Html.Paging<Balloon, DepartmentController>((object)ViewBag.PromotedBalloons, x => y => y.Show(Model.Id, x)))
+@{Html.RenderPartial("../Balloon/List", (object)ViewBag.PromotedBalloons);}
