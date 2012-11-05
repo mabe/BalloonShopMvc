@@ -14,9 +14,7 @@
 }
 
 
-<span class="CatalogTitle">@Model.Name</span>
-<br/>
-<span class="CatalogDescription">@Model.Description</span>
-<br />
-@(Html.Paging<Balloon, CategoryController>((object)ViewBag.Balloons, x => y => y.Show(Model.Id, x)))
+<h1>@Model.Name</h1>
+<p class="lead">@Model.Description</p>
 @{Html.RenderPartial("../Balloon/List", (object)ViewBag.Balloons);}
+@(Html.Paging<Balloon, CategoryController>((object)ViewBag.Balloons, x => y => y.Show(Model.Id, x)))

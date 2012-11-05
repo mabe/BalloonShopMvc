@@ -38,7 +38,8 @@ namespace BalloonShop.Mvc.Controllers
 
             var balloons = query.List<Balloon>();
 
-            var howManyPages = balloons.Count() / BalloonShopConfiguration.ProductsPerPage;
+            var hits = balloons.Count();
+            var howManyPages = hits / BalloonShopConfiguration.ProductsPerPage;
 
             var result = balloons.Skip(((page ?? 1) - 1) * BalloonShopConfiguration.ProductsPerPage)
                 .Take(BalloonShopConfiguration.ProductsPerPage)
@@ -46,6 +47,8 @@ namespace BalloonShop.Mvc.Controllers
 
             ViewData["search"] = search;
             ViewData["allWords"] = allWords;
+            ViewData["hits"] = hits;
+
             return View(new PagedList<Balloon>(page ?? 1, BalloonShopConfiguration.ProductsPerPage, howManyPages, result));
         }
 

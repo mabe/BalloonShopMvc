@@ -11,7 +11,7 @@
     @{Html.RenderAction("Summary", "Cart");}
 }
 
-<h2 class="ShoppingCartTitle">These are the products in your shopping cart:</h2>
+<h1>These are the products in your shopping cart:</h1>
 <br />
 <table cellspacing="0" cellpadding="4" style="border-width: 0px; width: 100%; border-collapse: collapse;">
     <thead>
@@ -22,7 +22,7 @@
             </th>
             <th>Quantity
             </th>
-            <th>Subtotal
+            <th style="text-align: right;">Subtotal
             </th>
         </tr>
     </thead>
@@ -39,7 +39,7 @@
                 <td>
                     @obj.Item.Quantity
                 </td>
-                <td>
+                <td style="text-align: right;">
                     @((obj.Item.Balloon.Price * obj.Item.Quantity).ToString("c"))
                 </td>
             </tr>
@@ -47,33 +47,55 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5">
+            <td colspan="3"></td>
+            <td style="text-align: right;">
                 <span class="ProductDescription">Total amount: </span><span class="ProductPrice">@ViewBag.Total.ToString("c")</span>
             </td>
         </tr>
     </tfoot>
 </table>
-<form method="post" action="@Url.Action("Checkout")">
-    <br />
-    <br />
-    @Html.DisplayFor(x => x.AccountDetails)
-    <br />
-    <span class="InfoText">Please confirm that the above details are correct before proceeding.</span>
-    <br />
-    <br />
-    <label class="InfoText">
-        Shipping type:</label>
-    <select name="ShippingType" id="ShippingType">
-        <option value="0">Please Select</option>
-        @foreach (var item in ViewBag.ShippingTypes)
-        { 
-            <option value="@item.Id" data-region="@item.Region.Id">@item.Name</option>
-        }
-    </select>
-    <br />
-    @Html.ValidationSummary(false)
-    <br />
-    <input type="submit" class="ButtonText" value="Place order" />
+<br />
+<form method="post" action="@Url.Action("Checkout")" class="form-horizontal">
+    <div class=" row-fluid">
+        <fieldset class="UserDetailsTable span5">
+            <div class="UserDetailsTableHead">User Details</div>
+            <legend class="hide"></legend>
+
+            @Html.DisplayFor(x => x.AccountDetails)
+
+        </fieldset>
+    </div>
+    <div class=" row-fluid">
+        <fieldset class="span12">
+            <br />
+            <legend class="hide"></legend>
+
+            <p>Please confirm that the above details are correct before proceeding.</p>
+            <br />
+            <div class="control-group">
+                <label class="control-label">
+                    Shipping type:</label>
+                <div class="controls">
+                    <select name="ShippingType" id="ShippingType">
+                        <option value="0">Please Select</option>
+                        @foreach (var item in ViewBag.ShippingTypes)
+                        { 
+                            <option value="@item.Id" data-region="@item.Region.Id">@item.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+
+
+            @Html.ValidationSummary(false)
+            <br />
+            <div class="form-actions" style="text-align: right;">
+                <input type="submit" class="btn btn-success btn-large" value="Place order" />
+            </div>
+
+        </fieldset>
+    </div>
 </form>
 
 

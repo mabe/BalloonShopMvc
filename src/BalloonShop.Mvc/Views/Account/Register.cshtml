@@ -10,18 +10,18 @@
     @{ Html.RenderAction("Summary", "Cart"); }
 }
 
-<h2 class="CatalogTitle">Register</h2>
+<h1>Register</h1>
 
-<form method="post" action="@Url.Action("Register")">
-    <div class="UserInfoText">
-        <label>Email:</label>
-        <input type="text" name="Email" placeholder="Email" /><br />
+<form method="post" action="@Url.Action("Register")" class="form-horizontal">
+    <fieldset>
+        <legend></legend>
 
-        <label>Password:</label>
-        <input type="password" name="Password" placeholder="Password" /><br />
+        @Html.ValidationSummary(false, "", new { @class = "alert alert-error" })
 
-        @Html.ValidationSummary(false)
+        <div class="control-group"><label class="control-label">Email:</label><div class="controls"><input type="text" name="Email" placeholder="Email" /></div></div>
 
-        <input type="submit" value="Register" />
-    </div>
+        <div class="control-group"><label class="control-label">Password:</label><div class="controls"><input type="password" name="Password" placeholder="Password" /></div></div>
+
+        <div class="form-actions"><input type="submit" value="Register" class="btn btn-primary" /></div>
+    </fieldset>
 </form>

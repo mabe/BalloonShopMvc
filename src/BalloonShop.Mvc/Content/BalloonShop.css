@@ -116,7 +116,6 @@ a.ProductName
   font-family: 'Trebuchet MS';
   text-decoration: none;
   font-weight: bold;
-  font-size: 12px;
 }
 a.ProductName:hover
 {  
@@ -394,4 +393,12 @@ a.RecommendationLink:hover
 {
     font-family: Verdana, Helvetica, sans-serif;
     font-size: 12px;
+}
+
+.product-image {
+    margin:0 20px 0px 0;  box-shadow: 2px 2px 8px 0px #808080;
+}
+
+h1 {
+    color: red;
 }

@@ -10,23 +10,38 @@
     @{ Html.RenderAction("Summary", "Cart"); }
 }
 
-<h2 class="CatalogTitle">Who Are You?</h2>
-<form method="post" action="@Url.Action("Login")">
-    <input type="hidden" name="returnUrl" value="@(ViewBag.ReturnUrl ?? "")" />
-    <div class="UserInfoText">
-        <label>
-            Email:</label>
-        <input type="text" name="email" /><br />
-        <label>
-            Password:</label>
-        <input type="password" name="password" /><br />
-        <input type="checkbox" name="remeberMe" />
-        <label>
-            Remember me next time.</label><br />
+<h1>Who Are You?</h1>
+<form method="post" action="@Url.Action("Login")" class="form-horizontal">
+    <fieldset>
+        <legend></legend>
 
-        @Html.ValidationSummary(false)
+        @Html.ValidationSummary(false, "", new { @class = "alert alert-error" })
 
-        <input type="submit" value="Log In" />
-    </div>
+        <input type="hidden" name="returnUrl" value="@(ViewBag.ReturnUrl ?? "")" />
+        <div class="control-group">
+            <label class="control-label">
+                Email:</label><div class="controls">
+                    <input type="text" name="email" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">
+                Password:</label>
+            <div class="controls">
+                <input type="password" name="password" /></div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls"><label class="checkbox">
+            <input type="checkbox" name="remeberMe" />
+            Remember me next time.</label></div>
+        </div>
+
+        <div class="form-actions">
+            <input type="submit" value="Log In" class="btn btn-primary" />
+        </div>
+
+    </fieldset>
 </form>
 <span class="InfoText">You must be logged in to place an order. If you aren't yet registered with the site, click <a href="@Url.Action("Register")" title="Go to the registration page" class="UserInfoLink">here</a>. </span>

@@ -1,16 +1,9 @@
-﻿<table border="0" cellpadding="0" cellspacing="0" width="200px">
-    <tr>
-        <td class="SearchBoxHead">
-            Search the Catalog
-        </td>
-    </tr>
-    <tr>
-        <td class="SearchBoxContent">
-            @using (Html.BeginForm("Show","Search", FormMethod.Get)) {
-                <input type="text" name="search" id="search" class="SearchBox" style="border: dotted 1px #C0C0C0;height: 16px; width: 128px;" maxlength="100" />
-                <input type="submit" value="Go!" class="SearchBox" style="width: 36px; height: 21px;" />    
-                <label for="allWords">@Html.CheckBox("allWords") Search for all words</label>
-            }
-        </td>
-    </tr>
-</table>
+﻿<form method="get" action="@Url.Action("Show", "Search")" class="form-inline">
+    <h4 class="SearchBoxHead" style="margin-bottom:0px;">Search the Catalog</h4>
+
+    <div class="SearchBoxContent">
+        <input type="text" name="search" id="search" maxlength="100" class="span9" value="@ViewBag.search" />
+        <input type="submit" value="Go!" class="btn" />
+        <label class="checkbox">@Html.CheckBox("allWords") Search for all words</label>
+    </div>
+</form>

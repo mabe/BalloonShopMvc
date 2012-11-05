@@ -144,6 +144,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\IIdentityHelpers.cs" />
+    <Compile Include="Helpers\LabelHelpers.cs" />
     <Compile Include="Helpers\PagedListHelper.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
@@ -157,7 +158,15 @@
     <Compile Include="Services\IAuthenticationService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap-responsive.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\glyphicons-halflings-white.png" />
+    <Content Include="Content\Images\glyphicons-halflings.png" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.7.1-vsdoc.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
     <Content Include="Scripts\jquery-1.7.1.min.js" />
@@ -169,7 +178,6 @@
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Web.config" />
     <Content Include="Content\Site.css" />
-    <Content Include="Views\Shared\Error.aspx" />
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
@@ -192,6 +200,8 @@
     <Content Include="Views\Search\Show.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\AccountDetailsViewModel.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\AccountDetailsViewModel.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\String.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\BalloonShop.css" />
@@ -325,7 +335,6 @@
     <Content Include="Content\ProductImages\ta1180401.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Content\Images\Thumbs.db" />
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
