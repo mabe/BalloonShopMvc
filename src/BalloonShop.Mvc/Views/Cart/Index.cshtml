@@ -12,38 +12,40 @@
 <h1>Your Shopping Cart</h1>
 
 <form method="post" action="@Url.Action("Update", "Cart")">
-    <table cellspacing="0" cellpadding="4" style="border-width:0px;width:100%;border-collapse:collapse;">
+    <table class="table">
         <thead>
-            <tr class="GridHeader">
+            <tr>
+                <th></th>
                 <th>Product Name</th>
                 <th>Price</th>
                 <th>Quantity</th>
                 <th style="text-align:right;">Subtotal</th>
-                <th></th>
+                <th colspan="2"></th>
             </tr>
         </thead>
         <tbody>
         @foreach (var obj in Model.Select((x, i) => new { Item = x, Index = i }).ToList()) {
-        <tr class="@(obj.Index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
-            <td>@obj.Item.Balloon.Name</td>
-            <td>@obj.Item.Balloon.Price.ToString("c")</td>
+        <tr>
+            <td><img src="/Content/ProductImages/@obj.Item.Balloon.Thumb" class="product-image" /></td>
+            <td><a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Balloon.Id })" class="lead">@obj.Item.Balloon.Name</a></td>
+            <td><span class="uneditable-input input-mini">@obj.Item.Balloon.Price.ToString("c")</span></td>
             <td>
                 <input type="hidden" name="items[@obj.Index].Key" value="@obj.Item.Balloon.Id" />
                 <input type="text" name="items[@obj.Index].Value" maxlength="2" style="width:24px;" value="@obj.Item.Quantity" />
             </td>
-            <td style="text-align:right;">@((obj.Item.Balloon.Price * obj.Item.Quantity).ToString("c"))</td>
+            <td style="text-align:right;"><span class="uneditable-input input-mini">@((obj.Item.Balloon.Price * obj.Item.Quantity).ToString("c"))</span></td>
             <td style="text-align:right;"><button value="@obj.Item.Balloon.Id" name="remove" class="btn btn-danger" formaction="@Url.Action("Remove", "Cart")">Delete</button></td>
+            <td></td>
         </tr>       
         }
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="3"></td>
+                <td colspan="4"></td>
                 <td style="text-align:right;">
-                    <span class="ProductDescription">Total amount: </span>
-                    <span class="ProductPrice">@ViewBag.Total.ToString("c")</span>
+                    Total amount: <strong>@ViewBag.Total.ToString("c")</strong>
                 </td>
-                <td></td>
+                <td colspan="2"></td>
             </tr>
         </tfoot>
     </table>

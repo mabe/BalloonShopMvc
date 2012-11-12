@@ -12,22 +12,15 @@
 }
 
 <h1>Edit Details</h1>
+<br />
+<form method="post" class="form-horizontal">
+    @Html.EditorForModel()
 
-<div class="row-fluid">
+    @Html.ValidationSummary(false)
 
-    <form method="post" class="form-horizontal span5">
-        <fieldset class="UserDetailsTable" style="position: relative;">
-            <div class="UserDetailsTableHead">User Details</div>
-            <legend class="hide"></legend>
+    <div class="form-actions">
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+</form>
 
-            @Html.EditorForModel()
 
-            @Html.ValidationSummary(false)
-
-            <div class="form-actions" style="background: none; border: 0;">
-                <input type="submit" value="Update" />
-            </div>
-        </fieldset>
-    </form>
-
-</div>

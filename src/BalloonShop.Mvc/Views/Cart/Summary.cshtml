@@ -2,14 +2,14 @@
 <div class="CartSummary">
     @if (Model.Any())
     { 
-        <strong>Cart summary </strong><a href="@Url.Action("Index", "Cart")" class="CartLink">(view details)</a>
-        <ul>
+        <h4 style="font-size:10pt; margin:0px; text-align:center;">Cart summary <a href="@Url.Action("Index", "Cart")" class="CartLink">(view details)</a></h4>
+        <ul class="unstyled">
             @foreach (var item in Model)
             {
-                <li>@item.Quantity x @item.Balloon.Name</li>
+                <li>@item.Quantity x <a href="@Url.Action("Show", "Balloon", new { id = item.Balloon.Id })">@item.Balloon.Name</a> @((item.Balloon.Price * item.Quantity).ToString("c"))</li>
             }
         </ul>
-        <hr />
+        <hr style="margin-bottom:0px;" />
         <span>Total: <span class="ProductPrice">@ViewBag.Total.ToString("c")</span></span>
     }
     else

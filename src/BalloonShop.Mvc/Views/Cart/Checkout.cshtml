@@ -7,15 +7,14 @@
     @{Html.RenderAction("Navigation", "Department");}
     <br />
     @{Html.RenderPartial("../Search/SearchForm");}
-    <br />
-    @{Html.RenderAction("Summary", "Cart");}
 }
 
 <h1>These are the products in your shopping cart:</h1>
 <br />
-<table cellspacing="0" cellpadding="4" style="border-width: 0px; width: 100%; border-collapse: collapse;">
+<table class="table">
     <thead>
-        <tr class="GridHeader">
+        <tr>
+            <th></th>
             <th>Product Name
             </th>
             <th>Price
@@ -24,14 +23,16 @@
             </th>
             <th style="text-align: right;">Subtotal
             </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var obj in (ViewBag.Cart as IEnumerable<BalloonShop.Model.ShoppingCart>).Select((x, i) => new { Item = x, Index = i }).ToList())
         {
-            <tr class="@(obj.Index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
+            <tr>
+                <td><img src="/Content/ProductImages/@obj.Item.Balloon.Thumb" class="product-image" /></td>
                 <td>
-                    @obj.Item.Balloon.Name
+                    <a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Balloon.Id })" class="lead">@obj.Item.Balloon.Name</a>
                 </td>
                 <td>
                     @obj.Item.Balloon.Price.ToString("c")
@@ -42,29 +43,29 @@
                 <td style="text-align: right;">
                     @((obj.Item.Balloon.Price * obj.Item.Quantity).ToString("c"))
                 </td>
+                <td></td>
             </tr>
         }
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="3"></td>
+            <td colspan="4"></td>
             <td style="text-align: right;">
-                <span class="ProductDescription">Total amount: </span><span class="ProductPrice">@ViewBag.Total.ToString("c")</span>
+                Total amount: <strong>@ViewBag.Total.ToString("c")</strong>
             </td>
+            <td></td>
         </tr>
     </tfoot>
 </table>
 <br />
 <form method="post" action="@Url.Action("Checkout")" class="form-horizontal">
-    <div class=" row-fluid">
-        <fieldset class="UserDetailsTable span5">
-            <div class="UserDetailsTableHead">User Details</div>
-            <legend class="hide"></legend>
+    
+        
 
             @Html.DisplayFor(x => x.AccountDetails)
 
-        </fieldset>
-    </div>
+        
+    
     <div class=" row-fluid">
         <fieldset class="span12">
             <br />
@@ -88,7 +89,7 @@
 
 
 
-            @Html.ValidationSummary(false)
+            @Html.ValidationSummary(false, "", new { @class = "alert alert-error" })
             <br />
             <div class="form-actions" style="text-align: right;">
                 <input type="submit" class="btn btn-success btn-large" value="Place order" />

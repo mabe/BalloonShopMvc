@@ -27,7 +27,7 @@ namespace BalloonShop.Mvc.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(string customerCartId, int balloonId)
+        public ActionResult Add(string customerCartId, int balloonId, string returnurl)
         {
             var balloon = _session.Load<Balloon>(balloonId);
 
@@ -39,6 +39,10 @@ namespace BalloonShop.Mvc.Controllers
             }
 
             item.Quantity += 1;
+
+            if (returnurl != null) {
+                return Redirect(returnurl);
+            }
 
             return RedirectToAction("Show", "Balloon", new { id = balloonId });
         }
