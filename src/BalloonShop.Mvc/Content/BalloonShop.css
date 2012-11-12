@@ -1,3 +1,15 @@
+.ui-spinner input[type="text"] {
+    margin-bottom: 2px;
+}
+
+.ui-spinner {
+    margin-bottom: 10px;
+}
+
+.popover-content {
+    padding:5px;
+}
+
 .DepartmentListHead
 {
   border-right: #01a647 1px solid;

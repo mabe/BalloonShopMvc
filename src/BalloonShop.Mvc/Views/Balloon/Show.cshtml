@@ -11,24 +11,58 @@
     @{Html.RenderAction("Summary", "Cart");}
 }
 
-<h1>@Model.Name</h1>
-<img src="/Content/ProductImages/@Model.Image" class="pull-left product-image" />
-<span class="lead">
-    Price:
-    <strong>@Model.Price.ToString("c")</strong> 
-</span>
-<p>
-    @Model.Description
-</p>
-<div class="clearfix"></div>
-<br />
-<br />
-<form method="post" action="@Url.Action("Add", "Cart")">
-    <div class="form-actions">
-        <input type="hidden" name="balloonId" value="@Model.Id" />
-        <input type="submit" value="Add to Cart" class="btn btn-success btn-large" />
-    </div>
-</form>
-<br />
-<br />
+<div class="row-fluid">
+    <div class="span9">
 
+        <h1>@Model.Name</h1>
+
+        <hr />
+
+    </div>
+</div>
+
+<div class="row-fluid">
+
+    <div class="span3">
+        <img src="/Content/ProductImages/@Model.Image" class="product-image" />
+    </div>
+
+    <div class="span6">
+        <h2><strong>Price: @Model.Price.ToString("c")</strong></h2>
+    </div>
+
+    <div class="span6">
+        <form method="post" action="@Url.Action("Add", "Cart")" class="form-inline">
+            <div class="form-actions">
+                <input type="hidden" name="balloonId" value="@Model.Id" />
+                <label>Qty:</label>
+                <input type="text" name="quantity" class="input-mini spinner" placeholder="1" />
+                <input type="submit" value="Add to Cart" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+<br />
+<div class="row-fluid">
+    <div class="span9">
+
+        <ul class="nav nav-tabs">
+            <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
+            <li><a href="#reviews" data-toggle="tab">Reviews</a></li>
+            <li><a href="#related-products" data-toggle="tab">Related products</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div class="tab-pane active" id="description">
+                @Model.Description
+            </div>
+            <div class="tab-pane" id="reviews">
+                There are no reviews for this product.
+            </div>
+            <div class="tab-pane" id="related-products">
+
+            </div>
+        </div>
+
+    </div>
+</div>

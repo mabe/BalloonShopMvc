@@ -31,7 +31,7 @@
             <td><span class="uneditable-input input-mini">@obj.Item.Balloon.Price.ToString("c")</span></td>
             <td>
                 <input type="hidden" name="items[@obj.Index].Key" value="@obj.Item.Balloon.Id" />
-                <input type="text" name="items[@obj.Index].Value" maxlength="2" style="width:24px;" value="@obj.Item.Quantity" />
+                <input type="text" name="items[@obj.Index].Value" maxlength="2" class="input-mini spinner" value="@obj.Item.Quantity" />
             </td>
             <td style="text-align:right;"><span class="uneditable-input input-mini">@((obj.Item.Balloon.Price * obj.Item.Quantity).ToString("c"))</span></td>
             <td style="text-align:right;"><button value="@obj.Item.Balloon.Id" name="remove" class="btn btn-danger" formaction="@Url.Action("Remove", "Cart")">Delete</button></td>

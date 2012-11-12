@@ -1,16 +1,31 @@
 ﻿@model System.Collections.Generic.IEnumerable<BalloonShop.Model.ShoppingCart>
-<div class="CartSummary">
+<div>
     @if (Model.Any())
-    { 
-        <h4 style="font-size:10pt; margin:0px; text-align:center;">Cart summary <a href="@Url.Action("Index", "Cart")" class="CartLink">(view details)</a></h4>
-        <ul class="unstyled">
-            @foreach (var item in Model)
-            {
-                <li>@item.Quantity x <a href="@Url.Action("Show", "Balloon", new { id = item.Balloon.Id })">@item.Balloon.Name</a> @((item.Balloon.Price * item.Quantity).ToString("c"))</li>
-            }
-        </ul>
-        <hr style="margin-bottom:0px;" />
-        <span>Total: <span class="ProductPrice">@ViewBag.Total.ToString("c")</span></span>
+    {     
+        <a href="@Url.Action("Index", "Cart")" class="btn btn-block" rel="popover" data-placement="bottom" data-html="true" data-title="" data-source=".cart-content">
+            <h4 style="margin: 0px;">Cart summary</h4>
+            <span>Total: <strong>@ViewBag.Total.ToString("c")</strong></span>
+        </a>
+
+        <div class="hide">
+            <table class="cart-content" style="width:100%;">
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Quantity x&nbsp;</td>
+                        <td><a href="@Url.Action("Show", "Balloon", new { id = item.Balloon.Id })" style="width:110px; display:inline-block; white-space: nowrap; overflow:hidden; text-overflow:ellipsis;" title="@item.Balloon.Name">@item.Balloon.Name</a></td>
+                        <td style="text-align:right;">@((item.Balloon.Price * item.Quantity).ToString("c"))</td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="3"><a href="@Url.Action("Index", "Cart")">Go to cart</a></td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
     }
     else
     { 
