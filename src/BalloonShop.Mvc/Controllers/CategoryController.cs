@@ -19,16 +19,21 @@ namespace BalloonShop.Mvc.Controllers
 
         public ActionResult Navigation(int departmentId, int? selectedCategoryId)
         {
-            ViewData["CategoryId"] = selectedCategoryId ?? 0;
+            ViewBag.CategoryId = selectedCategoryId ?? 0;
 
             return PartialView(_session.CategoriesInDepartment(departmentId).List());
         }
 
         public ActionResult Show(int id, int? page = 1)
         {
+            var category = _session.Get<Category>(id);
+
+            ViewBag.ShowCategoryNavigation = true;
+            ViewBag.DepartmentId = category.Department.Id;
+            ViewBag.CategoryId = category.Id;
             ViewBag.Balloons = _session.BalloonsInCategory(id).PagedList(BalloonShopConfiguration.ProductsPerPage, page);
 
-            return View(_session.Get<Category>(id));
+            return View(category);
         }
     }
 }

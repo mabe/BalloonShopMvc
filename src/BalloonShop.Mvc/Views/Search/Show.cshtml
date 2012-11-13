@@ -3,14 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Navigation {
-    @{ Html.RenderAction("Navigation", "Department"); }
-    <br />
-    @{ Html.RenderPartial("../Search/SearchForm"); }
-    <br />
-    @{ Html.RenderAction("Summary", "Cart"); }
-}
-
 <h1>Search</h1>
 <p class="lead">Your search for "<em>@ViewBag.search</em>" gave @ViewBag.hits hits.</p>
 @{ Html.RenderPartial("../Balloon/List"); }

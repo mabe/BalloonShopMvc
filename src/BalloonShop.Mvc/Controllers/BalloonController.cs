@@ -18,7 +18,6 @@ namespace BalloonShop.Mvc.Controllers
         {
             var balloon = _session.Get<Balloon>(id);
 
-            
             return View(balloon);
         }
 

@@ -11,6 +11,8 @@ namespace BalloonShop.Mvc.Controllers
         
         public ActionResult Placed()
         {
+            ViewBag.HideCartNavigation = true;
+
             return View();
         }
 

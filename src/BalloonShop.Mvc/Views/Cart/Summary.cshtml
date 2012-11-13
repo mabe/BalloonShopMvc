@@ -2,9 +2,9 @@
 <div>
     @if (Model.Any())
     {     
-        <a href="@Url.Action("Index", "Cart")" class="btn btn-block" rel="popover" data-placement="bottom" data-html="true" data-title="" data-source=".cart-content">
-            <h4 style="margin: 0px;">Cart summary</h4>
-            <span>Total: <strong>@ViewBag.Total.ToString("c")</strong></span>
+        <a href="@Url.Action("Index", "Cart")" class="btn btn-block btn-info" rel="popover" data-placement="bottom" data-html="true" data-title="Cart summary" data-source=".cart-content" title="Cart summary">
+            
+            <i class="icon-shopping-cart icon-white"></i> <strong>@ViewBag.Total.ToString("c")</strong>
         </a>
 
         <div class="hide">

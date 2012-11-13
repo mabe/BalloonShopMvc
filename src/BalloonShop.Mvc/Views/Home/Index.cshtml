@@ -2,15 +2,6 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-@section Navigation {
-    @{Html.RenderAction("Navigation", "Department"); }
-    <br />
-    @{Html.RenderPartial("../Search/SearchForm");}
-    <br />
-    @{Html.RenderAction("Summary", "Cart"); }
-}
-
 <h1>Welcome to BalloonShop! </h1>
 <p class="lead">This week we have a special price for these fantastic products:</p>
 @{Html.RenderPartial("../Balloon/List");}

@@ -4,12 +4,10 @@
     <ul class="unstyled">
         @foreach (var category in Model)
         {
-        
             <li>&nbsp;&raquo;
-                    <a href="@Url.Action("Show", "Category", new { Id = category.Id })" class="@(category.Id == (int)ViewData["CategoryId"] ? "CategorySelected" : "CategoryUnselected")" title="@category.Description">@category.Name</a>
+                    <a href="@Url.Action("Show", "Category", new { Id = category.Id })" class="@(category.Id == ViewBag.CategoryId ? "CategorySelected" : "CategoryUnselected")" title="@category.Description">@category.Name</a>
                 &nbsp;&laquo;
             </li>
-        
         }
     </ul>
 </div>

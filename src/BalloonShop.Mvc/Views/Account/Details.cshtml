@@ -3,14 +3,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Navigation {
-    @{ Html.RenderAction("Navigation", "Department"); }
-    <br />
-    @{ Html.RenderPartial("../Search/SearchForm"); }
-    <br />
-    @{ Html.RenderAction("Summary", "Cart"); }
-}
-
 <h1>Edit Details</h1>
 <br />
 <form method="post" class="form-horizontal">

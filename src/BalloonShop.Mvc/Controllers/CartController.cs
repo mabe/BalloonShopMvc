@@ -82,6 +82,7 @@ namespace BalloonShop.Mvc.Controllers
             var model = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
 
             ViewBag.Total = model.Sum(x => x.Balloon.Price * x.Quantity);
+            ViewBag.HideCartNavigation = true;
 
             return View(model);
         }
@@ -95,6 +96,7 @@ namespace BalloonShop.Mvc.Controllers
 			ViewBag.Total = cart.Sum(x => x.Balloon.Price * x.Quantity);
 			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = x.Id == account.Details.ShippingRegion }).ToList();
 			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
+            ViewBag.HideCartNavigation = true;
 
 			return View(new CheckoutViewModel() { AccountDetails = new AccountDetailsViewModel(account.Details) });
 		}
