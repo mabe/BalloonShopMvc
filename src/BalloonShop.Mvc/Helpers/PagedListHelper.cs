@@ -6,7 +6,6 @@ using System.Web.Mvc;
 using BalloonShop.Infrastructure;
 using System.Linq.Expressions;
 using System.Text;
-using Microsoft.Web.Mvc;
 
 namespace BalloonShop.Mvc.Helpers
 {
@@ -18,12 +17,14 @@ namespace BalloonShop.Mvc.Helpers
             var sb = new StringBuilder();
             var list = (PagedList<T>)model;
             if (list.NumberOfPages <= 1) return MvcHtmlString.Empty;
-            var url = new System.Web.Mvc.UrlHelper(helper.ViewContext.RequestContext);
+            //var url = new System.Web.Mvc.UrlHelper(helper.ViewContext.RequestContext);
+            var url = string.Concat("/", helper.ViewContext.RouteData.Values["controller"], "/", helper.ViewContext.RouteData.Values["action"], "/", helper.ViewContext.RouteData.Values["id"], "/?page=");
+
 
             sb.Append("<div class=\"pagination pagination-centered\"><ul>");
 
             if (list.HasPreviousPage) {
-                sb.AppendFormat("<li><a href=\"{0}\">Prev</a></li>", url.Action<TController>(func(list.Page - 1)));
+                sb.AppendFormat("<li><a href=\"{0}\">Prev</a></li>", url + (list.Page - 1));
             } else {
                 sb.Append("<li><span>Prev</span></li>");
             }
@@ -31,7 +32,7 @@ namespace BalloonShop.Mvc.Helpers
             sb.AppendFormat("<li><span>Page {0} of {1}</span></li>", list.Page, list.NumberOfPages);
 
             if (list.HasNextPage) {
-                sb.AppendFormat("<li><a href=\"{0}\">Next</a></li>", url.Action<TController>(func(list.Page + 1)));
+                sb.AppendFormat("<li><a href=\"{0}\">Next</a></li>", url + (list.Page + 1));
             } else {
                 sb.Append("<li><span>Next</span></li>");
             }

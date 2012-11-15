@@ -11,6 +11,7 @@ using BalloonShop.Mvc.Config;
 using BalloonShop.Mvc.Services;
 using Rhino.ServiceBus;
 using Rhino.ServiceBus.Impl;
+using System.Web.Optimization;
 
 namespace BalloonShop.Mvc
 {
@@ -36,6 +37,20 @@ namespace BalloonShop.Mvc
 
         }
 
+        public static void RegisterBundles(BundleCollection bundles)
+        {
+            bundles.Add(new StyleBundle("~/Content/BalloonShop")
+                .Include("~/Content/themes/base/jquery-ui.css")
+                .Include("~/Content/bootstrap.css")
+                .Include("~/Content/app.css"));
+
+            bundles.Add(new ScriptBundle("~/Scripts/BalloonShop")
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/jquery-ui-{version}.js")
+                .Include("~/Scripts/bootstrap.js")
+                .Include("~/Scripts/app.js"));
+        }
+
         public static void RegisterValueProviders(ValueProviderFactoryCollection factories)
         {
             factories.Add(new CookieValueProviderFactory());
@@ -48,6 +63,8 @@ namespace BalloonShop.Mvc
             RegisterGlobalFilters(GlobalFilters.Filters);
 
             RegisterRoutes(RouteTable.Routes);
+
+            RegisterBundles(BundleTable.Bundles);
 
             RegisterValueProviders(ValueProviderFactories.Factories);
 
