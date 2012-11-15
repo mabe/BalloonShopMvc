@@ -40,7 +40,6 @@ namespace BalloonShop.Mvc.Controllers
 
             ViewBag.DepartmentId = id;
             ViewBag.PromotedBalloons = new PagedList<Balloon>(page ?? 1, BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons);
-            ViewBag.ShowCategoryNavigation = true;
 
             return View(department);
         }

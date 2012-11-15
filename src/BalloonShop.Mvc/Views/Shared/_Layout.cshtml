@@ -1,5 +1,4 @@
-﻿@using System.Web.Optimization
-@{
+﻿@{
     Layout = null;
 }
 
@@ -18,7 +17,7 @@
 				
                 @{Html.RenderAction("Navigation", "Department", new { DepartmentId = ViewBag.DepartmentId }); }
                 
-                @{ if (ViewBag.ShowCategoryNavigation != null && ViewBag.ShowCategoryNavigation) { Html.RenderAction("Navigation", "Category", new { DepartmentId = ViewBag.DepartmentId, SelectedCategoryId = ViewBag.CategoryId }); } }
+                @{ if (ViewBag.DepartmentId != null) { Html.RenderAction("Navigation", "Category", new { DepartmentId = ViewBag.DepartmentId, SelectedCategoryId = ViewBag.CategoryId }); } }
 
                 @{ Html.RenderPartial("../Search/SearchForm"); }
                 

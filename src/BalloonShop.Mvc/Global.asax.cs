@@ -42,12 +42,14 @@ namespace BalloonShop.Mvc
             bundles.Add(new StyleBundle("~/Content/BalloonShop")
                 .Include("~/Content/themes/base/jquery-ui.css")
                 .Include("~/Content/bootstrap.css")
+                .Include("~/Content/jquery.fancybox.css")
                 .Include("~/Content/app.css"));
 
             bundles.Add(new ScriptBundle("~/Scripts/BalloonShop")
                 .Include("~/Scripts/jquery-{version}.js")
                 .Include("~/Scripts/jquery-ui-{version}.js")
                 .Include("~/Scripts/bootstrap.js")
+                .Include("~/Scripts/jquery.fancybox.pack.js")
                 .Include("~/Scripts/app.js"));
         }
 

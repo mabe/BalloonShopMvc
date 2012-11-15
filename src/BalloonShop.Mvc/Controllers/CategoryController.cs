@@ -28,7 +28,6 @@ namespace BalloonShop.Mvc.Controllers
         {
             var category = _session.Get<Category>(id);
 
-            ViewBag.ShowCategoryNavigation = true;
             ViewBag.DepartmentId = category.Department.Id;
             ViewBag.CategoryId = category.Id;
             ViewBag.Balloons = _session.BalloonsInCategory(id).PagedList(BalloonShopConfiguration.ProductsPerPage, page);
