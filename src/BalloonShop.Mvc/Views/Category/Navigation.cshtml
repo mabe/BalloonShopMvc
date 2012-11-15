@@ -1,13 +1,11 @@
 ﻿@model System.Collections.Generic.IEnumerable<BalloonShop.Model.Category>
-<h4 class="CategoryListHead" style="margin-bottom:0px;">Choose a Category</h4>
-<div class="CategoryListContent">
-    <ul class="unstyled">
-        @foreach (var category in Model)
-        {
-            <li>&nbsp;&raquo;
-                    <a href="@Url.Action("Show", "Category", new { Id = category.Id })" class="@(category.Id == ViewBag.CategoryId ? "CategorySelected" : "CategoryUnselected")" title="@category.Description">@category.Name</a>
-                &nbsp;&laquo;
-            </li>
-        }
-    </ul>
-</div>
+<ul class="nav nav-list categories">
+    <li class="nav-header">Choose a Category</li>
+    @foreach (var category in Model)
+    {
+        <li>
+            <a href="@Url.Action("Show", "Category", new { Id = category.Id })" class="@(category.Id == ViewBag.CategoryId ? "selected" : "")" title="@category.Description">&raquo;&nbsp;@category.Name&nbsp;&laquo;</a>
+        </li>
+    }
+</ul>
+

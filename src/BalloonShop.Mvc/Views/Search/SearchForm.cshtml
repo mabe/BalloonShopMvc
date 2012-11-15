@@ -1,9 +1,13 @@
-﻿<form method="get" action="@Url.Action("Show", "Search")" class="form-inline">
-    <h4 class="SearchBoxHead" style="margin-bottom:0px;">Search the Catalog</h4>
+﻿<ul class="nav nav-list search">
+    <li class="nav-header">
+        Search the Catalog
+    </li>
+    <li>
+        <form method="get" action="@Url.Action("Show", "Search")" class="form-inline">
+            <input type="text" name="search" id="search" maxlength="100" class="span9" value="@ViewBag.search" />
+            <input type="submit" value="Go!" class="btn" />
+            <label class="checkbox">@Html.CheckBox("allWords") Search for all words</label>
+        </form>
+    </li>
+</ul>
 
-    <div class="SearchBoxContent">
-        <input type="text" name="search" id="search" maxlength="100" class="span9" value="@ViewBag.search" />
-        <input type="submit" value="Go!" class="btn" />
-        <label class="checkbox">@Html.CheckBox("allWords") Search for all words</label>
-    </div>
-</form>

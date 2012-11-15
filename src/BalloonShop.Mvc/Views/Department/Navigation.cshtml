@@ -1,15 +1,13 @@
 ﻿@model System.Collections.Generic.List<BalloonShop.Model.Department>
-<h4 class="DepartmentListHead" style="margin-bottom: 0px;">Choose a Department</h4>
+<ul class="nav nav-list departments">
+    <li class="nav-header">Choose a Department</li>
 
-<div class="DepartmentListContent">
-    <ul class="unstyled">
-        @foreach (var department in Model)
-        {
-            <li>&nbsp;&raquo;
-                    <a href="@Url.Action("Show", "Department", new { Id = department.Id })" class="@(department.Id == (int)ViewData["DepartmentId"] ? "DepartmentSelected" : "DepartmentUnselected")" title="@department.Description">@department.Name</a>
-                &nbsp;&laquo;
-            </li>
-        }
-    </ul>
-</div>
+    @foreach (var department in Model)
+    {
+        <li>
+            <a href="@Url.Action("Show", "Department", new { Id = department.Id })" class="@(department.Id == (int)ViewData["DepartmentId"] ? "active" : "")" title="@department.Description">&raquo;&nbsp;@department.Name&nbsp;&laquo;</a>
+        </li>
+    }
+</ul>
+
 

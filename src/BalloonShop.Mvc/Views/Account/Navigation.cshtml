@@ -1,19 +1,14 @@
-﻿<h4 class="UserInfoHead" style="margin-bottom:0px;">User Info</h4>
-<div class="UserInfoContent">
-    <ul class="unstyled">
-        <li>
-            <span class="UserInfoText">You are logged in as <b>@Model.Email</b>.</span>
-        </li>
-
-        <li>&nbsp;&raquo;
-				<a href="@Url.Action("Logout", "Account")" class="UserInfoLink">Logout</a>
-            &nbsp;&laquo;
-        </li>
-
-        <li>&nbsp;&raquo;
-				<a href="@Url.Action("Details", "Account")" title="Edit your personal details" class="UserInfoLink">Edit Details</a>
-            &nbsp;&laquo;
-        </li>
-    </ul>
-</div>
-
+﻿<ul class="nav nav-list user">
+    <li class="nav-header">
+        User Info
+    </li>
+    <li>
+        <span>You are logged in as <b>@Model.Email</b>.</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Logout", "Account")">&raquo;&nbsp;Logout&nbsp;&laquo;</a>
+    </li>
+    <li>
+        <a href="@Url.Action("Details", "Account")" title="Edit your personal details">&raquo;&nbsp;Edit Details&nbsp;&laquo;</a>
+    </li>
+</ul>

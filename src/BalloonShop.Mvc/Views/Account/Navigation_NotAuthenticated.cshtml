@@ -1,16 +1,14 @@
-﻿<h4 class="UserInfoHead" style="margin-bottom:0px;">User Info</h4>
-<div class="UserInfoContent">
-    <ul class="unstyled">
-        <li>
-            <span class="UserInfoText">You are not logged in.</span>
-        </li>
-        <li>&nbsp;&raquo;
-          <a href="@Url.Action("Login")" class="UserInfoLink">Login</a>
-            &nbsp;&laquo;
-        </li>
-        <li>&nbsp;&raquo;
-		  <a href="@Url.Action("Register")" class="UserInfoLink" title="Go to the registration page">Register</a>
-            &nbsp;&laquo;
-        </li>
-    </ul>
-</div>
+﻿<ul class="nav nav-list user">
+    <li class="nav-header">
+        User Info
+    </li>
+    <li>
+        <span>You are not logged in.</span>
+    </li>
+    <li>
+        <a href="@Url.Action("Login")">&raquo;&nbsp;Login&nbsp;&laquo;</a>
+    </li>
+    <li>
+        <a href="@Url.Action("Register")" title="Go to the registration page">&raquo;&nbsp;Register&nbsp;&laquo;</a>
+    </li>
+</ul>
