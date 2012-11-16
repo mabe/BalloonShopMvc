@@ -13,7 +13,7 @@
     <RootNamespace>BalloonShop.Mvc</RootNamespace>
     <AssemblyName>BalloonShop.Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <OldToolsVersion>4.0</OldToolsVersion>
@@ -144,7 +144,7 @@
     <Compile Include="Config\StructureMapDependencyResolver.cs" />
     <Compile Include="Config\WebRegistry.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BalloonController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\DepartmentController.cs" />
@@ -155,7 +155,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\IIdentityHelpers.cs" />
-    <Compile Include="Helpers\LabelHelpers.cs" />
     <Compile Include="Helpers\PagedListHelper.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
     <Compile Include="Helpers\UrlHelper.cs" />
@@ -267,8 +266,8 @@
     <Content Include="Views\Department\Show.cshtml" />
     <Content Include="Views\Category\Navigation.cshtml" />
     <Content Include="Views\Category\Show.cshtml" />
-    <Content Include="Views\Balloon\List.cshtml" />
-    <Content Include="Views\Balloon\Show.cshtml" />
+    <Content Include="Views\Product\List.cshtml" />
+    <Content Include="Views\Product\Show.cshtml" />
     <Content Include="Views\Cart\Summary.cshtml" />
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\Checkout.cshtml" />

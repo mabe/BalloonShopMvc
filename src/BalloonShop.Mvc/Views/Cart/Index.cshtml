@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.IEnumerable<BalloonShop.Model.ShoppingCart>
+﻿@model IEnumerable<ShoppingCart>
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -20,15 +20,15 @@
         <tbody>
         @foreach (var obj in Model.Select((x, i) => new { Item = x, Index = i }).ToList()) {
         <tr>
-            <td><img src="/Content/ProductImages/@obj.Item.Balloon.Thumb" class="product-image" /></td>
-            <td><a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Balloon.Id })" class="lead">@obj.Item.Balloon.Name</a></td>
-            <td><span class="uneditable-input input-mini">@obj.Item.Balloon.Price.ToString("c")</span></td>
+            <td><img src="/Content/ProductImages/@obj.Item.Product.Thumb" class="product-image" /></td>
+            <td><a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Product.Id })" class="lead">@obj.Item.Product.Name</a></td>
+            <td><span class="uneditable-input input-mini">@obj.Item.Product.Price.ToString("c")</span></td>
             <td>
-                <input type="hidden" name="items[@obj.Index].Key" value="@obj.Item.Balloon.Id" />
+                <input type="hidden" name="items[@obj.Index].Key" value="@obj.Item.Product.Id" />
                 <input type="text" name="items[@obj.Index].Value" maxlength="2" class="input-mini spinner" value="@obj.Item.Quantity" />
             </td>
-            <td style="text-align:right;"><span class="uneditable-input input-mini">@((obj.Item.Balloon.Price * obj.Item.Quantity).ToString("c"))</span></td>
-            <td style="text-align:right;"><button value="@obj.Item.Balloon.Id" name="remove" class="btn btn-danger" formaction="@Url.Action("Remove", "Cart")">Delete</button></td>
+            <td style="text-align:right;"><span class="uneditable-input input-mini">@((obj.Item.Product.Price * obj.Item.Quantity).ToString("c"))</span></td>
+            <td style="text-align:right;"><button value="@obj.Item.Product.Id" name="remove" class="btn btn-danger" formaction="@Url.Action("Remove", "Cart")">Delete</button></td>
             <td></td>
         </tr>       
         }

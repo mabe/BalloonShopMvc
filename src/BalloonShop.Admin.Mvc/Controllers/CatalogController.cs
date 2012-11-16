@@ -67,7 +67,7 @@ namespace BalloonShop.Admin.Mvc.Controllers
 
             ViewBag.CategoryId = categoryid;
             ViewBag.DepartmentId = category.Department.Id;
-            ViewBag.Product = id.HasValue ? _session.Get<Balloon>(id.Value) : new Balloon();
+            ViewBag.Product = id.HasValue ? _session.Get<Product>(id.Value) : new Product();
 
             return View(_session.BalloonsInCategory(categoryid).List());
         }
@@ -75,7 +75,7 @@ namespace BalloonShop.Admin.Mvc.Controllers
         [HttpPost]
         public ActionResult Products(int id, int categoryid, string name, string description, decimal price, string imageFileName1, string imageFileName2, bool onDepartmentPromotion, bool onCatalogPromotion)
         {
-            var product = _session.Get<Balloon>(id) ?? new Balloon();
+            var product = _session.Get<Product>(id) ?? new Product();
 
             product.Name = name;
             product.Description = description;
@@ -93,7 +93,7 @@ namespace BalloonShop.Admin.Mvc.Controllers
         }
 
         public ActionResult Product(int id, int categoryid) {
-            var product = _session.Get<Balloon>(id);
+            var product = _session.Get<Product>(id);
 
             ViewBag.CurrentCategoryId = categoryid;
             ViewBag.CategoriesWithProduct = product.Categories.ToList();

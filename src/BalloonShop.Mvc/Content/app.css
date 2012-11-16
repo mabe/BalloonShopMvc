@@ -15,6 +15,23 @@
     box-shadow: 2px 2px 8px 0px #808080;
 }
 
+.thumbnails {
+    list-style:none;
+}
+
+    .thumbnails li {
+        display:inline;
+    }
+
+    .thumbnails img {
+        height:100px;
+    }
+
+    .thumbnails a {
+        text-decoration:none;
+        color:#000;
+    }
+
 h1 {
     color: red;
 }
@@ -272,6 +289,8 @@ a.CartLink {
     font-family: Verdana, Helvetica, sans-serif;
 }
 
+/****************************************/
+
 .RecommendationHead {
     color: Black;
     font-family: Verdana, Helvetica, sans-serif;
@@ -295,6 +314,8 @@ a.CartLink {
 a.RecommendationLink:hover {
     color: Red;
 }
+
+/****************************************/
 
 .UserDetailsTable {
     width: 100%;

@@ -2,10 +2,4 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-@section Navigation{
-    @{Html.RenderAction("Navigation", "Department");}
-	<br />
-    @{Html.RenderPartial("../Search/SearchForm");}
-}
-
-<span class="InfoText">Thank you for your order, please come again!</span>
+<p class="lead">Thank you for your order, please come again!</p>

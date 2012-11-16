@@ -15,10 +15,17 @@ namespace BalloonShop.Queries
             return session.QueryOver<Category>().Where(x => x.Department.Id == departmentid);
         }
 
-        public static IQueryOver<Balloon> BalloonsInCategory(this ISession session, int categoryid) {
+        public static IQueryOver<Product> BalloonsInCategory(this ISession session, int categoryid)
+        {
             Category c = null;
 
-            return session.QueryOver<Balloon>().JoinAlias(x => x.Categories, () => c).Where(Restrictions.On<Category>(x => c.Id).IsIn(new[] { categoryid }));
+            return session.QueryOver<Product>().JoinAlias(x => x.Categories, () => c).Where(Restrictions.On<Category>(x => c.Id).IsIn(new[] { categoryid }));
+        }
+
+        public static IQueryOver<Product> BalloonsInDepartment(this ISession session, Department department) {
+            Product b = null;
+
+            return session.QueryOver<Product>().WithSubquery.WhereProperty(x => x.Id).In(QueryOver.Of<Product>(() => b).Where(x => x.OnDepartmentPromotion == true).JoinQueryOver(x => x.Categories).Where(x => x.Department == department).Select(Projections.Distinct(Projections.Property(() => b.Id))));
         }
 
         public static PagedList<T> PagedList<T>(this IQueryOver<T> query, int itemsperpage, int? page) {

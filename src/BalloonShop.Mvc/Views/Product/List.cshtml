@@ -1,4 +1,4 @@
-﻿@model System.Collections.Generic.IEnumerable<BalloonShop.Model.Balloon>
+﻿@model IEnumerable<Product>
 <div class="row-fluid">
     @foreach (var item in Model.Select((x, i) => new { Index = i + 1, Product = x }).ToList())
     { 

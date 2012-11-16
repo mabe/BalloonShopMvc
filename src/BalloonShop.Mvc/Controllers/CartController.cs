@@ -29,12 +29,12 @@ namespace BalloonShop.Mvc.Controllers
         [HttpPost]
         public ActionResult Add(string customerCartId, int balloonId, int quantity = 1, string returnurl = "")
         {
-            var balloon = _session.Load<Balloon>(balloonId);
+            var balloon = _session.Load<Product>(balloonId);
 
-            var item = _session.Get<ShoppingCart>(new ShoppingCart { Balloon = balloon, CartId = customerCartId });
+            var item = _session.Get<ShoppingCart>(new ShoppingCart { Product = balloon, CartId = customerCartId });
 
             if (item == null) {
-                item = new ShoppingCart() { Balloon = balloon, CartId = customerCartId, DateAdded = DateTime.Now };
+                item = new ShoppingCart() { Product = balloon, CartId = customerCartId, DateAdded = DateTime.Now };
                 _session.Save(item);
             }
 
@@ -53,7 +53,7 @@ namespace BalloonShop.Mvc.Controllers
 
         [HttpPost]
         public ActionResult Remove(string customerCartId, int remove) {
-            _session.Delete(_session.Load<ShoppingCart>(new ShoppingCart() { CartId = customerCartId, Balloon = _session.Load<Balloon>(remove) }));
+            _session.Delete(_session.Load<ShoppingCart>(new ShoppingCart() { CartId = customerCartId, Product = _session.Load<Product>(remove) }));
 
             return RedirectToAction("Index", "Cart");
         }
@@ -64,7 +64,7 @@ namespace BalloonShop.Mvc.Controllers
 
             foreach (var item in items)
             {
-                cart.Single(x => x.Balloon.Id == item.Key).Quantity = item.Value;
+                cart.Single(x => x.Product.Id == item.Key).Quantity = item.Value;
             }
 
             return RedirectToAction("Index", "Cart");
@@ -73,7 +73,7 @@ namespace BalloonShop.Mvc.Controllers
         public ActionResult Summary(string customerCartId) {
             var model = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
 
-            ViewBag.Total = model.Sum(x => x.Balloon.Price * x.Quantity);
+            ViewBag.Total = model.Sum(x => x.Product.Price * x.Quantity);
 
             return View(model);
         }
@@ -81,7 +81,7 @@ namespace BalloonShop.Mvc.Controllers
         public ActionResult Index(string customerCartId) {
             var model = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
 
-            ViewBag.Total = model.Sum(x => x.Balloon.Price * x.Quantity);
+            ViewBag.Total = model.Sum(x => x.Product.Price * x.Quantity);
             ViewBag.HideCartNavigation = true;
 
             return View(model);
@@ -93,7 +93,7 @@ namespace BalloonShop.Mvc.Controllers
 			var account = _session.Get<Account>(_identity.Identity());
 
 			ViewBag.Cart = cart;
-			ViewBag.Total = cart.Sum(x => x.Balloon.Price * x.Quantity);
+            ViewBag.Total = cart.Sum(x => x.Product.Price * x.Quantity);
 			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = x.Id == account.Details.ShippingRegion }).ToList();
 			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
             ViewBag.HideCartNavigation = true;
@@ -109,7 +109,7 @@ namespace BalloonShop.Mvc.Controllers
 			var account = _session.Get<Account>(_identity.Identity());
 
 			ViewBag.Cart = cart;
-			ViewBag.Total = cart.Sum(x => x.Balloon.Price * x.Quantity);
+            ViewBag.Total = cart.Sum(x => x.Product.Price * x.Quantity);
 			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = x.Id == account.Details.ShippingRegion }).ToList();
 			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
 
@@ -130,11 +130,11 @@ namespace BalloonShop.Mvc.Controllers
 			var order = new Order(account.Id, 
                 "",
                 account.Email, 
-                cart.Select(item => new OrderDetail() { 
-					ProductId = item.Balloon.Id, 
-					ProductName = item.Balloon.Name, 
-					Quantity = item.Quantity, 
-					UnitCost = item.Balloon.Price 
+                cart.Select(item => new OrderDetail() {
+                    ProductId = item.Product.Id,
+                    ProductName = item.Product.Name, 
+					Quantity = item.Quantity,
+                    UnitCost = item.Product.Price 
 				}).ToList(), 
                 _session.Get<Tax>(taxId), 
                 _session.Get<Shipping>(model.ShippingType));

@@ -1,12 +1,11 @@
 ﻿using System.Web.Mvc;
-using BalloonShop.Data;
 using BalloonShop.Infrastructure;
 using BalloonShop.Model;
-
 using System.Linq;
 using NHibernate;
 using Rhino.ServiceBus;
 using BalloonShop.Messages;
+using BalloonShop.Queries;
 
 
 namespace BalloonShop.Mvc.Controllers
@@ -25,15 +24,7 @@ namespace BalloonShop.Mvc.Controllers
 
         public ViewResult Index(int? page = 1)
         {
-            var query = _session.QueryOver<Balloon>().Where(x => x.OnCatalogPromotion == true);
-
-            var howManyPages = query.Clone().ToRowCountQuery().RowCount() / BalloonShopConfiguration.ProductsPerPage;
-
-            var balloons = query.Skip(((page ?? 1) - 1) * BalloonShopConfiguration.ProductsPerPage)
-                .Take(BalloonShopConfiguration.ProductsPerPage)
-                .List();
-
-            return View(new PagedList<Balloon>(page ?? 1, BalloonShopConfiguration.ProductsPerPage, howManyPages, balloons));
+            return View(_session.QueryOver<Product>().Where(x => x.OnCatalogPromotion == true).PagedList(BalloonShopConfiguration.ProductsPerPage, page));
         }
     }
 }

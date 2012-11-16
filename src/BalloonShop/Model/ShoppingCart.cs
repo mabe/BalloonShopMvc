@@ -9,7 +9,7 @@ namespace BalloonShop.Model
     public class ShoppingCart
     {
         public virtual string CartId { get; set; }
-        public virtual Balloon Balloon { get; set; }
+        public virtual Product Product { get; set; }
 
         public virtual int Quantity { get; set; }
         public virtual DateTime DateAdded { get; set; }
@@ -21,13 +21,13 @@ namespace BalloonShop.Model
             var t = obj as ShoppingCart;
             if (t == null)
                 return false;
-            if (Balloon.Id == t.Balloon.Id && CartId == t.CartId)
+            if (Product.Id == t.Product.Id && CartId == t.CartId)
                 return true;
             return false;
         }
         public override int GetHashCode()
         {
-            return (Balloon.Id + "|" + CartId).GetHashCode();
+            return (Product.Id + "|" + CartId).GetHashCode();
         }  
     }
 
@@ -35,7 +35,7 @@ namespace BalloonShop.Model
     {
         public ShoppingCartMap()
         {
-            CompositeId().KeyReference(x => x.Balloon, "ProductId").KeyProperty(x => x.CartId);
+            CompositeId().KeyReference(x => x.Product, "ProductId").KeyProperty(x => x.CartId);
 
             Map(x => x.Quantity);
             Map(x => x.DateAdded);

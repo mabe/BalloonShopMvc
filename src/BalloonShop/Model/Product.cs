@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 namespace BalloonShop.Model
 {
-    public class Balloon
+    public class Product
     {
-        public Balloon()
+        public Product()
         {
             Thumb = "Generic1.png";
             Image = "Generic2.png";
@@ -28,8 +28,9 @@ namespace BalloonShop.Model
         public virtual IEnumerable<Category> Categories { get; set; }
     }
 
-    public class BalloonMap : ClassMap<Balloon> {
-        public BalloonMap()
+    public class ProductMap : ClassMap<Product>
+    {
+        public ProductMap()
         {
             Table("Product");
 

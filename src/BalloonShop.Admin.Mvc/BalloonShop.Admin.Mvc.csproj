@@ -14,7 +14,7 @@
     <RootNamespace>BalloonShop.Admin.Mvc</RootNamespace>
     <AssemblyName>BalloonShop.Admin.Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <MvcBuildViews>false</MvcBuildViews>
+    <MvcBuildViews>true</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />

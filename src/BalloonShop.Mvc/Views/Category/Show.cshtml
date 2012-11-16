@@ -1,4 +1,4 @@
-﻿@model BalloonShop.Model.Category
+﻿@model Category
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -6,4 +6,4 @@
 <h1>@Model.Name</h1>
 <p class="lead">@Model.Description</p>
 @{Html.RenderPartial("../Balloon/List", (object)ViewBag.Balloons);}
-@(Html.Paging<Balloon, CategoryController>((object)ViewBag.Balloons, x => y => y.Show(Model.Id, x)))
+@(Html.Paging<Product, CategoryController>((object)ViewBag.Balloons, x => y => y.Show(Model.Id, x)))

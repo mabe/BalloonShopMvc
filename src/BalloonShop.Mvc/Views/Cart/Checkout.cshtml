@@ -1,4 +1,4 @@
-﻿@model BalloonShop.Mvc.Models.CheckoutViewModel
+﻿@model CheckoutViewModel
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -21,21 +21,21 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var obj in (ViewBag.Cart as IEnumerable<BalloonShop.Model.ShoppingCart>).Select((x, i) => new { Item = x, Index = i }).ToList())
+        @foreach (var obj in (ViewBag.Cart as IEnumerable<ShoppingCart>).Select((x, i) => new { Item = x, Index = i }).ToList())
         {
             <tr>
-                <td><img src="/Content/ProductImages/@obj.Item.Balloon.Thumb" class="product-image" /></td>
+                <td><img src="/Content/ProductImages/@obj.Item.Product.Thumb" class="product-image" /></td>
                 <td>
-                    <a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Balloon.Id })" class="lead">@obj.Item.Balloon.Name</a>
+                    <a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Product.Id })" class="lead">@obj.Item.Product.Name</a>
                 </td>
                 <td>
-                    @obj.Item.Balloon.Price.ToString("c")
+                    @obj.Item.Product.Price.ToString("c")
                 </td>
                 <td>
                     @obj.Item.Quantity
                 </td>
                 <td style="text-align: right;">
-                    @((obj.Item.Balloon.Price * obj.Item.Quantity).ToString("c"))
+                    @((obj.Item.Product.Price * obj.Item.Quantity).ToString("c"))
                 </td>
                 <td></td>
             </tr>

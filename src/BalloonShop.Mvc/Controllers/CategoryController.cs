@@ -1,5 +1,4 @@
 using System.Web.Mvc;
-using BalloonShop.Data;
 using BalloonShop.Infrastructure;
 using BalloonShop.Model;
 using NHibernate;

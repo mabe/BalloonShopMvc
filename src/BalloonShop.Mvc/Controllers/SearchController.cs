@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
-using BalloonShop.Data;
 using BalloonShop.Infrastructure;
 using BalloonShop.Model;
 using NHibernate;
@@ -36,7 +35,7 @@ namespace BalloonShop.Mvc.Controllers
                 query.SetParameter("Word" + (i + 1), (words.Length > i && words[i].Length > 2) ? (object)words[i] : DBNull.Value);
             }
 
-            var balloons = query.List<Balloon>();
+            var balloons = query.List<Product>();
 
             var hits = balloons.Count();
             var howManyPages = hits / BalloonShopConfiguration.ProductsPerPage;
@@ -49,7 +48,7 @@ namespace BalloonShop.Mvc.Controllers
             ViewData["allWords"] = allWords;
             ViewData["hits"] = hits;
 
-            return View(new PagedList<Balloon>(page ?? 1, BalloonShopConfiguration.ProductsPerPage, howManyPages, result));
+            return View(new PagedList<Product>(page ?? 1, BalloonShopConfiguration.ProductsPerPage, howManyPages, result));
         }
 
     }

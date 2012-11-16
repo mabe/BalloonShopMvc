@@ -95,14 +95,6 @@
   <ItemGroup>
     <Compile Include="BalloonShopConfiguration.cs" />
     <Compile Include="CoreRegistry.cs" />
-    <Compile Include="Data\AdoNet\CatalogAccess.cs" />
-    <Compile Include="Data\AdoNet\CommerceLibAccess.cs" />
-    <Compile Include="Data\AdoNet\OrdersAccess.cs" />
-    <Compile Include="Data\AdoNet\ShoppingCartAccess.cs" />
-    <Compile Include="Data\CommerceLib\IPipelineSection.cs" />
-    <Compile Include="Data\CommerceLib\OrderProcessor.cs" />
-    <Compile Include="Data\CommerceLib\OrderProcessorException.cs" />
-    <Compile Include="Data\CommerceLib\OrderProcessorMailer.cs" />
     <Compile Include="Messages\InitialNotificationMessage.cs" />
     <Compile Include="Messages\PSCheckFundsMessage.cs" />
     <Compile Include="Messages\PSCheckStockMessage.cs" />
@@ -117,11 +109,10 @@
     <Compile Include="Model\Category.cs" />
     <Compile Include="Model\CreditCard.cs" />
     <Compile Include="Model\Department.cs" />
-    <Compile Include="Data\AdoNet\GenericDataAccess.cs" />
     <Compile Include="Infrastructure\PagedList.cs" />
     <Compile Include="Model\CategoryDetails.cs" />
     <Compile Include="Model\DepartmentDetails.cs" />
-    <Compile Include="Model\Balloon.cs" />
+    <Compile Include="Model\Product.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderDetail.cs" />
     <Compile Include="Model\ProductDetails.cs" />
