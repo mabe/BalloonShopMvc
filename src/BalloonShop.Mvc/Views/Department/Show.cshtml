@@ -4,5 +4,5 @@
 }
 <h1>@Model.Name</h1>
 <p class="lead">@Model.Description</p>
-@{Html.RenderPartial("../Balloon/List", (object)ViewBag.PromotedBalloons);}
+@{Html.RenderPartial("../Product/List", (object)ViewBag.PromotedBalloons);}
 @(Html.Paging<Product, DepartmentController>((object)ViewBag.PromotedBalloons, x => y => y.Show(Model.Id, x)))

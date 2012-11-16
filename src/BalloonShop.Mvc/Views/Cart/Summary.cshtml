@@ -8,13 +8,13 @@
         </a>
 
         <div class="hide">
-            <table class="cart-content" style="width:100%;">
+            <table class="cart-content">
                 <tbody>
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>@item.Quantity x&nbsp;</td>
-                        <td><a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" style="width:110px; display:inline-block; white-space: nowrap; overflow:hidden; text-overflow:ellipsis;" title="@item.Product.Name">@item.Product.Name</a></td>
+                        <td><a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" title="@item.Product.Name">@item.Product.Name</a></td>
                         <td style="text-align:right;">@((item.Product.Price * item.Quantity).ToString("c"))</td>
                     </tr>
                 }

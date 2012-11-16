@@ -110,12 +110,9 @@
     <Compile Include="Model\CreditCard.cs" />
     <Compile Include="Model\Department.cs" />
     <Compile Include="Infrastructure\PagedList.cs" />
-    <Compile Include="Model\CategoryDetails.cs" />
-    <Compile Include="Model\DepartmentDetails.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderDetail.cs" />
-    <Compile Include="Model\ProductDetails.cs" />
     <Compile Include="Model\Shipping.cs" />
     <Compile Include="Model\ShippingRegion.cs" />
     <Compile Include="Model\ShoppingCart.cs" />
@@ -130,7 +127,6 @@
     <Compile Include="Queries\Queries.cs" />
     <Compile Include="Services\IEmailService.cs" />
     <Compile Include="Services\SmtpEmailService.cs" />
-    <Compile Include="Utilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

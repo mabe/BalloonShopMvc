@@ -4,5 +4,5 @@
 }
 <h1>Welcome to BalloonShop! </h1>
 <p class="lead">This week we have a special price for these fantastic products:</p>
-@{Html.RenderPartial("../Balloon/List");}
+@{Html.RenderPartial("../Product/List");}
 @(Html.Paging<Product, HomeController>(Model, index => controller => controller.Index(index)))

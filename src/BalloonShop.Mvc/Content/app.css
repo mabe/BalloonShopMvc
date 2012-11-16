@@ -59,6 +59,18 @@ h1 {
             background: none;
         }
 
+.cart-content {
+    width:100%;
+}
+
+    .cart-content tbody a {
+        width:110px; 
+        display:inline-block; 
+        white-space: nowrap; 
+        overflow:hidden; 
+        text-overflow:ellipsis;
+    }
+
 /****************************************/
 
 .departments {

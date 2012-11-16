@@ -5,5 +5,5 @@
 
 <h1>Search</h1>
 <p class="lead">Your search for "<em>@ViewBag.search</em>" gave @ViewBag.hits hits.</p>
-@{ Html.RenderPartial("../Balloon/List"); }
+@{ Html.RenderPartial("../Product/List"); }
 @(Html.Paging<Product, SearchController>(Model, page => controller => controller.Show((string)ViewData["search"], (bool)ViewData["allWords"], page)))
