@@ -3,62 +3,34 @@
 <head>
     <meta charset="utf-8" />
     <title>BalloonShop - Admin</title>
-    <link rel="stylesheet" type="text/css" href="/content/balloonshop.css" />
+    
+    @Bundle.Css().MvcRenderCachedAssetTag("balloonshop");
 </head>
 
 <body>
-    <table cellspacing="0" cellpadding="0" border="0" width="100%">
-        <tr valign="top">
-            <td width="220">
-
-                <table cellspacing="0" border="0" width="200px" class="UserInfoContent">
-                    <tr>
-                        <td class="UserInfoHead">User Info</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="UserInfoText">You are logged in as <b>{0}</b>. </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&raquo;
-                            <span class="UserInfoLink"></span>
-                            &nbsp;&laquo;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&raquo;
-                            <a class="UserInfoLink" href="/Catalog/Departments">Catalog Admin</a>
-                            &nbsp;&laquo;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&raquo;
-                            <a class="UserInfoLink" href="/Order/ShoppingCarts">Shopping Cart Admin</a>
-                            &nbsp;&laquo;
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>&nbsp;&raquo; 
-                            <a class="UserInfoLink" href="/Order/Index">Orders Admin</a>
-                            &nbsp;&laquo;
-                        </td>
-                    </tr>
-                </table>
-
-            </td>
-            <td valign="top">
-                <span class="AdminTitle">BalloonShop</span> (<a href="#" class="AdminPageText">go back to BalloonShop</a>)
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span2">
+                <ul class="nav nav-list user">
+                    <li class="nav-header">User Info</li>
+                    <li><span>You are logged in as <b>{0}</b>. </span></li>
+                    <li><span>&raquo;&nbsp;&nbsp;&laquo;</span></li>
+                    <li><a href="/Catalog/Departments">&raquo;&nbsp;Catalog Admin&nbsp;&laquo;</a></li>
+                    <li><a href="/Order/ShoppingCarts">&raquo;&nbsp;Shopping Cart Admin&nbsp;&laquo;</a></li>
+                    <li><a href="/Order/Index">&raquo;&nbsp;Orders Admin&nbsp;&laquo;</a></li>
+                </ul>
+            </div>
+            <div class="span10">
+                <h1>BalloonShop</h1> (<a href="#">go back to BalloonShop</a>)
                 <br />
                 <br />
                 @RenderBody()
-            </td>
-        </tr>
-    </table>
+            </div>
+        </div>
+    </div>
     <br />
 
-    <script src="/Scripts/jquery-1.8.2.min.js"></script>
-
-    @RenderSection("Script")
+    @Bundle.JavaScript().MvcRenderCachedAssetTag("balloonshop");
+    @RenderSection("Script", false)
 </body>
 </html>

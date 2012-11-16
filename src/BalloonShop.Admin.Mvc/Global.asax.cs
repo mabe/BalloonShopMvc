@@ -3,6 +3,7 @@ using NHibernate;
 using NHibernate.Context;
 using Rhino.ServiceBus;
 using Rhino.ServiceBus.Impl;
+using SquishIt.Framework;
 using StructureMap;
 using System;
 using System.Collections.Generic;
@@ -35,12 +36,20 @@ namespace BalloonShop.Admin.Mvc
 
         }
 
+        public static void RegisterBundles()
+        {
+            Bundle.Css().Add("~/Content/themes/base/jquery-ui.css").Add("~/Content/bootstrap.css").Add("~/Content/app.css").AsCached("balloonshop", "~/assets/css/balloonshop");
+            Bundle.JavaScript().Add("~/Scripts/jquery-1.8.2.js").Add("~/Scripts/jquery-ui-1.9.0.js").Add("~/Scripts/bootstrap.js").Add("~/Scripts/app.js").AsCached("balloonshop", "~/assets/scripts/balloonshop");
+        }
+
         protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
 
+            
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+            RegisterBundles();
             RegisterDependencyInjector(ObjectFactory.Container);
             RegisterBus(ObjectFactory.Container);
         }

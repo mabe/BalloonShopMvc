@@ -3,95 +3,88 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<span class="AdminTitle">Displaying Order #@Model.Id</span>
-<br />
-<br />
-<form>
-<table class="AdminPageText">
-    <tr>
-        <td width="130">Total Cost:</td>
-        <td>
-            <span class="ProductPrice">@Model.TotalCost.ToString("0.00")</span>
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Status:</td>
-        <td>
-            @Model.StatusText()
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Date Created:</td>
-        <td>
-            @Model.DateCreated
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Date Shipped:</td>
-        <td>
-            @Model.DateShipped
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Authorization Code:</td>
-        <td>
-            <input type="text" name="authCodeTextBox" style="width:400px;" value="@Model.AuthCode" />
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Reference Number:</td>
-        <td>
-            <input type="text" name="referenceTextBox" style="width:400px;" value="@Model.Reference" />
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Comments:</td>
-        <td>
-            <input type="text" name="commentsTextBox" style="width:400px;" value="@Model.Comments" />
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Customer Name:</td>
-        <td>
-            <input type="text" name="customerNameTextBox" style="width:400px;" value="@Model.CustomerName" disabled="disabled" />
-        </td>
-    </tr>
-    <tr valign="top">
-        <td width="130">Shipping Address:</td>
-        <td>
-            <textarea style="width:400px; height:200px;" disabled="disabled" name="shippingAddressTextBox">@ViewBag.Customer.Address()</textarea>
-        </td>
-    </tr>
-    <tr valign="top">
-        <td width="130">Shipping Type:</td>
-        <td>
-            <input type="text" name="shippingTypeTextBox" style="width:400px;" value="@Model.Shipping.Name" disabled="disabled" />
-        </td>
-    </tr>
-    <tr>
-        <td width="130">Customer Email:</td>
-        <td>
-            <input type="text" name="customerEmailTextBox" style="width:400px;" value="@Model.CustomerEmail" disabled="disabled" />
-        </td>
-    </tr>
-</table>
-<br />
-<button class="AdminButtonText" style="width:100px;">Edit</button>
-    </form>
-<br />
-<form action="/order/process" method="post">
-    <input type="hidden" name="id" value="@Model.Id" />
-    <button class="AdminButtonText" style="width:100px;"@(ViewBag.OrderProcessFinished ? "disabled" : "")>Process Order</button>
+<form method="post" class="form-horizontal">
+
+    <fieldset>
+        <legend>Displaying Order #@Model.Id</legend>
+
+        <div class="control-group">
+            <label class="control-label">Total Cost:</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on">@System.Globalization.CultureInfo.CurrentUICulture.NumberFormat.CurrencySymbol</span>
+                    <span class="uneditable-input span2 right">@Model.TotalCost.ToString("0.00")</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Status:</label>
+            <div class="controls"><span class="uneditable-input input-xlarge">@Model.StatusText()</span> </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Date Created:</label>
+            <div class="controls"><span class="uneditable-input input-xlarge">@Model.DateCreated</span></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Date Shipped:</label>
+            <div class="controls"><span class="uneditable-input input-xlarge">@Model.DateShipped</span></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Authorization Code:</label>
+            <div class="controls"><input type="text" class="input-xlarge" name="authCodeTextBox" value="@Model.AuthCode" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Reference Number:</label>
+            <div class="controls"><input type="text" class="input-xlarge" name="referenceTextBox" value="@Model.Reference" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Comments:</label>
+            <div class="controls"><input type="text" class="input-xlarge" name="commentsTextBox" value="@Model.Comments" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Customer Name:</label>
+            <div class="controls"><input type="text" class="input-xlarge" name="customerNameTextBox" value="@Model.CustomerName" disabled="disabled" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Shipping Address:</label>
+            <div class="controls">
+                <textarea disabled="disabled" class="input-xlarge" rows="5" name="shippingAddressTextBox">@ViewBag.Customer.Address()</textarea></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Shipping Type:</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" name="shippingTypeTextBox" value="@Model.Shipping.Name" disabled="disabled" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Customer Email:</label>
+            <div class="controls">
+                <input type="text" class="input-xlarge" name="customerEmailTextBox" value="@Model.CustomerEmail" disabled="disabled" /></div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary">Edit</button>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <button class="btn btn-warning" formaction="/order/process" name="id" value="@Model.Id" @(ViewBag.OrderProcessFinished ? "disabled" : "")>Process Order</button>
+            &nbsp;&nbsp;|&nbsp;&nbsp;
+            <button class="btn btn-danger" formaction="/order/cancel/" name="id" value="@Model.Id">Cancel Order</button> 
+        </div>
+
+    </fieldset>
 </form>
-<br />
-<form action="/order/cancel/" method="post">
-    <input type="hidden" name="id" value="@Model.Id" />
-    <input type="submit" class="AdminButtonText" style="width:100px;" value="Cancel Order" />
-</form>
-<br />
-<span class="AdminPageText">The order contains these items:</span>
-<br />
-<table class="Grid" cellpadding="5" cellspacing="0">
+
+<h3>The order contains these items:</h3>
+
+<table class="table grid">
     <thead>
         <tr class="GridHeader">
             <th>Product ID</th>
@@ -102,25 +95,24 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.OrderDetails.Select((x, i) => new { detail = x, index = i }))
-{
-        <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
-            <td>@item.detail.ProductId</td>
-            <td>@item.detail.ProductName</td>
-            <td>@item.detail.Quantity</td>
-            <td>@item.detail.UnitCost.ToString("0.00")</td>
-            <td>@item.detail.Subtotal.ToString("0.00")</td>
-        </tr>
-}
+        @foreach (var item in Model.OrderDetails.Select((x, i) => new { detail = x, index = i }))
+        {
+            <tr class="@(item.index % 2 == 0 ? "" : "alternate")">
+                <td>@item.detail.ProductId</td>
+                <td>@item.detail.ProductName</td>
+                <td>@item.detail.Quantity</td>
+                <td>@item.detail.UnitCost.ToString("0.00")</td>
+                <td>@item.detail.Subtotal.ToString("0.00")</td>
+            </tr>
+        }
     </tbody>
 </table>
 
-<span class="AdminPageText">Order audit trail:</span>
-<br />
+<h3>Order audit trail:</h3>
 
-<table class="Grid" cellpadding="5" cellspacing="0">
+<table class="table grid">
     <thead>
-        <tr class="GridHeader">
+        <tr>
             <th>Audit ID</th>
             <th>Date Stamp</th>
             <th>Message Number</th>
@@ -128,14 +120,14 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in (ViewBag.Audits as IEnumerable<Audit>).Select((x, i) => new { audit = x, index = i }))
-{
-        <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
-            <td>@item.audit.Id</td>
-            <td>@item.audit.Date</td>
-            <td>@item.audit.MessageNumber</td>
-            <td>@item.audit.Message</td>
-        </tr>
-}
+        @foreach (var item in (ViewBag.Audits as IEnumerable<Audit>).Select((x, i) => new { audit = x, index = i }))
+        {
+            <tr class="@(item.index % 2 == 0 ? "" : "alternate")">
+                <td>@item.audit.Id</td>
+                <td>@item.audit.Date</td>
+                <td>@item.audit.MessageNumber</td>
+                <td>@item.audit.Message</td>
+            </tr>
+        }
     </tbody>
 </table>

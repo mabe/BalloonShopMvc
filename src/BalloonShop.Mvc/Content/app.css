@@ -19,6 +19,10 @@ h1 {
     color: red;
 }
 
+.right {
+    text-align:right;
+}
+
 .nav-list {
     margin-bottom: 20px;
     padding:0px;
@@ -214,45 +218,28 @@ a.AdminPageText {
         color: Red;
     }
 
-.Grid {
+/****************************************/
+
+.grid {
     border-color: #E7E7FF;
-    width: 100%;
 }
 
-.GridHeader {
+.grid thead tr {
     color: White;
     background-color: Navy;
-    font-family: Verdana, Helvetica, sans-serif;
-    text-decoration: none;
-    font-size: 11px;
-    text-align: left;
 }
 
-.GridRow {
+.grid tbody tr {
     color: Navy;
     background-color: #E7E7FF;
-    font-family: Verdana, Helvetica, sans-serif;
-    text-decoration: none;
-    font-size: 11px;
-    text-align: left;
 }
 
-.GridEditingRow {
-    color: Navy;
-    font-family: Verdana, Helvetica, sans-serif;
-    text-decoration: none;
-    font-size: 11px;
-    text-align: left;
-}
-
-.GridAlternateRow {
+.grid tbody tr.alternate {
     color: Navy;
     background-color: #F7F7F7;
-    font-family: Verdana, Helvetica, sans-serif;
-    text-decoration: none;
-    font-size: 11px;
-    text-align: left;
 }
+
+/****************************************/
 
 .SmallButtonText {
     color: Black;

@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>BalloonShop</title>
-    @Styles.Render("~/Content/BalloonShop")
+    @Bundle.Css().MvcRenderCachedAssetTag("balloonshop");
 </head>
 <body>
     <br />
@@ -34,7 +34,7 @@
         </div>
     </div>
 
-@Scripts.Render("~/Scripts/BalloonShop")
+@Bundle.JavaScript().MvcRenderCachedAssetTag("balloonshop");
 @RenderSection("Script", false)
 </body>
 </html>

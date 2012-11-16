@@ -3,96 +3,97 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<span class="AdminPageText">Products Loaded</span><br />
-<br />
-<span class="AdminPageText">Displaying products for category...</span>
-<a href="@Url.Action("Categories", "Catalog", new { departmentid = ViewBag.DepartmentId })">(go back to categories)</a><br />
-<br />
-<table class="Grid" cellspacing="0" cellpadding="5">
-    <thead>
-        <tr class="GridHeader">
-            <th>Product Image</th>
-            <th>Product Name</th>
-            <th>Product Description</th>
-            <th>Price</th>
-            <th>Thumb</th>
-            <th>Image</th>
-            <th>Dept. prom.</th>
-            <th>Cat. prom.</th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Select((x, i) => new { product = x, index = i }))
-        {
-            <tr class="@(item.index % 2 == 0 ? "GridRow" : "GridAlternateRow")">
-                <td>
-                    <img src="/content/productimages/@item.product.Thumb" /></td>
-                <td>@item.product.Name</td>
-                <td>@item.product.Description</td>
-                <td>@item.product.Price.ToString("0.00")</td>
-                <td>@item.product.Thumb</td>
-                <td>@item.product.Image</td>
-                <td>@item.product.OnDepartmentPromotion</td>
-                <td>@item.product.OnCatalogPromotion</td>
-                <td><a href="@Url.Action("Product", "Catalog", new { id = item.product.Id, categoryid = ViewBag.CategoryId })">Select</a></td>
-                <td><a>Edit</a></td>
+<fieldset>
+    <legend>Displaying products for category...</legend>
+
+    <a href="@Url.Action("Categories", "Catalog", new { departmentid = ViewBag.DepartmentId })">(go back to categories)</a><br />
+    <br />
+    <table class="table grid">
+        <thead>
+            <tr>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Product Description</th>
+                <th>Price</th>
+                <th>Thumb</th>
+                <th>Image</th>
+                <th>Dept. prom.</th>
+                <th>Cat. prom.</th>
+                <th></th>
+                <th></th>
             </tr>
-        }
-    </tbody>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Select((x, i) => new { product = x, index = i }))
+            {
+                <tr class="@(item.index % 2 == 0 ? "" : "alternate")">
+                    <td>
+                        <img src="/content/productimages/@item.product.Thumb" /></td>
+                    <td>@item.product.Name</td>
+                    <td>@item.product.Description</td>
+                    <td>@item.product.Price.ToString("0.00")</td>
+                    <td>@item.product.Thumb</td>
+                    <td>@item.product.Image</td>
+                    <td>@item.product.OnDepartmentPromotion</td>
+                    <td>@item.product.OnCatalogPromotion</td>
+                    <td><a href="@Url.Action("Product", "Catalog", new { id = item.product.Id, categoryid = ViewBag.CategoryId })">Select</a></td>
+                    <td><a>Edit</a></td>
+                </tr>
+            }
+        </tbody>
 
-</table>
-<br />
-<form method="post">
-    <input type="hidden" name="id" value="0" />
-    <input type="hidden" name="categoryid" value="@ViewBag.CategoryId" />
-
-    <span class="AdminPageText">Create a new product and assign it to this category:</span>
-    <table class="AdminPageText" cellspacing="0">
-        <tr>
-            <td width="100" valign="top">Name:</td>
-            <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="name" value="@ViewBag.Product.Name" />
-            </td>
-        </tr>
-        <tr>
-            <td width="100" valign="top">Description:</td>
-            <td>
-                <textarea class="AdminPageText" name="description" style="width:400px;height:70px;"></textarea>
-            </td>
-        </tr>
-        <tr>
-            <td width="100" valign="top">Price:</td>
-            <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="price" value="0.00" />
-            </td>
-        </tr>
-        <tr>
-            <td width="100" valign="top">Image1 File:</td>
-            <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="image1FileName" value="" />
-            </td>
-        </tr>
-        <tr>
-            <td width="150" valign="top">Image2 File:</td>
-            <td>
-                <input type="text" style="width:400px;" class="AdminPageText" name="image2FileName" value="" />
-            </td>
-        </tr>
-        <tr>
-            <td width="150" valign="top">Dept. Promotion:</td>
-            <td>
-                <input type="checkbox" name="onDepartmentPromotion" />
-            </td>
-        </tr>
-        <tr>
-            <td width="150" valign="top">Catalog Promotion:</td>
-            <td>
-                <input type="checkbox" name="onCatalogPromotion" />
-            </td>
-        </tr>
     </table>
-    <input type="submit" class="Button" value="Create Product" />
+</fieldset>
+<br />
+<form method="post" class="form-horizontal">
+    <fieldset>
+        <legend>Create a new product and assign it to this category:</legend>
+
+        <input type="hidden" name="id" value="0" />
+        <input type="hidden" name="categoryid" value="@ViewBag.CategoryId" />
+
+        <div class="control-group">
+            <label class="control-label">Name:</label>
+            <div class="controls"><input type="text" class="input-xxlarge" name="name" value="@ViewBag.Product.Name" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Description:</label>
+            <div class="controls"><textarea class="input-xxlarge" name="description" rows="5"></textarea></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Price:</label>
+            <div class="controls">
+                <div class="input-prepend">
+                    <span class="add-on">@System.Globalization.CultureInfo.CurrentUICulture.NumberFormat.CurrencySymbol</span>
+                    <input type="text" class="input-small right" name="price" value="0.00" />
+                </div>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Image1 File:</label>
+            <div class="controls"><input type="text" class="input-xxlarge" name="image1FileName" value="" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Image2 File:</label>
+            <div class="controls"><input type="text" class="input-xxlarge" name="image2FileName" value="" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Dept. Promotion:</label>
+            <div class="controls"><input type="checkbox" name="onDepartmentPromotion" /></div>
+        </div>
+
+        <div class="control-group">
+            <label class="control-label">Catalog Promotion:</label>
+            <div class="controls"><input type="checkbox" name="onCatalogPromotion" /></div>
+        </div>
+
+        <div class="form-actions"><input type="submit" class="btn btn-primary" value="Create Product" /></div>
+
+    </fieldset>
 </form>
 

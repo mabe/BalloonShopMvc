@@ -11,7 +11,7 @@ using BalloonShop.Mvc.Config;
 using BalloonShop.Mvc.Services;
 using Rhino.ServiceBus;
 using Rhino.ServiceBus.Impl;
-using System.Web.Optimization;
+using SquishIt.Framework;
 
 namespace BalloonShop.Mvc
 {
@@ -37,20 +37,10 @@ namespace BalloonShop.Mvc
 
         }
 
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles()
         {
-            bundles.Add(new StyleBundle("~/Content/BalloonShop")
-                .Include("~/Content/themes/base/jquery-ui.css")
-                .Include("~/Content/bootstrap.css")
-                .Include("~/Content/jquery.fancybox.css")
-                .Include("~/Content/app.css"));
-
-            bundles.Add(new ScriptBundle("~/Scripts/BalloonShop")
-                .Include("~/Scripts/jquery-{version}.js")
-                .Include("~/Scripts/jquery-ui-{version}.js")
-                .Include("~/Scripts/bootstrap.js")
-                .Include("~/Scripts/jquery.fancybox.pack.js")
-                .Include("~/Scripts/app.js"));
+            Bundle.Css().Add("~/Content/themes/base/jquery-ui.css").Add("~/Content/jquery.fancybox.css").Add("~/Content/bootstrap.css").Add("~/Content/app.css").AsCached("balloonshop", "~/assets/css/balloonshop");
+            Bundle.JavaScript().Add("~/Scripts/jquery-1.8.2.js").Add("~/Scripts/jquery-ui-1.9.0.js").Add("~/Scripts/jquery.fancybox.pack.js").Add("~/Scripts/bootstrap.js").Add("~/Scripts/app.js").AsCached("balloonshop", "~/assets/scripts/balloonshop");
         }
 
         public static void RegisterValueProviders(ValueProviderFactoryCollection factories)
@@ -66,7 +56,7 @@ namespace BalloonShop.Mvc
 
             RegisterRoutes(RouteTable.Routes);
 
-            RegisterBundles(BundleTable.Bundles);
+            RegisterBundles();
 
             RegisterValueProviders(ValueProviderFactories.Factories);
 

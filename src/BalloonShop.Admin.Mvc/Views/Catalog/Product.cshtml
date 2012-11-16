@@ -5,51 +5,94 @@
 
 
 
-<span class="AdminTitle">@Model.Name</span>
+<h3>@Model.Name</h3>
 <a href="@Url.Action("Products", "Catalog", new { categoryid = ViewBag.CurrentCategoryId })">(go back to products)</a>
-<br />
-<br />
-<span class="AdminPageText">Product Details Loaded</span>
-<br />
-<br />
-Product belongs to these categories:
-        <br />
-<form id="categories" method="post"> 
-    <select name="categorieswithproduct" multiple="multiple">
-@foreach (var category in ViewBag.CategoriesWithProduct)
-{
-        <option>@category.Name</option>
-}
-    </select>
 
-    <button formaction="">>></button>
-    <button formaction=""><<</button>
+<br />
+<br />
 
-    <select name="categorieswithoutproduct" multiple="multiple">
-@foreach (var category in ViewBag.CategoriesWithoutProduct)
-{
-        <option>@category.Name</option>
-}
-    </select>
+<form id="categories" method="post" class="form-horizontal">
+    <fieldset>
+        <legend>Product categories</legend>
+
+        <div class="control-group">
+            <label class="control-label">Change categories</label>
+            <div class="controls">
+
+                <select name="categorieswithproduct" multiple="multiple" class="pull-left">
+                    @foreach (var category in ViewBag.CategoriesWithProduct)
+                    {
+                        <option>@category.Name</option>
+                    }
+                </select>
+
+                <div class="pull-left">
+
+                    <button formaction="" class="btn" style="margin:5px;">>></button><br />
+                    <button formaction="" class="btn" style="margin:5px;"><<</button>
+
+                </div>
+
+                <select name="categorieswithoutproduct" multiple="multiple" class="pull-left">
+                    @foreach (var category in ViewBag.CategoriesWithoutProduct)
+                    {
+                        <option>@category.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-actions"></div>
+    </fieldset>
 </form>
 <br />
-<form>
-    Image1 file name: @Model.Thumb <br />
-    <input type="file" name="image1FileUpload" />
-    <button>Upload</button>
-</form>
-<br />
-<img src="/content/productimages/@Model.Thumb" />
-<br />
-<form>
-    Image2 file name: @Model.Image <br />
-    <input type="file" name="image2FileUpload" />
-    <button>Upload</button>
-</form>
-<br />
-<img src="/content/productimages/@Model.Image" />
+<form enctype="multipart/form-data" method="post" action="#" class="form-horizontal">
+    <fieldset>
+        <legend>Thumbnail</legend>
 
+        <div class="control-group">
+            <label class="control-label">Image</label>
+            <div class="controls">
+                <img src="/content/productimages/@Model.Thumb" />
+            </div>
+        </div>
 
-<form>
-    <button>DELETE PRODUCT</button>
+        <div class="control-group">
+            <div class="controls">
+                <input type="file" name="image1FileUpload" />
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary">Upload</button>
+        </div>
+    </fieldset>
+</form>
+<form enctype="multipart/form-data" method="post" action="#" class="form-horizontal">
+    <fieldset>
+        <legend>Image</legend>
+
+        <div class="control-group">
+            <label class="control-label">Image</label>
+            <div class="controls">
+                <img src="/content/productimages/@Model.Image" />
+            </div>
+        </div>
+
+        <div class="control-group">
+            <div class="controls">
+                <input type="file" name="image2FileUpload" />
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn btn-primary">Upload</button>
+        </div>
+    </fieldset>
+
+</form>
+<form class="form-horizontal">
+    <div class="form-actions">
+        <button class="btn btn-danger">DELETE PRODUCT</button>
+    </div>
 </form>
