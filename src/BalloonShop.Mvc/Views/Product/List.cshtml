@@ -3,10 +3,10 @@
     @foreach (var item in Model.Select((x, i) => new { Index = i + 1, Product = x }).ToList())
     { 
         <div class="span4">
-            <a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" style="width:110px; height:105px; display:block;" class="pull-left">
+            <a href="@Url.Action("Show", "Product", new { id = item.Product.Id })" style="width:110px; height:105px; display:block;" class="pull-left">
                 <img src="/Content/ProductImages/@item.Product.Thumb" class="product-image" />
             </a>
-            <a class="ProductName" href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })">@item.Product.Name</a>
+            <a class="ProductName" href="@Url.Action("Show", "Product", new { id = item.Product.Id })">@item.Product.Name</a>
             <br />
             <span>@item.Product.Description.ShortenText()</span>
             <br />

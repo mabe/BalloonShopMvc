@@ -16,20 +16,17 @@
 }
 
 .thumbnails {
-    list-style:none;
+    list-style: none;
 }
 
     .thumbnails li {
-        display:inline;
+        display: inline;
+        text-align: center;
     }
 
-    .thumbnails img {
-        height:100px;
-    }
-
-    .thumbnails a {
-        text-decoration:none;
-        color:#000;
+    .thumbnails .product-image {
+        height: 100px;
+        margin: 0px;
     }
 
 h1 {
@@ -37,17 +34,17 @@ h1 {
 }
 
 .right {
-    text-align:right;
+    text-align: right;
 }
 
 .nav-list {
     margin-bottom: 20px;
-    padding:0px;
+    padding: 0px;
 }
 
     .nav-list .nav-header {
-        margin-right:0px;
-        margin-left:0px;
+        margin-right: 0px;
+        margin-left: 0px;
     }
 
     .nav-list > li > a {
@@ -60,16 +57,16 @@ h1 {
         }
 
 .cart-content {
-    width:100%;
+    width: 100%;
 }
 
-    .cart-content tbody a {
-        width:110px; 
-        display:inline-block; 
-        white-space: nowrap; 
-        overflow:hidden; 
-        text-overflow:ellipsis;
-    }
+.shortentext {
+    width: 110px;
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
 /****************************************/
 
@@ -172,16 +169,15 @@ a.ProductName {
     color: darkblue;
 }
 
-.search .nav-header {
-    border: #0468a4 1px solid;
-    background-color: #0583b5;
-    color: #f5f5dc;
-    text-align: center;
-}
+    .search .nav-header {
+        border: #0468a4 1px solid;
+        background-color: #0583b5;
+        color: #f5f5dc;
+        text-align: center;
+    }
 
     .search form {
-        margin:10px 5px;
-        
+        margin: 10px 5px;
     }
 
 /****************************************/
@@ -253,20 +249,20 @@ a.AdminPageText {
     border-color: #E7E7FF;
 }
 
-.grid thead tr {
-    color: White;
-    background-color: Navy;
-}
+    .grid thead tr {
+        color: White;
+        background-color: Navy;
+    }
 
-.grid tbody tr {
-    color: Navy;
-    background-color: #E7E7FF;
-}
+    .grid tbody tr {
+        color: Navy;
+        background-color: #E7E7FF;
+    }
 
-.grid tbody tr.alternate {
-    color: Navy;
-    background-color: #F7F7F7;
-}
+        .grid tbody tr.alternate {
+            color: Navy;
+            background-color: #F7F7F7;
+        }
 
 /****************************************/
 

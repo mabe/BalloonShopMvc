@@ -14,7 +14,7 @@
                 {
                     <tr>
                         <td>@item.Quantity x&nbsp;</td>
-                        <td><a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" title="@item.Product.Name">@item.Product.Name</a></td>
+                        <td><a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" title="@item.Product.Name" class="shortentext">@item.Product.Name</a></td>
                         <td style="text-align:right;">@((item.Product.Price * item.Quantity).ToString("c"))</td>
                     </tr>
                 }

@@ -52,9 +52,14 @@
                 There are no reviews for this product.
             </div>
             <div class="tab-pane" id="related-products">
-                <ul class="thumbnails">
+                <ul class="thumbnails row-fluid">
                 @foreach (var recomendation in ViewBag.Recomendations) {
-                    <li><a href="@Url.Action("Show", "Balloon", new { id = recomendation.Id })" title="@recomendation.Name"><img src="/Content/ProductImages/@recomendation.Thumb" class="product-image" /><br /><strong>Price: @recomendation.Price.ToString("c")</strong></a></li>    
+                    <li class="span2">
+                        <div class="thumbnail">
+                            <a href="@Url.Action("Show", "Balloon", new { id = recomendation.Id })" title="@recomendation.Name"><img src="/Content/ProductImages/@recomendation.Thumb" class="product-image" /></a>
+                            <div class="caption"><a href="@Url.Action("Show", "Balloon", new { id = recomendation.Id })" title="@recomendation.Name" class="shortentext">@recomendation.Name</a><br />Price: @recomendation.Price.ToString("c")</div>
+                        </div>
+                    </li>    
                 }
                 </ul>
             </div>
