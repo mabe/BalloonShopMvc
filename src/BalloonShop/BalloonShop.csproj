@@ -113,6 +113,7 @@
     <Compile Include="Model\Product.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Model\OrderDetail.cs" />
+    <Compile Include="Model\ProductReview.cs" />
     <Compile Include="Model\Shipping.cs" />
     <Compile Include="Model\ShippingRegion.cs" />
     <Compile Include="Model\ShoppingCart.cs" />
