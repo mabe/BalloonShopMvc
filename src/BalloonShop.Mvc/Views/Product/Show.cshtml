@@ -5,8 +5,9 @@
 <div class="row-fluid">
     <div class="span10">
         <ul class="breadcrumb">
-            <li><a href="#">@Model.Categories.First().Department.Name</a> <span class="divider">/</span></li>
-            <li><a href="#">@Model.Categories.First().Name</a> <span class="divider">/</span></li>
+            <li><a href="@Url.Content("~/")">Balloon Shop</a> <span class="divider">/</span></li>
+            <li><a href="@Url.Action("Show", "Department", new { id = ViewBag.Category.Department.Id })">@ViewBag.Category.Department.Name</a> <span class="divider">/</span></li>
+            <li><a href="@Url.Action("Show", "Category", new { id = ViewBag.Category.Id })">@ViewBag.Category.Name</a> <span class="divider">/</span></li>
             <li class="active">@Model.Name</li>
         </ul>
     </div>

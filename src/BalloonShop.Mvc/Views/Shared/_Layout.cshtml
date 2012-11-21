@@ -24,11 +24,12 @@
                 @{ if (ViewBag.HideCartNavigation == null || ViewBag.HideCartNavigation == false) { Html.RenderAction("Summary", "Cart"); } }
             </div>
             <div class="span8">
-                <p>
+                <h1>
                     <a href="@Url.Content("~/")">
-                        <img src="/Content/Images/BalloonShopLogo.png" alt="BalloonShop">
+                        <img src="/Content/Images/BalloonShopLogo.png" alt="BalloonShop" />
                     </a>
-                </p>
+                </h1>
+                <br />
                 @RenderBody()
             </div>
         </div>

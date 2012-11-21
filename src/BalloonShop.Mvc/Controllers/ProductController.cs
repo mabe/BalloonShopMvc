@@ -16,9 +16,18 @@ namespace BalloonShop.Mvc.Controllers
             _session = session;
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Show(int id, int? categoryid, int? departmentid)
         {
             var balloon = _session.Get<Product>(id);
+
+            ViewBag.DepartmentId = departmentid;
+            ViewBag.CategoryId = categoryid;
+
+            ViewBag.Category = categoryid.HasValue ? 
+                    balloon.Categories.FirstOrDefault(x => x.Id == categoryid) : 
+                    departmentid.HasValue ? 
+                        balloon.Categories.FirstOrDefault(x => x.Department.Id == departmentid) : 
+                        balloon.Categories.FirstOrDefault();
 
             ViewBag.Reviews = new List<ProductReview> { new ProductReview { Name = "Magnus", Review = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique justo in justo cursus commodo. Sed malesuada scelerisque semper. Cras viverra rutrum nisi in ullamcorper. Sed eu orci magna. Proin rhoncus risus tortor, nec euismod erat. Proin varius accumsan lacus, non egestas nulla vulputate in.", CreatedDate= DateTime.Today } };
             ViewBag.Recomendations = _session.QueryOver<Product>().Where(x => x.Id != id).Take(5).List();

@@ -3,6 +3,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<ul class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Balloon Shop</a> <span class="divider">/</span></li>
+    <li><a href="@Url.Action("Show", "Department", new { Id = Model.Department.Id })">@Model.Department.Name</a> <span class="divider">/</span></li>
+    <li class="active">@Model.Name</li>
+</ul>
+
 <h1>@Model.Name</h1>
 <p class="lead">@Model.Description</p>
 @{Html.RenderPartial("../Product/List", (object)ViewBag.Balloons);}
