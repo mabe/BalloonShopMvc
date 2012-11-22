@@ -3,12 +3,29 @@
     @if (Model.Any())
     {     
         <a href="@Url.Action("Index", "Cart")" class="btn btn-block btn-info" rel="popover" data-placement="bottom" data-html="true" data-title="Cart summary" data-source=".cart-content" title="Cart summary">
-            
-            <i class="icon-shopping-cart icon-white"></i> <strong>@ViewBag.Total.ToString("c")</strong>
+
+            <i class="icon-shopping-cart icon-white"></i><strong>@ViewBag.Total.ToString("c")</strong>
         </a>
 
         <div class="hide">
-            <table class="cart-content">
+            <ul class="cart-content thumbnails">
+                <li><a href="@Url.Action("Index", "Cart")" class="btn btn-mini">Go to cart</a></li>
+                @foreach (var item in Model)
+                { 
+                    <li>
+                        <div class="thumbnail">
+                            <a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" title="@item.Product.Name">
+                                <img src="/Content/ProductImages/@item.Product.Thumb" alt="@item.Product.Name" class="product-image" /></a>
+                            <div class="caption">
+                                <small>@((item.Product.Price * item.Quantity).ToString("c")) (@item.Quantity)</small>
+                            </div>
+                        </div>
+                    </li>
+                }
+                <li><a href="@Url.Action("Index", "Cart")" class="btn btn-mini">Go to cart</a></li>
+            </ul>
+
+            @*<table class="cart-content">
                 <tbody>
                 @foreach (var item in Model)
                 {
@@ -24,7 +41,7 @@
                         <td colspan="3"><a href="@Url.Action("Index", "Cart")">Go to cart</a></td>
                     </tr>
                 </tfoot>
-            </table>
+            </table>*@
         </div>
     }
     else

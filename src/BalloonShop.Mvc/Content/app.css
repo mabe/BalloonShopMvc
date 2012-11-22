@@ -15,6 +15,23 @@
 }
 
 
+.cart-content.thumbnails {
+    overflow-x: hidden; 
+    overflow-y: scroll; 
+    height: 250px;
+}
+
+.cart-content.thumbnails li {
+    margin:5px auto;
+    display:block;
+    float:none;
+    border:none;
+}
+
+.cart-content .thumbnail {
+    border:none;
+}
+
 
 .thumbnails {
     list-style: none;
