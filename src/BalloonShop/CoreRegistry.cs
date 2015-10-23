@@ -12,7 +12,7 @@ namespace BalloonShop
         public CoreRegistry()
         {
             For<ISessionFactory>().Singleton().Use(ctx => NHibernateConfiguration.Factory());
-            For<ISession>().HttpContextScoped().Use(ctx => ctx.GetInstance<ISessionFactory>().GetCurrentSession());
+			For<ISession>().Use(ctx => ctx.GetInstance<ISessionFactory>().GetCurrentSession());
         }
     }
 }

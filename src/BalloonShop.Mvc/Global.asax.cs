@@ -45,8 +45,8 @@ namespace BalloonShop.Mvc
                 .Add("~/Content/bootstrap.css")
                 .Add("~/Content/app.css")
                 .AsCached("balloonshop", "~/assets/css/balloonshop");
-            Bundle.JavaScript().Add("~/Scripts/jquery-1.8.2.js")
-                .Add("~/Scripts/jquery-ui-1.9.0.js")
+            Bundle.JavaScript().Add("~/Scripts/jquery-2.1.4.js")
+                .Add("~/Scripts/jquery-ui-1.11.4.js")
                 .Add("~/Scripts/jquery.fancybox.pack.js")
                 .Add("~/Scripts/jquery.rating.js")
                 .Add("~/Scripts/bootstrap.js")
@@ -72,10 +72,13 @@ namespace BalloonShop.Mvc
             RegisterValueProviders(ValueProviderFactories.Factories);
 
             ObjectFactory.Initialize(ctx => {
-                ctx.Scan(x => {
-                    x.AssembliesFromApplicationBaseDirectory();
-                    x.LookForRegistries();
-                });
+                //ctx.Scan(x => {
+					//x.AssembliesFromApplicationBaseDirectory();
+                    //x.LookForRegistries();
+                //});
+
+				ctx.AddRegistry<CoreRegistry>();
+				ctx.AddRegistry<WebRegistry>();
             });
 
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
@@ -106,7 +109,7 @@ namespace BalloonShop.Mvc
                     session.Dispose();
                 }
 
-                ObjectFactory.ReleaseAndDisposeAllHttpScopedObjects();
+                //ObjectFactory.ReleaseAndDisposeAllHttpScopedObjects();
             };
 
 			AuthenticateRequest += FormsAuthenticationService.AuthenticateRequest;
