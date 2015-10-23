@@ -11,20 +11,22 @@ using BalloonShop.Queries;
 namespace BalloonShop.Mvc.Controllers
 {
     [HandleError]
+	[ShoppingCartFilter]
+	[CatalogFilter]
     public class HomeController : Controller
     {
         private readonly ISession _session;
-        private readonly IOnewayBus _bus;
 
-        public HomeController(ISession session, IOnewayBus bus)
+		public HomeController(ISession session)
         {
-            _session = session;
-            _bus = bus;
+			_session = session;
         }
 
         public ViewResult Index(int? page = 1)
         {
-            return View(_session.QueryOver<Product>().Where(x => x.OnCatalogPromotion == true).PagedList(BalloonShopConfiguration.ProductsPerPage, page));
+			//.Where(x => x.OnCatalogPromotion == true);
+			var products = _session.QueryOver<Product>().PagedList(BalloonShopConfiguration.ProductsPerPage, page);
+			return View(products);
         }
     }
 }

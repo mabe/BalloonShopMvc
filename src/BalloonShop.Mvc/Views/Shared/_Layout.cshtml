@@ -11,21 +11,73 @@
 <body>
     <br />
     <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span2">
-                @{Html.RenderAction("Navigation", "Account");}
-				
-                @{Html.RenderAction("Navigation", "Department", new { DepartmentId = ViewBag.DepartmentId }); }
+        <div class="row">
+            <div class="col-md-3">
+            	@*@{Html.RenderAction("Navigation", "Account");}*@
                 
-                @{ if (ViewBag.DepartmentId != null) { Html.RenderAction("Navigation", "Category", new { DepartmentId = ViewBag.DepartmentId, SelectedCategoryId = ViewBag.CategoryId }); } }
+                <ul class="nav nav-list departments">
+				    <li class="nav-header">Choose a Department</li>
+
+				    @foreach (var department in ViewBag.Departments)
+				    {
+				        <li>
+				            <a href="/Department/Show/@department.Id" class="@(((int?)department.Id) == (int?)ViewBag.DepartmentId ? "active" : "")" title="@department.Description">&raquo;&nbsp;@department.Name&nbsp;&laquo;</a>
+				        </li>
+				    }
+				</ul>
+
+                @if (ViewBag.DepartmentId != null) {
+                	<ul class="nav nav-list categories">
+					    <li class="nav-header">Choose a Category</li>
+					    @foreach (var category in ViewBag.Categories)
+					    {
+					        <li>
+					            <a href="/Category/Show/@category.Id" class="@(category.Id == ViewBag.CategoryId ? "selected" : "")" title="@category.Description">&raquo;&nbsp;@category.Name&nbsp;&laquo;</a>
+					        </li>
+					    }
+					</ul>
+                }
 
                 @{ Html.RenderPartial("../Search/SearchForm"); }
-                
-                @{ if (ViewBag.HideCartNavigation == null || ViewBag.HideCartNavigation == false) { Html.RenderAction("Summary", "Cart"); } }
+
+                @if (ViewBag.HideCartNavigation == null || ViewBag.HideCartNavigation == false) { 
+                <div>
+				    @if (ViewBag.Cart.Count > 0)
+				    {     
+				        <a href="/Cart" class="btn btn-block btn-info" rel="popover" data-placement="bottom" data-html="true" data-title="Cart summary" data-source=".cart-content" title="Cart summary">
+				            <i class="icon-shopping-cart icon-white"></i><strong>@ViewBag.Total.ToString("c")</strong>
+				        </a>
+
+				        <div class="hide">
+				            <ul class="cart-content thumbnails">
+				                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
+				                @foreach (var item in ViewBag.Cart)
+				                { 
+				                    <li>
+				                        <div class="thumbnail">
+				                            <a href="/Balloon/Show/@item.Product.Id" title="@item.Product.Name">
+				                                <img src="/Content/ProductImages/@item.Product.Thumb" alt="@item.Product.Name" class="product-image" /></a>
+				                            <div class="caption">
+				                                <small>@((item.Product.Price * item.Quantity).ToString("c")) (@item.Quantity)</small>
+				                            </div>
+				                        </div>
+				                    </li>
+				                }
+				                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
+				            </ul>
+				        </div>
+				    }
+				    else
+				    { 
+				        <strong>Your shopping cart is empty.</strong>
+				    }
+				</div>
+                }
+
             </div>
-            <div class="span8">
+            <div class="col-md-8">
                 <h1>
-                    <a href="@Url.Content("~/")">
+                    <a href="/">
                         <img src="/Content/Images/BalloonShopLogo.png" alt="BalloonShop" />
                     </a>
                 </h1>

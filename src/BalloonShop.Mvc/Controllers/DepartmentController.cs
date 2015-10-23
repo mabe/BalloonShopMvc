@@ -7,6 +7,7 @@ using BalloonShop.Queries;
 
 namespace BalloonShop.Mvc.Controllers
 {
+	[ShoppingCartFilter]
     public class DepartmentController : Controller
     {
         private readonly ISession _session;
@@ -16,18 +17,14 @@ namespace BalloonShop.Mvc.Controllers
             _session = session;
         }
 
-        public ActionResult Navigation(int? DepartmentId = 0)
-        {
-            ViewBag.DepartmentId = DepartmentId;
-
-            return PartialView(_session.QueryOver<Department>().List());
-        }
-
         public ActionResult Show(int id, int? page)
         {
             var department = _session.Get<Department>(id);
 
+			ViewBag.Departments = _session.QueryOver<Department>().List();
+			ViewBag.Categories = _session.CategoriesInDepartment(id).List();
             ViewBag.DepartmentId = id;
+			ViewBag.CategoryId = 0;
             ViewBag.PromotedBalloons = _session.BalloonsInDepartment(department).PagedList(BalloonShopConfiguration.ProductsPerPage, page);
 
             return View(department);

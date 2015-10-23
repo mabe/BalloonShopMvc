@@ -2,12 +2,12 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row-fluid">
-    <div class="span10">
+<div class="row">
+    <div class="col-md-10">
         <ul class="breadcrumb">
-            <li><a href="@Url.Content("~/")">Balloon Shop</a> <span class="divider">/</span></li>
-            <li><a href="@Url.Action("Show", "Department", new { id = ViewBag.Category.Department.Id })">@ViewBag.Category.Department.Name</a> <span class="divider">/</span></li>
-            <li><a href="@Url.Action("Show", "Category", new { id = ViewBag.Category.Id })">@ViewBag.Category.Name</a> <span class="divider">/</span></li>
+            <li><a href="/">Balloon Shop</a> <span class="divider">/</span></li>
+            <li><a href="/Department/Show/@ViewBag.Category.Department.Id">@ViewBag.Category.Department.Name</a> <span class="divider">/</span></li>
+            <li><a href="/Category/Show/@ViewBag.Category.Id">@ViewBag.Category.Name</a> <span class="divider">/</span></li>
             <li class="active">@Model.Name</li>
         </ul>
     </div>
@@ -15,26 +15,26 @@
 
 <div class="row-fluid">
 
-    <div class="span4" style="text-align: center;">
+    <div class="col-md-6" style="text-align: center;">
         <a href="/Content/ProductImages/@Model.Image" class="fancybox">
             <img src="/Content/ProductImages/@Model.Image" class="product-image" /></a>
     </div>
 
-    <div class="span6">
+    <div class="col-md-6">
         <h1>@Model.Name</h1>
 
     </div>
 
-    <div class="span6">
+    <div class="col-md-6">
         <p>@Model.Description</p>
     </div>
 
-    <div class="span6">
+    <div class="col-md-6">
         <h3><strong>Price: @Model.Price.ToString("c")</strong></h3>
     </div>
 
-    <div class="span6">
-        <form method="post" action="@Url.Action("Add", "Cart")" class="form-inline">
+    <div class="col-md-6">
+        <form method="post" action="/Cart/Add" class="form-inline">
             <div class="form-actions">
                 <div class="row-fluid">
                     <div class="span5">
@@ -54,17 +54,18 @@
         </form>
     </div>
 
-    <div class="span6">
+    <div class="col-md-6 col-md-offset-6">
 
-        <div class="rating" data-url="@Url.Action("Rate", "Product", new { id = Model.Id })" data-curvalue="0"></div>
+        <div class="rating" data-url="/Product/Rate/@Model.Id" data-curvalue="0"></div>
         &nbsp;&nbsp;
         <a href="#reviews" class="reviews">@((ViewBag.Reviews as IEnumerable<ProductReview>).Count()) reviews</a> | <a href="#reviews" class="reviews">Write a review</a>
 
     </div>
+
 </div>
 <br />
-<div class="row-fluid">
-    <div class="span9">
+<div class="row">
+    <div class="col-md-12">
 
         <ul class="nav nav-tabs">
             <li class="active"><a href="#description" data-toggle="tab">Description</a></li>
@@ -114,16 +115,17 @@
                     </fieldset>
                 </form>
             </div>
+
             <div class="tab-pane" id="related-products">
                 <ul class="thumbnails row-fluid">
                     @foreach (var recomendation in ViewBag.Recomendations)
                     {
                         <li class="span2">
                             <div class="thumbnail">
-                                <a href="@Url.Action("Show", "Balloon", new { id = recomendation.Id })" title="@recomendation.Name">
+                                <a href="/Balloon/Show/@recomendation.Id" title="@recomendation.Name">
                                     <img src="/Content/ProductImages/@recomendation.Thumb" class="product-image" /></a>
                                 <div class="caption">
-                                    <a href="@Url.Action("Show", "Balloon", new { id = recomendation.Id })" title="@recomendation.Name" class="shortentext">@recomendation.Name</a><br />
+                                    <a href="/Balloon/Show/@recomendation.Id" title="@recomendation.Name" class="shortentext">@recomendation.Name</a><br />
                                     Price: @recomendation.Price.ToString("c")
                                 </div>
                             </div>

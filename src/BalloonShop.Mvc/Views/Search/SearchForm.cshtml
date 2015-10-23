@@ -3,7 +3,7 @@
     </li>
     <li>
         <div class="row-fluid">
-            <form method="get" action="@Url.Action("Show", "Search")" class="form-inline">
+            <form method="get" action="/Search/Show" class="form-inline">
                 <input type="text" name="search" id="search" maxlength="100" class="span9" value="@ViewBag.search" />
                 <input type="submit" value="Go!" class="btn span3" />
                 <label class="checkbox">@Html.CheckBox("allWords") Search for all words</label>

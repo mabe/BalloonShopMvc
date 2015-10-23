@@ -5,7 +5,7 @@
 
 <h1>Your Shopping Cart</h1>
 
-<form method="post" action="@Url.Action("Update", "Cart")">
+<form method="post" action="/Cart/Update">
     <table class="table">
         <thead>
             <tr>
@@ -21,14 +21,14 @@
         @foreach (var obj in Model.Select((x, i) => new { Item = x, Index = i }).ToList()) {
         <tr>
             <td><img src="/Content/ProductImages/@obj.Item.Product.Thumb" class="product-image" /></td>
-            <td><a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Product.Id })" class="lead">@obj.Item.Product.Name</a></td>
+            <td><a href="/Ballon/Show/@obj.Item.Product.Id" class="lead">@obj.Item.Product.Name</a></td>
             <td><span class="uneditable-input input-mini">@obj.Item.Product.Price.ToString("c")</span></td>
             <td>
                 <input type="hidden" name="items[@obj.Index].Key" value="@obj.Item.Product.Id" />
                 <input type="text" name="items[@obj.Index].Value" maxlength="2" class="input-mini spinner" value="@obj.Item.Quantity" />
             </td>
             <td style="text-align:right;"><span class="uneditable-input input-mini">@((obj.Item.Product.Price * obj.Item.Quantity).ToString("c"))</span></td>
-            <td style="text-align:right;"><button value="@obj.Item.Product.Id" name="remove" class="btn btn-danger" formaction="@Url.Action("Remove", "Cart")">Delete</button></td>
+            <td style="text-align:right;"><button value="@obj.Item.Product.Id" name="remove" class="btn btn-danger" formaction="/Cart/Remove">Delete</button></td>
             <td></td>
         </tr>       
         }
@@ -46,7 +46,7 @@
 
     <div class="form-actions" style="text-align:right;">
         <input type="submit" value="Update Quantities" class="btn btn-primary" />
-                    <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success btn-large">Proceed to Checkout</a>
+                    <a href="/Cart/Checkout" class="btn btn-success btn-large">Proceed to Checkout</a>
     </div>
 </form>
 

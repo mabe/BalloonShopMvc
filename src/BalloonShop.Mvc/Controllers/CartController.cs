@@ -10,45 +10,33 @@ using BalloonShop.Mvc.Helpers;
 using System.Security.Principal;
 using BalloonShop.Messages;
 using Rhino.ServiceBus;
+using BalloonShop.Mvc.Features.Cart;
 
 namespace BalloonShop.Mvc.Controllers
 {
+	[ShoppingCartFilter]
+	[CatalogFilter]
     public class CartController : Controller
     {
 		private readonly IIdentity _identity;
 		private readonly ISession _session;
-        private readonly IOnewayBus _bus;
 
-        public CartController(IIdentity identity, ISession session, IOnewayBus bus)
+        public CartController(IIdentity identity, ISession session)
         {
 			_identity = identity;
             _session = session;
-            _bus = bus;
         }
 
         [HttpPost]
-        public ActionResult Add(string customerCartId, int balloonId, int quantity = 1, string returnurl = "")
+        public ActionResult Add(Add.Command command)
         {
-            var balloon = _session.Load<Product>(balloonId);
+            new Add.Handler(_session).Execute(command);
 
-            var item = _session.Get<ShoppingCart>(new ShoppingCart { Product = balloon, CartId = customerCartId });
-
-            if (item == null) {
-                item = new ShoppingCart() { Product = balloon, CartId = customerCartId, DateAdded = DateTime.Now };
-                _session.Save(item);
+            if (!string.IsNullOrEmpty(command.returnurl)) {
+                return Redirect(command.returnurl);
             }
 
-            item.Quantity += quantity;
-
-            if (item.Quantity <= 0) {
-                _session.Delete(item);
-            }
-
-            if (!string.IsNullOrEmpty(returnurl)) {
-                return Redirect(returnurl);
-            }
-
-            return RedirectToAction("Show", "Balloon", new { id = balloonId });
+            return RedirectToAction("Show", "Balloon", new { id = command.balloonId });
         }
 
         [HttpPost]
@@ -127,16 +115,16 @@ namespace BalloonShop.Mvc.Controllers
 					break;
 			}
 
-			var order = new Order(account.Id, 
+			var order = new Order(account.Id,
                 "",
-                account.Email, 
+                account.Email,
                 cart.Select(item => new OrderDetail() {
                     ProductId = item.Product.Id,
-                    ProductName = item.Product.Name, 
+                    ProductName = item.Product.Name,
 					Quantity = item.Quantity,
-                    UnitCost = item.Product.Price 
-				}).ToList(), 
-                _session.Get<Tax>(taxId), 
+                    UnitCost = item.Product.Price
+				}).ToList(),
+                _session.Get<Tax>(taxId),
                 _session.Get<Shipping>(model.ShippingType));
 
 			foreach (var item in cart) {
@@ -145,7 +133,7 @@ namespace BalloonShop.Mvc.Controllers
 
 			_session.Save(order);
 
-            _bus.Send(new InitialNotificationMessage() { OrderId = order.Id, CorrelationId = order.SagaCorrelationId });
+            //_bus.Send(new InitialNotificationMessage() { OrderId = order.Id, CorrelationId = order.SagaCorrelationId });
 
 			return RedirectToAction("Placed", "Order");
 		}
