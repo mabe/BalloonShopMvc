@@ -1,11 +1,11 @@
-﻿@model IEnumerable<Category>
-<ul class="nav nav-list categories">
-    <li class="nav-header">Choose a Category</li>
-    @foreach (var category in Model)
-    {
-        <li>
-            <a href="@Url.Action("Show", "Category", new { Id = category.Id })" class="@(category.Id == ViewBag.CategoryId ? "selected" : "")" title="@category.Description">&raquo;&nbsp;@category.Name&nbsp;&laquo;</a>
-        </li>
-    }
-</ul>
-
+﻿@if (ViewBag.DepartmentId != null) {
+	<ul class="nav nav-list categories">
+	    <li class="nav-header">Choose a Category</li>
+	    @foreach (var category in ViewBag.Categories)
+	    {
+	        <li>
+	            <a href="/Category/Show/@category.Id" class="@(category.Id == ViewBag.CategoryId ? "selected" : "")" title="@category.Description">&raquo;&nbsp;@category.Name&nbsp;&laquo;</a>
+	        </li>
+	    }
+	</ul>
+}

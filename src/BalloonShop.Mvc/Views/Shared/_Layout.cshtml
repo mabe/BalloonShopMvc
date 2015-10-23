@@ -15,64 +15,13 @@
             <div class="col-md-3">
             	@*@{Html.RenderAction("Navigation", "Account");}*@
                 
-                <ul class="nav nav-list departments">
-				    <li class="nav-header">Choose a Department</li>
+                @{ Html.RenderPartial("../Department/Navigation"); }
 
-				    @foreach (var department in ViewBag.Departments)
-				    {
-				        <li>
-				            <a href="/Department/Show/@department.Id" class="@(((int?)department.Id) == (int?)ViewBag.DepartmentId ? "active" : "")" title="@department.Description">&raquo;&nbsp;@department.Name&nbsp;&laquo;</a>
-				        </li>
-				    }
-				</ul>
-
-                @if (ViewBag.DepartmentId != null) {
-                	<ul class="nav nav-list categories">
-					    <li class="nav-header">Choose a Category</li>
-					    @foreach (var category in ViewBag.Categories)
-					    {
-					        <li>
-					            <a href="/Category/Show/@category.Id" class="@(category.Id == ViewBag.CategoryId ? "selected" : "")" title="@category.Description">&raquo;&nbsp;@category.Name&nbsp;&laquo;</a>
-					        </li>
-					    }
-					</ul>
-                }
+                @{ Html.RenderPartial("../Category/Navigation"); }
 
                 @{ Html.RenderPartial("../Search/SearchForm"); }
 
-                @if (ViewBag.HideCartNavigation == null || ViewBag.HideCartNavigation == false) { 
-                <div>
-				    @if (ViewBag.Cart.Count > 0)
-				    {     
-				        <a href="/Cart" class="btn btn-block btn-info" rel="popover" data-placement="bottom" data-html="true" data-title="Cart summary" data-source=".cart-content" title="Cart summary">
-				            <i class="icon-shopping-cart icon-white"></i><strong>@ViewBag.Total.ToString("c")</strong>
-				        </a>
-
-				        <div class="hide">
-				            <ul class="cart-content thumbnails">
-				                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
-				                @foreach (var item in ViewBag.Cart)
-				                { 
-				                    <li>
-				                        <div class="thumbnail">
-				                            <a href="/Balloon/Show/@item.Product.Id" title="@item.Product.Name">
-				                                <img src="/Content/ProductImages/@item.Product.Thumb" alt="@item.Product.Name" class="product-image" /></a>
-				                            <div class="caption">
-				                                <small>@((item.Product.Price * item.Quantity).ToString("c")) (@item.Quantity)</small>
-				                            </div>
-				                        </div>
-				                    </li>
-				                }
-				                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
-				            </ul>
-				        </div>
-				    }
-				    else
-				    { 
-				        <strong>Your shopping cart is empty.</strong>
-				    }
-				</div>
-                }
+                @{ Html.RenderPartial("../Cart/Summary"); }
 
             </div>
             <div class="col-md-8">

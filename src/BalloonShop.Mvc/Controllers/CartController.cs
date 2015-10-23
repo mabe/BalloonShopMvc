@@ -57,15 +57,7 @@ namespace BalloonShop.Mvc.Controllers
 
             return RedirectToAction("Index", "Cart");
         }
-
-        public ActionResult Summary(string customerCartId) {
-            var model = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
-
-            ViewBag.Total = model.Sum(x => x.Product.Price * x.Quantity);
-
-            return View(model);
-        }
-
+			
         public ActionResult Index(string customerCartId) {
             var model = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
 

@@ -1,20 +1,19 @@
-﻿@model IEnumerable<ShoppingCart>
+﻿@if (ViewBag.HideCartNavigation == null || ViewBag.HideCartNavigation == false) { 
 <div>
-    @if (Model.Any())
+    @if (ViewBag.Cart.Count > 0)
     {     
-        <a href="@Url.Action("Index", "Cart")" class="btn btn-block btn-info" rel="popover" data-placement="bottom" data-html="true" data-title="Cart summary" data-source=".cart-content" title="Cart summary">
-
+        <a href="/Cart" class="btn btn-block btn-info" rel="popover" data-placement="bottom" data-html="true" data-title="Cart summary" data-source=".cart-content" title="Cart summary">
             <i class="icon-shopping-cart icon-white"></i><strong>@ViewBag.Total.ToString("c")</strong>
         </a>
 
         <div class="hide">
             <ul class="cart-content thumbnails">
-                <li><a href="@Url.Action("Index", "Cart")" class="btn btn-mini">Go to cart</a></li>
-                @foreach (var item in Model)
+                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
+                @foreach (var item in ViewBag.Cart)
                 { 
                     <li>
                         <div class="thumbnail">
-                            <a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" title="@item.Product.Name">
+                            <a href="/Balloon/Show/@item.Product.Id" title="@item.Product.Name">
                                 <img src="/Content/ProductImages/@item.Product.Thumb" alt="@item.Product.Name" class="product-image" /></a>
                             <div class="caption">
                                 <small>@((item.Product.Price * item.Quantity).ToString("c")) (@item.Quantity)</small>
@@ -22,26 +21,8 @@
                         </div>
                     </li>
                 }
-                <li><a href="@Url.Action("Index", "Cart")" class="btn btn-mini">Go to cart</a></li>
+                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
             </ul>
-
-            @*<table class="cart-content">
-                <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.Quantity x&nbsp;</td>
-                        <td><a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" title="@item.Product.Name" class="shortentext">@item.Product.Name</a></td>
-                        <td style="text-align:right;">@((item.Product.Price * item.Quantity).ToString("c"))</td>
-                    </tr>
-                }
-                </tbody>
-                <tfoot>
-                    <tr>
-                        <td colspan="3"><a href="@Url.Action("Index", "Cart")">Go to cart</a></td>
-                    </tr>
-                </tfoot>
-            </table>*@
         </div>
     }
     else
@@ -49,4 +30,23 @@
         <strong>Your shopping cart is empty.</strong>
     }
 </div>
+}
+
+@*<table class="cart-content">
+<tbody>
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Quantity x&nbsp;</td>
+        <td><a href="@Url.Action("Show", "Balloon", new { id = item.Product.Id })" title="@item.Product.Name" class="shortentext">@item.Product.Name</a></td>
+        <td style="text-align:right;">@((item.Product.Price * item.Quantity).ToString("c"))</td>
+    </tr>
+}
+</tbody>
+<tfoot>
+    <tr>
+        <td colspan="3"><a href="@Url.Action("Index", "Cart")">Go to cart</a></td>
+    </tr>
+</tfoot>
+</table>*@
 

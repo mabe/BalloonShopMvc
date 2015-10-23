@@ -1,13 +1,10 @@
-﻿@model IEnumerable<Department>
-<ul class="nav nav-list departments">
+﻿<ul class="nav nav-list departments">
     <li class="nav-header">Choose a Department</li>
 
-    @foreach (var department in Model)
+    @foreach (var department in ViewBag.Departments)
     {
         <li>
-            <a href="/Department/Show/@department.Id" class="@(department.Id == (int)ViewData["DepartmentId"] ? "active" : "")" title="@department.Description">&raquo;&nbsp;@department.Name&nbsp;&laquo;</a>
+            <a href="/Department/Show/@department.Id" class="@(((int?)department.Id) == (int?)ViewBag.DepartmentId ? "active" : "")" title="@department.Description">&raquo;&nbsp;@department.Name&nbsp;&laquo;</a>
         </li>
     }
 </ul>
-
-
