@@ -20,10 +20,12 @@ namespace BalloonShop.Model
     {
         public CategoryMap()
         {
+			Table ("category");
             Id(x => x.Id).GeneratedBy.Identity().Column("CategoryId");
             Map(x => x.Name);
             Map(x => x.Description);
             References(x => x.Department, "DepartmentId");
         }
     }
+
 }

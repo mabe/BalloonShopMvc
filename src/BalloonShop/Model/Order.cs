@@ -152,7 +152,7 @@ namespace BalloonShop.Model
             return sb.ToString();
         }
     }
-
+	/*
     public class OrderMap : ClassMap<Order>
     {
         public OrderMap()
@@ -179,4 +179,5 @@ namespace BalloonShop.Model
             HasMany(x => x.OrderDetails).Access.CamelCaseField(Prefix.Underscore).KeyColumn("OrderId").Cascade.AllDeleteOrphan();
         }
     }
+    */
 }

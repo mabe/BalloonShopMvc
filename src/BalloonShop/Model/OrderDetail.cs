@@ -31,7 +31,7 @@ namespace BalloonShop.Model
 			return (Order.Id + "|" + ProductId).GetHashCode();
 		}  
 	}
-
+	/*
 	public class OrderDetailMap : ClassMap<OrderDetail>
 	{
 		public OrderDetailMap()
@@ -43,4 +43,5 @@ namespace BalloonShop.Model
 			Map(x => x.Subtotal).ReadOnly();
 		}
 	}
+*/
 }

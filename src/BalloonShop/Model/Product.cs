@@ -36,12 +36,12 @@ namespace BalloonShop.Model
 
             Id(x => x.Id).GeneratedBy.Identity().Column("ProductId");
             Map(x => x.Name);
-            Map(x => x.Thumb).Column("Image1FileName");
+            Map(x => x.Thumb).Column("thumbnail");
             Map(x => x.Price);
             Map(x => x.Description);
-            Map(x => x.Image).Column("Image2FileName");
-            Map(x => x.OnCatalogPromotion);
-            Map(x => x.OnDepartmentPromotion);
+            Map(x => x.Image);
+			Map(x => x.OnCatalogPromotion).Column("PromoFront");
+			Map(x => x.OnDepartmentPromotion).Column("PromoDept");
 
             HasManyToMany(x => x.Categories).Table("ProductCategory").ParentKeyColumn("ProductId").ChildKeyColumn("CategoryId");
         }

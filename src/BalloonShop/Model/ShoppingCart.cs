@@ -35,10 +35,13 @@ namespace BalloonShop.Model
     {
         public ShoppingCartMap()
         {
+			Table ("shoppingcart");
+
             CompositeId().KeyReference(x => x.Product, "ProductId").KeyProperty(x => x.CartId);
 
             Map(x => x.Quantity);
             Map(x => x.DateAdded);
         }
     }
+    
 }

@@ -48,7 +48,7 @@ namespace BalloonShop.Model
             return sb.ToString();
         }
 	}
-
+	/*
 	public class AccountMap : ClassMap<Account>
 	{
 		public AccountMap()
@@ -72,4 +72,5 @@ namespace BalloonShop.Model
 			});
 		}
 	}
+	*/
 }

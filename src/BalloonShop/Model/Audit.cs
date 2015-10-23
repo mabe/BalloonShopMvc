@@ -28,7 +28,7 @@ namespace BalloonShop.Model
         public virtual int MessageNumber { get; set; }
 
     }
-
+	/*
     public class AuditMap : ClassMap<Audit>
     {
         public AuditMap()
@@ -40,4 +40,5 @@ namespace BalloonShop.Model
             Map(x => x.MessageNumber);
         }
     }
+    */
 }

@@ -12,7 +12,7 @@ namespace BalloonShop.Model
         public virtual string Name { get; set; }
         public virtual decimal Percentage { get; set; }
     }
-
+	/*
     public class TaxMap : ClassMap<Tax> {
         public TaxMap()
         {
@@ -21,4 +21,5 @@ namespace BalloonShop.Model
             Map(x => x.Percentage).Column("TaxPercentage");
         }
     }
+    */
 }

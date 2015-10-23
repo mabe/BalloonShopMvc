@@ -17,6 +17,8 @@ namespace BalloonShop.Model
     {
         public DepartmentMap()
         {
+			Table ("department");
+
             Id(x => x.Id).GeneratedBy.Identity().Column("DepartmentID");
             Map(x => x.Name);
             Map(x => x.Description);

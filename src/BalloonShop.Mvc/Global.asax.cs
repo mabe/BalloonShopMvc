@@ -12,6 +12,7 @@ using BalloonShop.Mvc.Services;
 using Rhino.ServiceBus;
 using Rhino.ServiceBus.Impl;
 using SquishIt.Framework;
+using StructureMap.Graph;
 
 namespace BalloonShop.Mvc
 {
@@ -88,13 +89,18 @@ namespace BalloonShop.Mvc
 
         private void RegisterBus(IContainer container)
         {
-            new OnewayRhinoServiceBusConfiguration().UseStructureMap(container).Configure();
+            //new OnewayRhinoServiceBusConfiguration().UseStructureMap(container).Configure();
         }
 
         public MvcApplication()
         {
             BeginRequest += (sender, e) => {
-                CurrentSessionContext.Bind(ObjectFactory.GetInstance<ISessionFactory>().OpenSession());
+				try {
+					CurrentSessionContext.Bind(ObjectFactory.GetInstance<ISessionFactory>().OpenSession());	
+				} catch (System.Exception ex) {
+					
+				}
+                
 
                 if (HttpContext.Current.Request.Cookies["customerCartId"] == null) {
                     HttpContext.Current.Response.SetCookie(new HttpCookie("customerCartId", Guid.NewGuid().ToString()));
