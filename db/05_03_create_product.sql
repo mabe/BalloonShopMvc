@@ -3,19 +3,35 @@ USE BalloonShop
 GO
 
 ---
---- PRODUCT 
+--- PRODUCT
 ---
 
 GO
 
 CREATE TABLE Product(
-	ProductID INT IDENTITY(1,1) NOT NULL,
-	Name NVARCHAR(50) NOT NULL,
-	Description NVARCHAR(MAX) NOT NULL,
+	ProductID SERIAL NOT NULL,
+	Name VARCHAR(50) NOT NULL,
+	Description TEXT NOT NULL,
 	Price MONEY NOT NULL,
-	Thumbnail NVARCHAR(50) NULL,
-	Image NVARCHAR(50) NULL,
+	Thumbnail VARCHAR(50) NULL,
+	Image VARCHAR(50) NULL,
 	PromoFront BIT NOT NULL,
 	PromoDept BIT NOT NULL,
- CONSTRAINT PK_Product PRIMARY KEY CLUSTERED (ProductID ASC)
-) 
+ CONSTRAINT PK_Product PRIMARY KEY (ProductID)
+);
+
+
+GO
+
+CREATE TABLE ShoppingCart(
+	CartID char(36) NOT NULL,
+	ProductID INT NOT NULL,
+	Quantity INT NOT NULL,
+	DateAdded DATE NOT NULL,
+ CONSTRAINT PK_ShoppingCart PRIMARY KEY (CartID, ProductID)
+);
+
+GO
+
+ALTER TABLE ShoppingCart ADD CONSTRAINT FK_ShoppingCart_Product FOREIGN KEY(ProductID)
+REFERENCES Product (ProductID);
