@@ -16,6 +16,7 @@ namespace BalloonShop.Mvc.Config
             For<IControllerActivator>().Use<StructureMapControllerActivator>();
 			For<IIdentity>().Use(x => HttpContext.Current.User.Identity);
 			For<IAuthenticationService>().Use<FormsAuthenticationService>();
+			For<IControllerFactory> ().Use<ControllerFactory> ();
         }
     }
 }

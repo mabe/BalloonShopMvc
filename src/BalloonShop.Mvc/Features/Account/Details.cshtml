@@ -1,0 +1,22 @@
+﻿@model BalloonShop.Mvc.Features.Account.AccountDetailsViewModel
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h1>Edit Details</h1>
+<br />
+<form method="post" class="form-horizontal">
+    @Html.EditorForModel()
+
+    <br />
+
+    @Html.ValidationSummary(false)
+
+    <div class="row">
+    <div class="col-md-10" style="text-align: right;">
+        <input type="submit" value="Update" class="btn btn-primary" />
+    </div>
+    </div>
+</form>
+
+

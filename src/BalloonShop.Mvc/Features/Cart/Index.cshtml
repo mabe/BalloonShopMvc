@@ -1,0 +1,53 @@
+﻿@model IEnumerable<ShoppingCart>
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h1>Your Shopping Cart</h1>
+
+<form method="post" action="/Cart/Update">
+    <table class="table">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th style="text-align:right;">Subtotal</th>
+                <th colspan="2"></th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var obj in Model.Select((x, i) => new { Item = x, Index = i }).ToList()) {
+        <tr>
+            <td><img src="/Content/ProductImages/@obj.Item.Product.Thumb" class="product-image" /></td>
+            <td><a href="@CatalogUrlHelper.ProductUrl(Html, obj.Item.Product)" class="lead">@obj.Item.Product.Name</a></td>
+            <td><span class="uneditable-input input-mini">@obj.Item.Product.Price.ToString("c")</span></td>
+            <td>
+                <input type="hidden" name="items[@obj.Index].Key" value="@obj.Item.Product.Id" />
+                <input type="text" name="items[@obj.Index].Value" maxlength="2" class="input-mini spinner" value="@obj.Item.Quantity" />
+            </td>
+            <td style="text-align:right;"><span class="uneditable-input input-mini">@((obj.Item.Product.Price * obj.Item.Quantity).ToString("c"))</span></td>
+            <td style="text-align:right;"><button value="@obj.Item.Product.Id" name="remove" class="btn btn-danger" formaction="/Cart/Remove">Delete</button></td>
+            <td></td>
+        </tr>       
+        }
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="4"></td>
+                <td style="text-align:right;">
+                    Total amount: <strong>@ViewBag.Total.ToString("c")</strong>
+                </td>
+                <td colspan="2"></td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <div class="form-actions" style="text-align:right;">
+        <input type="submit" value="Update Quantities" class="btn btn-primary" />
+                    <a href="/Order/Checkout" class="btn btn-success btn-large">Proceed to Checkout</a>
+    </div>
+</form>
+
+

@@ -31,24 +31,29 @@ namespace BalloonShop.Mvc
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
 			routes.MapRoute(
+				"Catalog_Search",
+				"catalog/Search",
+				new { controller = "Catalog", action = "Search" });
+
+			routes.MapRoute(
 				"Catalog_Department",
 				"catalog/{department}",
-				new { controller = "Department", action = "Show" });
+				new { controller = "Catalog", action = "Department" });
 
 			routes.MapRoute(
 				"Catalog_Category",
 				"catalog/{department}/{category}",
-				new { controller = "Category", action = "Show" });
+				new { controller = "Catalog", action = "Category" });
 
 			routes.MapRoute(
 				"Catalog_Product",
 				"catalog/{department}/{category}/{product}",
-				new { controller = "Product", action = "Show" });
+				new { controller = "Catalog", action = "Product" });
 
             routes.MapRoute(
                 "Default",                                              // Route name
                 "{controller}/{action}/{id}",                           // URL with parameters
-                new { controller = "Home", action = "Index", id = "" }  // Parameter defaults
+                new { controller = "Catalog", action = "Index", id = "" }  // Parameter defaults
             );
 
 
@@ -102,6 +107,9 @@ namespace BalloonShop.Mvc
             DependencyResolver.SetResolver(new StructureMapDependencyResolver(ObjectFactory.Container));
 
             RegisterBus(ObjectFactory.Container);
+
+			ViewEngines.Engines.Clear();
+			ViewEngines.Engines.Add(new FeatureViewLocationRazorViewEngine());
         }
 
         private void RegisterBus(IContainer container)

@@ -1,0 +1,15 @@
+﻿@model Category
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<ul class="breadcrumb">
+    <li><a href="/">Balloon Shop</a> <span class="divider">/</span></li>
+    <li><a href="/Department/Show/@Model.Department.Id">@Model.Department.Name</a> <span class="divider">/</span></li>
+    <li class="active">@Model.Name</li>
+</ul>
+
+<h1>@Model.Name</h1>
+<p class="lead">@Model.Description</p>
+@{Html.RenderPartial("Products", (object)ViewBag.Balloons);}
+@(Html.Paging<Product>((object)ViewBag.Balloons, () => CatalogUrlHelper.CategoryUrl(Html, Model)))

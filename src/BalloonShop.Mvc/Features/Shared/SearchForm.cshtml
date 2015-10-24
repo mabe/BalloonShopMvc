@@ -1,0 +1,14 @@
+﻿<ul class="nav nav-list search">
+    <li class="nav-header">Search the Catalog
+    </li>
+    <li>
+        <div class="row-fluid">
+            <form method="get" action="/Catalog/Search" class="form-inline">
+                <input type="text" name="search" id="search" maxlength="100" class="span9" value="@ViewBag.search" />
+                <input type="submit" value="Go!" class="btn span3" />
+                <label class="checkbox">@Html.CheckBox("allWords") Search for all words</label>
+            </form>
+        </div>
+    </li>
+</ul>
+

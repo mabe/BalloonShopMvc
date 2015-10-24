@@ -18,10 +18,10 @@ namespace BalloonShop.Mvc.Helpers
             if (list.NumberOfPages <= 1) return MvcHtmlString.Empty;
 
             //var url = new System.Web.Mvc.UrlHelper(helper.ViewContext.RequestContext);
-			var url = string.Concat(func(), "/?page=");
+			var url = func();
+			url = string.Concat (url, url.Contains("?") ? "&" : "/?", "page=");
 
-
-            sb.Append("<div class=\"pagination pagination-centered\"><ul>");
+            sb.Append("<ul class=\"pagination pagination-centered\">");
 
             if (list.HasPreviousPage) {
                 sb.AppendFormat("<li><a href=\"{0}\">Prev</a></li>", url + (list.Page - 1));
@@ -37,7 +37,7 @@ namespace BalloonShop.Mvc.Helpers
                 sb.Append("<li><span>Next</span></li>");
             }
 
-            sb.Append("</ul></div>");
+            sb.Append("</ul>");
 
             return new MvcHtmlString(sb.ToString());
         }

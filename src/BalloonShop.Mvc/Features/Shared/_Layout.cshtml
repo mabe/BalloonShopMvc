@@ -1,0 +1,48 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>BalloonShop</title>
+    @Bundle.Css().MvcRenderCachedAssetTag("balloonshop");
+</head>
+<body>
+    <br />
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+            	
+            	@if (User.Identity.IsAuthenticated) {
+            		Html.RenderPartial("Account");
+            	} else {
+            		Html.RenderPartial("Account_NotAuthenticated");
+            	}
+
+                @{ Html.RenderPartial("Departments"); }
+
+                @{ Html.RenderPartial("Categories"); }
+
+                @{ Html.RenderPartial("SearchForm"); }
+
+                @{ Html.RenderPartial("Cart"); }
+
+            </div>
+            <div class="col-md-8">
+                <h1>
+                    <a href="/">
+                        <img src="/Content/Images/BalloonShopLogo.png" alt="BalloonShop" />
+                    </a>
+                </h1>
+                <br />
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+@Bundle.JavaScript().MvcRenderCachedAssetTag("balloonshop");
+@RenderSection("Script", false)
+</body>
+</html>
+

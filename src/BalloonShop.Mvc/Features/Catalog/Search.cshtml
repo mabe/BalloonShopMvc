@@ -1,0 +1,9 @@
+﻿@model IEnumerable<Product>
+@{
+    Layout = "../Shared/_Layout.cshtml";
+}
+
+<h1>Search</h1>
+<p class="lead">Your search for "<em>@ViewBag.search</em>" gave @ViewBag.hits hits.</p>
+@{ Html.RenderPartial("Products"); }
+@(Html.Paging<Product>(Model, () => "/Catalog/Search?search=" + ViewData["search"] + "&allWords=" + ViewData["allWords"]))
