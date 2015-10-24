@@ -13,6 +13,7 @@ namespace BalloonShop.Mvc.Controllers
     [HandleError]
 	[ShoppingCartFilter]
 	[CatalogFilter]
+	[AccountFilter]
     public class HomeController : Controller
     {
         private readonly ISession _session;

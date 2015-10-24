@@ -16,6 +16,7 @@ namespace BalloonShop.Mvc.Controllers
 {
 	[ShoppingCartFilter]
 	[CatalogFilter]
+	[AccountFilter]
     public class CartController : Controller
     {
 		private readonly IIdentity _identity;

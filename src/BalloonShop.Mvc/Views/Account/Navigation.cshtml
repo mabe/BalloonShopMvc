@@ -3,12 +3,12 @@
         User Info
     </li>
     <li>
-        <span>You are logged in as <b>@Model.Email</b>.</span>
+        <span>You are logged in as <b>@ViewBag.Account.Email</b>.</span>
     </li>
     <li>
-        <a href="@Url.Action("Logout", "Account")">&raquo;&nbsp;Logout&nbsp;&laquo;</a>
+        <a href="/Account/Logout">&raquo;&nbsp;Logout&nbsp;&laquo;</a>
     </li>
     <li>
-        <a href="@Url.Action("Details", "Account")" title="Edit your personal details">&raquo;&nbsp;Edit Details&nbsp;&laquo;</a>
+        <a href="/Account/Details" title="Edit your personal details">&raquo;&nbsp;Edit Details&nbsp;&laquo;</a>
     </li>
 </ul>

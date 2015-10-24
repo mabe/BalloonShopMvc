@@ -64,9 +64,6 @@
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
     <Reference Include="Npgsql">
       <HintPath>..\..\packages\Npgsql.3.0.3\lib\net45\Npgsql.dll</HintPath>
     </Reference>
@@ -133,6 +130,9 @@
     <Reference Include="Dapper">
       <HintPath>..\..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0">
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config\CookieValueProviderFactory.cs" />
@@ -153,7 +153,6 @@
     <Compile Include="Helpers\IIdentityHelpers.cs" />
     <Compile Include="Helpers\PagedListHelper.cs" />
     <Compile Include="Helpers\StringHelpers.cs" />
-    <Compile Include="Helpers\UrlHelper.cs" />
     <Compile Include="Models\AccountDetailsViewModel.cs" />
     <Compile Include="Models\AccountViewModel.cs" />
     <Compile Include="Models\CheckoutViewModel.cs">
@@ -165,6 +164,8 @@
     <Compile Include="Features\Cart\Add.cs" />
     <Compile Include="Filters\CatalogFilterAttribute.cs" />
     <Compile Include="Filters\ShoppingCartFilterAttribute.cs" />
+    <Compile Include="Helpers\CatalogUrlHelper.cs" />
+    <Compile Include="Filters\AccountFilterAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\glyphicons-halflings-white.png" />

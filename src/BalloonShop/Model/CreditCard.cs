@@ -100,7 +100,7 @@ namespace BalloonShop.Model
 			}
 		}
 	}
-	/*
+
 	public class CreditCardMapper : IUserType
 	{
 
@@ -164,5 +164,5 @@ namespace BalloonShop.Model
 			get { return new NHibernate.SqlTypes.SqlType[] { NHibernateUtil.String.SqlType }; }
 		}
 	}
-	*/
+
 }

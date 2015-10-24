@@ -13,6 +13,9 @@ using BalloonShop.Mvc.Helpers;
 
 namespace BalloonShop.Mvc.Controllers
 {
+	[ShoppingCartFilter]
+	[CatalogFilter]
+	[AccountFilter]
     public class AccountController : Controller
     {
 		private readonly IIdentity _identity;
@@ -52,19 +55,8 @@ namespace BalloonShop.Mvc.Controllers
 
 			_session.Save(new Account(model.Email, model.Password));
 
-			return RedirectToAction("Login");
+			return Redirect("/Account/Login");
 		}
-
-		[ChildActionOnly]
-		public ActionResult Navigation() {
-			if (!_identity.IsAuthenticated)
-				return View("Navigation_NotAuthenticated");
-
-			var account = _session.Get<Account>(_identity.Identity());
-
-			return View(account);
-		}
-
 
 		public ActionResult Login(string ReturnUrl) {
 			ViewBag.ReturnUrl = ReturnUrl;
@@ -87,7 +79,7 @@ namespace BalloonShop.Mvc.Controllers
 
 			_authenticationService.Authenticate(account.Id, new[] { "Customers" });
 
-			return string.IsNullOrEmpty(returnUrl) ? (ActionResult)RedirectToAction("Index", "Home") : Redirect(returnUrl);
+			return string.IsNullOrEmpty(returnUrl) ? (ActionResult)Redirect("/") : Redirect(returnUrl);
 		}
 
 		public ActionResult Logout() {

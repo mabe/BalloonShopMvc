@@ -26,7 +26,7 @@
             <tr>
                 <td><img src="/Content/ProductImages/@obj.Item.Product.Thumb" class="product-image" /></td>
                 <td>
-                    <a href="@Url.Action("Show", "Balloon", new { id = obj.Item.Product.Id })" class="lead">@obj.Item.Product.Name</a>
+                    <a href="@CatalogUrlHelper.ProductUrl(Html, obj.Item.Product)" class="lead">@obj.Item.Product.Name</a>
                 </td>
                 <td>
                     @obj.Item.Product.Price.ToString("c")
@@ -52,7 +52,7 @@
     </tfoot>
 </table>
 <br />
-<form method="post" action="@Url.Action("Checkout")" class="form-horizontal">
+<form method="post" action="/Cart/Checkout" class="form-horizontal">
     
         
 

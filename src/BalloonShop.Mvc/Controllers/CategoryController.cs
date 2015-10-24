@@ -9,6 +9,7 @@ using System.Web;
 namespace BalloonShop.Mvc.Controllers
 {
 	[ShoppingCartFilter]
+	[AccountFilter]
     public class CategoryController : Controller
     {
         private readonly ISession _session;

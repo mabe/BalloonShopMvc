@@ -20,6 +20,7 @@ namespace BalloonShop.Mvc.Controllers
 	using NHibernate.Persister.Entity;
 
 	[CatalogFilter]
+	[AccountFilter]
     public class SearchController : Controller
     {
 		public class SearchRank {

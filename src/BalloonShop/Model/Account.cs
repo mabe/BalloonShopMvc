@@ -48,12 +48,14 @@ namespace BalloonShop.Model
             return sb.ToString();
         }
 	}
-	/*
+
 	public class AccountMap : ClassMap<Account>
 	{
 		public AccountMap()
 		{
-			Id(x => x.Id).GeneratedBy.GuidComb();
+			Table ("account");
+
+			Id(x => x.Id).GeneratedBy.GuidComb().Column("AccountId");
 			Map(x => x.Email);
 			Map(x => x.Password);
 			Component(x => x.Details, component => {
@@ -72,5 +74,4 @@ namespace BalloonShop.Model
 			});
 		}
 	}
-	*/
 }

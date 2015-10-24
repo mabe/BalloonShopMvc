@@ -13,8 +13,13 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3">
-            	@*@{Html.RenderAction("Navigation", "Account");}*@
-                
+            	
+            	@if (User.Identity.IsAuthenticated) {
+            		Html.RenderPartial("../Account/Navigation");
+            	} else {
+            		Html.RenderPartial("../Account/Navigation_NotAuthenticated");
+            	}
+
                 @{ Html.RenderPartial("../Department/Navigation"); }
 
                 @{ Html.RenderPartial("../Category/Navigation"); }
