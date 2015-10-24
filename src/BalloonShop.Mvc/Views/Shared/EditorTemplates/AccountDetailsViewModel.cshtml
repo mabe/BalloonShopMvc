@@ -2,33 +2,63 @@
 
 <fieldset>
 <legend>User Details</legend>
-<div class="row-fluid">
-    <div class="span5">
-<div class="control-group">@Html.LabelFor(x => x.Address1, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.Address1)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.Address2, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.Address2)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.City, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.City)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.Region, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.Region)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.PostalCode, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.PostalCode)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.Country, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.Country)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.ShippingRegion, new { @class="control-label" })<div class="controls">@Html.DropDownListFor(x => x.ShippingRegion, (IEnumerable<SelectListItem>) ViewBag.ShippingRegions)</div></div>
+<div class="row">
+    <div class="col-md-5">
+		@Html.LabelFor(x => x.Address1, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.Address1, new { @class="form-control" })</div>
+	
+		@Html.LabelFor(x => x.Address2, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.Address2, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.City, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.City, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.Region, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.Region, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.PostalCode, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.PostalCode, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.Country, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.Country, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.ShippingRegion, new { @class="control-label" })
+		<div class="controls">@Html.DropDownListFor(x => x.ShippingRegion, (IEnumerable<SelectListItem>) ViewBag.ShippingRegions, new { @class="form-control" })</div>
     </div>
-    <div class="span5">
-<div class="control-group">@Html.LabelFor(x => x.DaytimePhone, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.DaytimePhone)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.EveningPhone, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.EveningPhone)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.MobilePhone, new { @class="control-label" })<div class="controls">@Html.EditorFor(x => x.MobilePhone)</div></div>
+    <div class="col-md-5">
+		@Html.LabelFor(x => x.DaytimePhone, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.DaytimePhone, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.EveningPhone, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.EveningPhone, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.MobilePhone, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.MobilePhone, new { @class="form-control" })</div>
     </div>
 </div>
 </fieldset>
+<br />
 <fieldset>
 <legend>Credit Card:</legend>
-<div class="row-fluid">
-    <div class="span12">
-<div class="control-group">@Html.LabelFor(x => x.CardholderName, new { @class="control-label" })<div class="controls">@Html.TextBoxFor(x => x.CardholderName)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.CardType, new { @class="control-label" })<div class="controls">@Html.TextBoxFor(x => x.CardType)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.CardNumber, new { @class="control-label" })<div class="controls">@Html.TextBoxFor(x => x.CardNumber)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.IssueDate, new { @class="control-label" })<div class="controls">@Html.TextBoxFor(x => x.IssueDate)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.ExpiryDate, new { @class="control-label" })<div class="controls">@Html.TextBoxFor(x => x.ExpiryDate)</div></div>
-<div class="control-group">@Html.LabelFor(x => x.IssueNumber, new { @class="control-label" })<div class="controls">@Html.TextBoxFor(x => x.IssueNumber)</div></div>
+<div class="row">
+    <div class="col-md-5">
+		@Html.LabelFor(x => x.CardholderName, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.CardholderName, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.CardType, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.CardType, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.CardNumber, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.CardNumber, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.IssueDate, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.IssueDate, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.ExpiryDate, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.ExpiryDate, new { @class="form-control" })</div>
+
+		@Html.LabelFor(x => x.IssueNumber, new { @class="control-label" })
+		<div class="controls">@Html.TextBoxFor(x => x.IssueNumber, new { @class="form-control" })</div>
     </div>
 </div>
 </fieldset>

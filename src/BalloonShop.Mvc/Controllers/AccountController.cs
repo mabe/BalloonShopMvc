@@ -129,7 +129,7 @@ namespace BalloonShop.Mvc.Controllers
 				IssueNumber = model.IssueNumber
 			};
 
-			return RedirectToAction("Details");
+			return Redirect("/Account/Details");
 		}
     }
 }
