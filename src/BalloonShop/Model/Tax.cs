@@ -12,14 +12,14 @@ namespace BalloonShop.Model
         public virtual string Name { get; set; }
         public virtual decimal Percentage { get; set; }
     }
-	/*
+
     public class TaxMap : ClassMap<Tax> {
         public TaxMap()
         {
+			Table ("tax");
             Id(x => x.Id).GeneratedBy.Identity().Column("TaxId");
             Map(x => x.Name).Column("TaxType");
             Map(x => x.Percentage).Column("TaxPercentage");
         }
     }
-    */
 }

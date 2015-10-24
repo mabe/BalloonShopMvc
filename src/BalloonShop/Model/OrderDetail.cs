@@ -31,11 +31,12 @@ namespace BalloonShop.Model
 			return (Order.Id + "|" + ProductId).GetHashCode();
 		}  
 	}
-	/*
+
 	public class OrderDetailMap : ClassMap<OrderDetail>
 	{
 		public OrderDetailMap()
 		{
+			Table ("orderdetail");
 			CompositeId().KeyProperty(x => x.ProductId, "ProductId").KeyReference(x => x.Order, "OrderId");
 			Map(x => x.ProductName);
 			Map(x => x.Quantity);
@@ -43,5 +44,4 @@ namespace BalloonShop.Model
 			Map(x => x.Subtotal).ReadOnly();
 		}
 	}
-*/
 }

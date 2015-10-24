@@ -67,11 +67,10 @@
 
             <p>Please confirm that the above details are correct before proceeding.</p>
             <br />
-            <div class="control-group">
-                <label class="control-label">
-                    Shipping type:</label>
-                <div class="controls">
-                    <select name="ShippingType" id="ShippingType">
+            <div class="form-group">
+                <div class="col-md-5">
+                	<label class="control-label">Shipping type:</label>
+                    <select name="ShippingType" id="ShippingType" class="form-control">
                         <option value="0">Please Select</option>
                         @foreach (var item in ViewBag.ShippingTypes)
                         { 

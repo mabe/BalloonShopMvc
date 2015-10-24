@@ -12,9 +12,10 @@ namespace BalloonShop.Model {
 
 		public virtual ShippingRegion Region { get; set; }
 	}
-	/*
+
 	public class ShippingMap : ClassMap<Shipping> {
 		public ShippingMap() {
+			Table ("shipping");
 			Id(x => x.Id).GeneratedBy.Identity().Column("ShippingID");
 			Map(x => x.Name).Column("ShippingType");
 			Map(x => x.Cost).Column("ShippingCost");
@@ -22,5 +23,4 @@ namespace BalloonShop.Model {
 			References(x => x.Region, "ShippingRegionID");
 		}
 	}
-	*/
 }

@@ -72,10 +72,11 @@ namespace BalloonShop.Mvc.Controllers
 		public ActionResult Checkout(string customerCartId) {
 			var cart = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
 			var account = _session.Get<Account>(_identity.Identity());
+			var region = account.Details != null ? account.Details.ShippingRegion : 0;
 
 			ViewBag.Cart = cart;
             ViewBag.Total = cart.Sum(x => x.Product.Price * x.Quantity);
-			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = x.Id == account.Details.ShippingRegion }).ToList();
+			ViewBag.ShippingRegions = _session.QueryOver<ShippingRegion>().List().Select(x => new SelectListItem() { Text = x.Name, Value = x.Id.ToString(), Selected = x.Id == region }).ToList();
 			ViewBag.ShippingTypes = _session.QueryOver<Shipping>().List();
             ViewBag.HideCartNavigation = true;
 
@@ -128,7 +129,7 @@ namespace BalloonShop.Mvc.Controllers
 
             //_bus.Send(new InitialNotificationMessage() { OrderId = order.Id, CorrelationId = order.SagaCorrelationId });
 
-			return RedirectToAction("Placed", "Order");
+			return Redirect("/Order/Placed");
 		}
     }
 }

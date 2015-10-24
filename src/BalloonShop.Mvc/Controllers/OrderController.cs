@@ -6,6 +6,9 @@ using System.Web.Mvc;
 
 namespace BalloonShop.Mvc.Controllers
 {
+	[ShoppingCartFilter]
+	[CatalogFilter]
+	[AccountFilter]
     public class OrderController : Controller
     {
         
