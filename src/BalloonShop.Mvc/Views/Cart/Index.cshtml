@@ -21,7 +21,7 @@
         @foreach (var obj in Model.Select((x, i) => new { Item = x, Index = i }).ToList()) {
         <tr>
             <td><img src="/Content/ProductImages/@obj.Item.Product.Thumb" class="product-image" /></td>
-            <td><a href="/Ballon/Show/@obj.Item.Product.Id" class="lead">@obj.Item.Product.Name</a></td>
+            <td><a href="@CatalogUrlHelper.ProductUrl(Html, obj.Item.Product)" class="lead">@obj.Item.Product.Name</a></td>
             <td><span class="uneditable-input input-mini">@obj.Item.Product.Price.ToString("c")</span></td>
             <td>
                 <input type="hidden" name="items[@obj.Index].Key" value="@obj.Item.Product.Id" />

@@ -4,6 +4,7 @@ using BalloonShop.Model;
 using NHibernate;
 using NHibernate.Criterion;
 using BalloonShop.Queries;
+using System.Web;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -16,18 +17,18 @@ namespace BalloonShop.Mvc.Controllers
         {
             _session = session;
         }
-
-        public ActionResult Show(int id, int? page = 1)
+			
+		public ActionResult Show(string department, string category, int? page = 1)
         {
-            var category = _session.Get<Category>(id);
+			var c = _session.QueryOver<Category>().Where(x => x.Name == HttpUtility.UrlDecode(category)).SingleOrDefault();
 
 			ViewBag.Departments = _session.QueryOver<Department>().List();
-			ViewBag.Categories = _session.CategoriesInDepartment(category.Department.Id).List();
-            ViewBag.DepartmentId = category.Department.Id;
-            ViewBag.CategoryId = category.Id;
-            ViewBag.Balloons = _session.BalloonsInCategory(id).PagedList(BalloonShopConfiguration.ProductsPerPage, page);
+			ViewBag.Categories = _session.CategoriesInDepartment(c.Department.Id).List();
+            ViewBag.DepartmentId = c.Department.Id;
+            ViewBag.CategoryId = c.Id;
+			ViewBag.Balloons = _session.BalloonsInCategory(c.Id).PagedList(BalloonShopConfiguration.ProductsPerPage, page);
 
-            return View(category);
+            return View(c);
         }
     }
 }

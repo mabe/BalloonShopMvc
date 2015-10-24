@@ -4,7 +4,7 @@
     @foreach (var department in ViewBag.Departments)
     {
         <li>
-            <a href="/Department/Show/@department.Id" class="@(((int?)department.Id) == (int?)ViewBag.DepartmentId ? "active" : "")" title="@department.Description">&raquo;&nbsp;@department.Name&nbsp;&laquo;</a>
+            <a href="@CatalogUrlHelper.DepartmentUrl(Html, department)" class="@(((int?)department.Id) == (int?)ViewBag.DepartmentId ? "active" : "")" title="@department.Description">&raquo;&nbsp;@department.Name&nbsp;&laquo;</a>
         </li>
     }
 </ul>

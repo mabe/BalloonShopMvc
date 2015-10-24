@@ -1,12 +1,13 @@
 ﻿@model IEnumerable<Product>
+
 <div class="row">
     @foreach (var item in Model.Select((x, i) => new { Index = i + 1, Product = x }).ToList())
     { 
         <div class="col-md-4">
-            <a href="/Product/Show/@item.Product.Id?categoryid=@ViewBag.CategoryId&departmentid=@ViewBag.DepartmentId" style="width:110px; height:105px; display:block;" class="pull-left">
+            <a href="@CatalogUrlHelper.ProductUrl(Html, item.Product)" style="width:110px; height:105px; display:block;" class="pull-left">
                 <img src="/Content/ProductImages/@item.Product.Thumb" class="product-image" />
             </a>
-            <a class="ProductName" href="/Product/Show/@item.Product.Id?categoryid=@ViewBag.CategoryId&departmentid=@ViewBag.DepartmentId">@item.Product.Name</a>
+            <a class="ProductName" href="@CatalogUrlHelper.ProductUrl(Html, item.Product)">@item.Product.Name</a>
             <br />
             <span>@item.Product.Description.ShortenText()</span>
             <br />

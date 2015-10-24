@@ -4,11 +4,11 @@
 }
 
 <ul class="breadcrumb">
-    <li><a href="@Url.Content("~/")">Balloon Shop</a> <span class="divider">/</span></li>
+    <li><a href="/">Balloon Shop</a> <span class="divider">/</span></li>
     <li class="active">@Model.Name</li>
 </ul>
 
 <h1>@Model.Name</h1>
 <p class="lead">@Model.Description</p>
 @{Html.RenderPartial("../Product/List", (object)ViewBag.PromotedBalloons);}
-@(Html.Paging<Product, DepartmentController>((object)ViewBag.PromotedBalloons, x => y => y.Show(Model.Id, x)))
+@(Html.Paging<Product>((object)ViewBag.PromotedBalloons, () => @CatalogUrlHelper.DepartmentUrl(Html, Model)))

@@ -38,6 +38,7 @@
             <div class="form-actions">
                 <div class="row-fluid">
                     <div class="span5">
+                    	<input type="hidden" name="returnUrl" value="@CatalogUrlHelper.ProductUrl(Html, Model)" />
                         <input type="hidden" name="balloonId" value="@Model.Id" />
                         <label>Qty:</label>
                         <input type="text" name="quantity" class="input-mini spinner" placeholder="1" />

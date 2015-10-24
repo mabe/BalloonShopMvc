@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System;
 using BalloonShop.Queries;
+using System.Web;
 
 namespace BalloonShop.Mvc.Controllers
 {
@@ -18,25 +19,22 @@ namespace BalloonShop.Mvc.Controllers
             _session = session;
         }
 
-        public ActionResult Show(int id, int? categoryid, int? departmentid)
+		public ActionResult Show(string department, string category, string product)
         {
-            var balloon = _session.Get<Product>(id);
+			var balloon = _session.QueryOver<Product>().Where(x => x.Name == product).SingleOrDefault();
 
-			departmentid = departmentid ?? balloon.Categories.Select (x => x.Department.Id).FirstOrDefault ();
+			var d = _session.QueryOver<Department> ().Where (x => x.Name == department).SingleOrDefault ();
+			var c = _session.QueryOver<Category> ().Where (x => x.Name == category).SingleOrDefault ();
 
 			ViewBag.Departments = _session.QueryOver<Department>().List();
-			ViewBag.DepartmentId = departmentid;
-			ViewBag.Categories = _session.CategoriesInDepartment(departmentid.Value).List();
+			ViewBag.DepartmentId = d.Id;
+			ViewBag.Categories = _session.CategoriesInDepartment(d.Id).List();
             
-			var category = categoryid.HasValue && categoryid != 0 
-				? balloon.Categories.FirstOrDefault(x => x.Id == categoryid) 
-				: balloon.Categories.FirstOrDefault(x => x.Department.Id == departmentid);
-
-			ViewBag.Category = category;
-			ViewBag.CategoryId = category.Id;
+			ViewBag.Category = c;
+			ViewBag.CategoryId = c.Id;
 
             ViewBag.Reviews = new List<ProductReview> { new ProductReview { Name = "Magnus", Review = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut tristique justo in justo cursus commodo. Sed malesuada scelerisque semper. Cras viverra rutrum nisi in ullamcorper. Sed eu orci magna. Proin rhoncus risus tortor, nec euismod erat. Proin varius accumsan lacus, non egestas nulla vulputate in.", CreatedDate= DateTime.Today } };
-            ViewBag.Recomendations = _session.QueryOver<Product>().Where(x => x.Id != id).Take(5).List();
+			ViewBag.Recomendations = _session.QueryOver<Product>().Where(x => x.Id != balloon.Id).Take(5).List();
 
             return View(balloon);
         }

@@ -12,4 +12,4 @@
 <h1>@Model.Name</h1>
 <p class="lead">@Model.Description</p>
 @{Html.RenderPartial("../Product/List", (object)ViewBag.Balloons);}
-@(Html.Paging<Product, CategoryController>((object)ViewBag.Balloons, x => y => y.Show(Model.Id, x)))
+@(Html.Paging<Product>((object)ViewBag.Balloons, () => CatalogUrlHelper.CategoryUrl(Html, Model)))

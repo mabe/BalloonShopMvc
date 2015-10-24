@@ -4,7 +4,7 @@
 	    @foreach (var category in ViewBag.Categories)
 	    {
 	        <li>
-	            <a href="/Category/Show/@category.Id" class="@(category.Id == ViewBag.CategoryId ? "selected" : "")" title="@category.Description">&raquo;&nbsp;@category.Name&nbsp;&laquo;</a>
+	            <a href="@CatalogUrlHelper.CategoryUrl(Html, category)" class="@(category.Id == ViewBag.CategoryId ? "selected" : "")" title="@category.Description">&raquo;&nbsp;@category.Name&nbsp;&laquo;</a>
 	        </li>
 	    }
 	</ul>
