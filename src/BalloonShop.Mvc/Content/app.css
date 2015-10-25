@@ -16,9 +16,10 @@
 
 
 .cart-content.thumbnails {
-    overflow-x: hidden; 
-    overflow-y: scroll; 
+    overflow-x: hidden;
+    overflow-y: scroll;
     height: 250px;
+    padding: 0;
 }
 
 .cart-content.thumbnails li {
@@ -32,6 +33,98 @@
     border:none;
 }
 
+.cart-content {
+    font-size: 14px;
+    background-color: #f2f6f9;
+}
+
+.cart-content ul {
+	padding: 0 25px;
+	list-style-type: none;
+}
+
+.cart-content .row {
+	box-shadow: 0 1px 0 #e1e5e8;
+    padding: 0 15px;
+    background-color: #ffffff;
+    margin-bottom: 11px;
+}
+
+.cart-content .row.columnCaptions {
+    color: #7e93a7;
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 0;
+    box-shadow: 0 0 0;
+    background-color: #f2f6f9;
+}
+
+.cart-content .row.columnCaptions span {
+    padding: 0 21px 0 0;
+}
+
+.cart-content .row.columnCaptions span:first-child {
+    padding-left: 8px;
+}
+
+.cart-content .row.columnCaptions span:last-child {
+    float: right;
+    padding-right: 15px;
+}
+
+.cart-content .row span {
+    padding: 20px 0 6px 0;
+}
+
+.cart-content .quantity {
+    color: #4ea6bc;
+    font-size: 18px;
+    font-weight: bold;
+    float: left;
+    width: 42px;
+    padding-left: 7px;
+}
+
+.cart-content .name {
+    color: #727578;
+    font-size: 16px;
+    font-weight: bold;
+    float: left;
+    padding-left: 25px;
+    padding-bottom: 20px !important;
+}
+
+.cart-content .price {
+    color: #f06953;
+    font-size: 18px;
+    font-weight: bold;
+    float: right;
+}
+
+.cart-content .row.totals {
+    background-color: #f2f6f9;
+    box-shadow: 0 0 0;
+}
+
+.cart-content .row.totals span {
+    padding: 20px 15px 20px 0;
+}
+
+.cart-content .row.totals .name {
+    margin-top: 1px;
+}
+
+.cart-content .row.totals .price {
+    float: left;
+}
+
+.cart-content .row.totals .order {
+    float: right;
+    padding: 0;
+    margin-top: 14px;
+    padding-left: 5px;
+    cursor: pointer;
+}
 
 .thumbnails {
     list-style: none;
@@ -43,7 +136,6 @@
     }
 
     .thumbnails .product-image {
-        height: 100px;
         margin: 0px;
     }
 

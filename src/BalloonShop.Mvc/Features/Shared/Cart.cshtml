@@ -1,32 +1,48 @@
-﻿@if (ViewBag.HideCartNavigation == null || ViewBag.HideCartNavigation == false) { 
+﻿@if (ViewBag.HideCartNavigation == null || ViewBag.HideCartNavigation == false) {
 <div>
     @if (ViewBag.Cart.Count > 0)
-    {     
-        <a href="/Cart" class="btn btn-block btn-info" rel="popover" data-placement="bottom" data-html="true" data-title="Cart summary" data-source=".cart-content" title="Cart summary">
+    {
+        <a class="btn btn-block btn-info" data-toggle="modal" data-target="#cartModal">
             <i class="icon-shopping-cart icon-white"></i><strong>@ViewBag.Total.ToString("c")</strong>
         </a>
 
-        <div class="hide">
-            <ul class="cart-content thumbnails">
-                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
+        <div class="modal fade" id="cartModal" tabindex="-1" role="dialog" aria-labelledby="cartLabel">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+        	<h4 class="modal-title" id="cartLabel">Cart</h4>
+        </div>
+        <div class="modal-body cart-content">
+            <ul>
+                <li class="row list-inline columnCaptions">
+      						<span>QTY</span>
+      						<span>ITEM</span>
+      						<span>Price</span>
+      					</li>
                 @foreach (var item in ViewBag.Cart)
-                { 
-                    <li>
-                        <div class="thumbnail">
-                            <a href="/Balloon/Show/@item.Product.Id" title="@item.Product.Name">
-                                <img src="/Content/ProductImages/@item.Product.Image" alt="@item.Product.Name" class="product-image" /></a>
-                            <div class="caption">
-                                <small>@((item.Product.Price * item.Quantity).ToString("c")) (@item.Quantity)</small>
-                            </div>
-                        </div>
+                {
+                    <li class="row">
+                    	<span class="quantity">@item.Quantity</span>
+                    	<span class="name">@item.Product.Name</span>
+                    	<span class="price">@item.Product.Price.ToString("c")</span>
                     </li>
                 }
-                <li><a href="/Cart" class="btn btn-mini">Go to cart</a></li>
+                <li class="row totals">
+                	<span class="name">Total:</span>
+                	<span class="price">@ViewBag.Total.ToString("c")</span>
+                  <span class="order">
+                    <a class="btn btn-primary" href="/Cart">Cart</a>
+                    <a class="btn btn-success" href="/Order/Checkout">Checkout</a>
+                  </span>
+                </li>
             </ul>
+        </div>
+        </div>
+        </div>
         </div>
     }
     else
-    { 
+    {
         <strong>Your shopping cart is empty.</strong>
     }
 </div>
@@ -49,4 +65,3 @@
     </tr>
 </tfoot>
 </table>*@
-
