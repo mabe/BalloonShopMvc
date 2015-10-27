@@ -16,15 +16,23 @@ namespace BalloonShop.Mvc.Helpers
     //        return url.RouteUrl(routeValues);
     //    }   
 
+		public static string DeFilter(string name) {
+			return name.Replace ("-and-", "&");
+		}
+
+		private static string Filter(string name) {
+			return name.Replace ("&", "-and-");
+		}
+
 		public static string DepartmentUrl(this HtmlHelper html, Department department){
-			return "/catalog/" + HttpUtility.UrlEncode (department.Name);
+			return "/catalog/" + HttpUtility.UrlEncode (Filter(department.Name));
 		}
 
 		public static string CategoryUrl(this HtmlHelper html, Category category) {
 			return "/catalog/" 
-				+ HttpUtility.UrlEncode (category.Department.Name)
+				+ HttpUtility.UrlEncode (Filter(category.Department.Name))
 				+ "/"
-				+ HttpUtility.UrlEncode (category.Name);
+				+ HttpUtility.UrlEncode (Filter(category.Name));
 		}
 
 		public static string ProductUrl(this HtmlHelper html, Product product) {
@@ -35,11 +43,11 @@ namespace BalloonShop.Mvc.Helpers
 				?? (product.Categories.Any() ? product.Categories.First ().Name : "");
 
 			return "/catalog/" 
-				+ HttpUtility.UrlEncode (department)
+				+ HttpUtility.UrlEncode (Filter(department))
 				+ "/"
-				+ HttpUtility.UrlEncode (category)
+				+ HttpUtility.UrlEncode (Filter(category))
 				+ "/"
-				+ HttpUtility.UrlEncode (product.Name);
+				+ HttpUtility.UrlEncode (Filter(product.Name));
 
 
 		}
