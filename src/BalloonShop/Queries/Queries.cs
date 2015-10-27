@@ -22,6 +22,12 @@ namespace BalloonShop.Queries
             return session.QueryOver<Product>().JoinAlias(x => x.Categories, () => c).Where(Restrictions.On<Category>(x => c.Id).IsIn(new[] { categoryid }));
         }
 
+		public static IQueryOver<Product> BalloonsOnCatalogPromotion(this ISession session) {
+			return session.QueryOver<Product> ()
+				//.Where(x => x.OnCatalogPromotion == true);
+				.Where (Expression.Sql ("PromoFront = B'1'"));
+		}
+
         public static IQueryOver<Product> BalloonsInDepartment(this ISession session, Department department) {
             Product b = null;
 
@@ -31,6 +37,7 @@ namespace BalloonShop.Queries
 				.In(QueryOver.Of<Product>(() => b)
 					//.Where(x => x.OnDepartmentPromotion == true)
 					//.Where(Expression.Eq("OnDepartmentPromotion", true))
+					.Where(Expression.Sql("PromoDept = B'1'"))
 					.JoinQueryOver(x => x.Categories)
 					.Where(x => x.Department == department)
 					.Select(Projections.Distinct(Projections.Property(() => b.Id))));

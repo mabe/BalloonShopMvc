@@ -25,8 +25,7 @@ namespace BalloonShop.Mvc.Features.Catalog
 		[CatalogFilter]
 		public ViewResult Index(int? page = 1)
 		{
-			//.Where(x => x.OnCatalogPromotion == true);
-			var products = _session.QueryOver<Product>().PagedList(BalloonShopConfiguration.ProductsPerPage, page);
+			var products = _session.BalloonsOnCatalogPromotion().PagedList(BalloonShopConfiguration.ProductsPerPage, page);
 			return View(products);
 		}
 
