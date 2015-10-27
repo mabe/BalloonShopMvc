@@ -181,6 +181,14 @@ h1 {
 .rating {
     margin:0;
     display:inline-block;
+
+    line-height: 25px;
+}
+
+.rating {
+	.cancel, .star {
+		margin-top: 1px;
+	}
 }
 
 /****************************************/
