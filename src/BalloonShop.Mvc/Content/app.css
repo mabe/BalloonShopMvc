@@ -496,7 +496,10 @@ a.RecommendationLink:hover {
     position: relative;
     text-align: center;
     width: 100%;
-    max-height: 240px;
+    height: 162px;
+
+    line-height: 162px;
+    verticle-align: middel;
 }
 
 .product .image img {
@@ -507,7 +510,7 @@ a.RecommendationLink:hover {
 
 .product .description {
 	margin: 0 auto;
-    min-height: 107px;
+    height: 107px;
     max-width: 235px;
 }
 

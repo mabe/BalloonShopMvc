@@ -6,6 +6,5 @@
         <div class="col-lg-3 col-md-3 item">
         	@Html.DisplayFor(model => item.Product)
         </div>
-        @(Html.Raw((item.Index % 3 == 0) ? "</div><div class=\"row\">" : ""))
     }
 </div>
