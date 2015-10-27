@@ -4,14 +4,14 @@ namespace BalloonShop.Mvc.Features.Cart {
 	using System;
 
   public class Add {
-    public class Command {
+    public class Command : ICommand {
       public string customerCartId { get; set; }
       public int balloonId { get; set; }
       public int quantity { get; set; }
       public string returnurl { get; set; }
     }
 
-    public class Handler {
+	public class Handler : ICommandHandler<Command> {
       private ISession _session;
       public Handler(ISession session) {
         _session = session;

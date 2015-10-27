@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ShoppingCart>
+﻿@model BalloonShop.Mvc.Features.Cart.Index.Response
 @{
     Layout = "../Shared/_Layout.cshtml";
 }
@@ -18,7 +18,7 @@
             </tr>
         </thead>
         <tbody>
-        @foreach (var obj in Model.Select((x, i) => new { Item = x, Index = i }).ToList()) {
+        @foreach (var obj in Model.List.Select((x, i) => new { Item = x, Index = i }).ToList()) {
         <tr>
             <td><img src="/Content/ProductImages/@obj.Item.Product.Thumb" class="product-image" /></td>
             <td><a href="@CatalogUrlHelper.ProductUrl(Html, obj.Item.Product)" class="lead">@obj.Item.Product.Name</a></td>
@@ -37,7 +37,7 @@
             <tr>
                 <td colspan="4"></td>
                 <td style="text-align:right;">
-                    Total amount: <strong>@ViewBag.Total.ToString("c")</strong>
+                    Total amount: <strong>@Model.Total.ToString("c")</strong>
                 </td>
                 <td colspan="2"></td>
             </tr>

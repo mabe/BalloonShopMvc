@@ -130,7 +130,7 @@
     <Reference Include="Dapper">
       <HintPath>..\..\packages\Dapper.1.42\lib\net45\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0">
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
   </ItemGroup>
@@ -164,6 +164,11 @@
     <Compile Include="Features\Order\CheckoutViewModel.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Features\Cart\Remove.cs" />
+    <Compile Include="Features\ICommand.cs" />
+    <Compile Include="Features\ICommandHandler.cs" />
+    <Compile Include="Features\Cart\Update.cs" />
+    <Compile Include="Features\Cart\Index.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\Images\glyphicons-halflings-white.png" />

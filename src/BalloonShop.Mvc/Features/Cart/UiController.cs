@@ -20,17 +20,17 @@ namespace BalloonShop.Mvc.Features.Cart
 	[AccountFilter]
 	public class UiController : Controller
 	{
-		private readonly ISession _session;
+		private readonly CommandQueryHandler _commandHandler;
 
-		public UiController(ISession session)
+		public UiController(CommandQueryHandler commandHandler)
 		{
-			_session = session;
+			_commandHandler = commandHandler;
 		}
 
 		[HttpPost]
 		public ActionResult Add(Add.Command command)
 		{
-			new Add.Handler(_session).Execute(command);
+			_commandHandler.ExecuteCommand (command);
 
 			if (!string.IsNullOrEmpty(command.returnurl)) {
 				return Redirect(command.returnurl);
@@ -40,29 +40,25 @@ namespace BalloonShop.Mvc.Features.Cart
 		}
 
 		[HttpPost]
-		public ActionResult Remove(string customerCartId, int remove) {
-			_session.Delete(_session.Load<ShoppingCart>(new ShoppingCart() { CartId = customerCartId, Product = _session.Load<Product>(remove) }));
+		public ActionResult Remove(Remove.Command command) 
+		{
+			_commandHandler.ExecuteCommand (command);
 
 			return Redirect("/Cart");
 		}
 
 		[HttpPost]
-		public ActionResult Update(string customerCartId, IDictionary<int, int> items) {
-			var cart = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
-
-			foreach (var item in items)
-			{
-				cart.Single(x => x.Product.Id == item.Key).Quantity = item.Value;
-			}
+		public ActionResult Update(Update.Command command) 
+		{
+			_commandHandler.ExecuteCommand (command);
 
 			return Redirect("/Cart");
 		}
 
-		public ActionResult Index(string customerCartId) {
-			var model = _session.QueryOver<ShoppingCart>().Where(x => x.CartId == customerCartId).List();
+		public ActionResult Index(Index.Query query) {
+			var model = _commandHandler.ExecuteQuery<Index.Query, Index.Response> (query);
 
-			ViewBag.Total = model.Sum(x => x.Product.Price * x.Quantity);
-			ViewBag.HideCartNavigation = true;
+			ViewBag.HideCartNavigation = model.HideCartNavigation;
 
 			return View(model);
 		}
