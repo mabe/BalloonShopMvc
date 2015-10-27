@@ -1,0 +1,26 @@
+﻿@model BalloonShop.Model.Product
+
+<div class="product">
+	<div class="image">
+		<a href="@CatalogUrlHelper.ProductUrl(Html, Model)"><img src="/Content/ProductImages/@Model.Image" /></a>
+	</div>
+	<div class="description">
+		<h4>
+			<a href="@CatalogUrlHelper.ProductUrl(Html, Model)">@Model.Name</a>
+		</h4>
+		<p>@Model.Description.ShortenText()</p>
+	</div>
+	<div class="price">
+		<span>@Model.Price.ToString("c")</span>
+	</div>
+	<div class="action-control">
+		<form method="post" action="/Cart/Add">
+            <input type="hidden" name="balloonid" value="@Model.Id" />
+            <input type="hidden" name="returnurl" value="@Request.RawUrl" />
+            <input type="hidden" name="quantity" value="1" />
+            <button type="submit" class="btn btn-mini btn-success">
+            Add to cart
+            </button>
+        </form>
+	</div>
+</div>

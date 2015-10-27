@@ -118,7 +118,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">Review</label>
+                            <label class="col-sm-2 control-label">Review:</label>
                             <div class="col-sm-10">
                                 <textarea class="form-control" rows="10"></textarea>
                             </div>
@@ -134,18 +134,12 @@
             </div>
 
             <div class="tab-pane" id="related-products">
-                <ul class="thumbnails row-fluid">
+            <br>
+                <ul class="row">
                     @foreach (var recomendation in ViewBag.Recomendations)
                     {
-                        <li class="col-md-4" style="height: 160px;">
-                            <div class="thumbnail">
-                                <a href="/Balloon/Show/@recomendation.Id" title="@recomendation.Name">
-                                    <img src="/Content/ProductImages/@recomendation.Thumb" class="product-image" /></a>
-                                <div class="caption">
-                                    <a href="/Balloon/Show/@recomendation.Id" title="@recomendation.Name" class="shortentext">@recomendation.Name</a><br />
-                                    Price: @recomendation.Price.ToString("c")
-                                </div>
-                            </div>
+                        <li class="col-md-4 item">
+                            @Html.DisplayFor(model => recomendation)
                         </li>    
                     }
                 </ul>

@@ -277,6 +277,7 @@
     <Content Include="Features\Cart\Index.cshtml" />
     <Content Include="Features\Order\Placed.cshtml" />
     <Content Include="Features\Order\Checkout.cshtml" />
+    <Content Include="Features\Shared\DisplayTemplates\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\app.css" />
